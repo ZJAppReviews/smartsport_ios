@@ -19,10 +19,13 @@
 
 @property (nonatomic, strong) UIButton    *loginBtn;
 @property (nonatomic, strong) TimerButton *pinBtn;
-@property (nonatomic, strong) LogoTextField * phoneNum;
-@property (nonatomic, strong) LogoTextField * cheakNum;
+@property (nonatomic, strong) UIButton    *exitBtn;
+
 //@property (nonatomic, strong) LogoAgreement *agrerment;
 @property (nonatomic, assign) BOOL   imgStatue;
+@property (nonatomic,strong) UIImageView    * logoImg;
+@property (nonatomic,strong) UITextField    * phoneNum;
+@property (nonatomic,strong) UITextField    * cheakNum;
 @end
 
 @implementation LoginVC
@@ -41,6 +44,8 @@
 - (void)setSubviews {
     
     self.imgStatue = YES;
+    [self.view addSubview:self.exitBtn];
+    [self.view addSubview:self.logoImg];
     [self.view addSubview:self.phoneNum];
     [self.view addSubview:self.cheakNum];
     [self.view addSubview:self.pinBtn];
@@ -62,27 +67,8 @@
 
 }
 
- - (LogoTextField *)phoneNum {
-    if (!_phoneNum) {
-        
-        _phoneNum = [[LogoTextField alloc] initWithFrame:CGRectMake(14,  94, SCREEN_WIDTH-28, kRowHeight)];
-        
-        
-        _phoneNum.tittle.text =@"手机号";
-//        NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-//        attributes[NSForegroundColorAttributeName] = RGBColor(170, 170, 170);
-//        attributes[NSFontAttributeName] =  [UIFont fontWithName:@"Arial-BoldMT" size:14];
-//        _phoneNum.field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attributes];
-        
-        _phoneNum.field.placeholder = @"请输入手机号";
-        _phoneNum.field.keyboardType = UIKeyboardTypeNumberPad;
-       
-        _phoneNum.field.delegate =self;
-        _phoneNum.field.tag=0;
-        
-    }
-    return _phoneNum;
-}
+
+
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 //    
 //    
@@ -101,26 +87,26 @@
 //    return [self validateNumber:string];
 //}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if (textField == self.phoneNum.field) {
+    if (textField == self.phoneNum) {
         //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
         if (range.length == 1 && string.length == 0) {
             return YES;
         }
         //so easy
-        else if (self.phoneNum.field.text.length >= 11) {
-            self.phoneNum.field.text = [textField.text substringToIndex:11];
+        else if (self.phoneNum.text.length >= 11) {
+            self.phoneNum.text = [textField.text substringToIndex:11];
             return NO;
         }
         
     }
-    if (textField == self.cheakNum.field) {
+    if (textField == self.cheakNum) {
                 //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
                 if (range.length == 1 && string.length == 0) {
                     return YES;
                 }
                 //so easy
-                else if (self.cheakNum.field.text.length >= 6) {
-                    self.cheakNum.field.text = [textField.text substringToIndex:6];
+                else if (self.cheakNum.text.length >= 6) {
+                    self.cheakNum.text = [textField.text substringToIndex:6];
                     return NO;
                 }
                 
@@ -171,21 +157,14 @@
     
     return YES;
 }
-- (LogoTextField *)cheakNum {
-    if (!_cheakNum) {
-        _cheakNum = [[LogoTextField alloc] initWithFrame:CGRectMake(14,94+40+10,426/750.0*SCREEN_WIDTH,kRowHeight)];
-        _cheakNum.field.placeholder =@"请输入验证码";
-        _cheakNum.field.keyboardType = UIKeyboardTypeNumberPad;
-        //_cheakNum.field.text.length=6;
-        _cheakNum.field.delegate =self;
-        _cheakNum.field.tag=1;
-        _cheakNum.tittle.text= @"验证码";
-        
-       
+-(UIImageView *)logoImg{
+    if(!_logoImg){
+        _logoImg = [[UIImageView  alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-80)/2.0, 80, 80, 80)];
+        _logoImg.layer.cornerRadius  = 40;
+        _logoImg.backgroundColor = [UIColor redColor];
     }
-    return _cheakNum;
+    return _logoImg;
 }
-
 - (TimerButton *)pinBtn {
     if (!_pinBtn) {
         CGRect frame = CGRectMake(_cheakNum.right+10, _cheakNum.top, SCREEN_WIDTH-_cheakNum.frame.size.width-38 , kRowHeight);
@@ -197,7 +176,7 @@
                // NSLog(@"计时开始");
             }
         }];
-        if(self.phoneNum.field.text.length!=0){
+        if(self.phoneNum.text.length!=0){
             _pinBtn.backgroundColor=mainColor;
             _pinBtn.userInteractionEnabled =YES;
         }else{
@@ -211,8 +190,17 @@
     }
     return _pinBtn;
 }
-
-
+-(UIButton * )exitBtn{
+    if(!_exitBtn){
+        _exitBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50, 20, 30, 30)];
+        [_exitBtn addTarget:self action:@selector(outLogo ) forControlEvents:UIControlEventTouchUpInside];
+        _exitBtn.backgroundColor = [UIColor redColor];
+    }
+    return _exitBtn;
+}
+-(void)outLogo{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)sendABSPinRequest {
     
    //    [RequestManager  requestWithType:HttpRequestTypeGet urlString:[NSString stringWithFormat:@"https://api.baibaobike.com/v1/sms/send_login_code?mobi=%@",self.phoneNum.field.text] parameters:nil  successBlock:^(id response) {
@@ -229,7 +217,7 @@
 
 - (void)pinBtnClick {
     
-    if ([NSString isMobileNumber:self.phoneNum.field.text]) {
+    if ([NSString isMobileNumber:self.phoneNum.text]) {
         [self sendABSPinRequest];
     } else {
         
@@ -265,9 +253,8 @@
                                              otherButtonTitles:nil, nil];
         [alert show];
     }else{
-        NSLog(@"%@%@",self.phoneNum.field.text,
-              self.cheakNum.field.text);
-    if ([NSString isMobileNumber:self.phoneNum.field.text] && [NSString isIdentityNumber:self.cheakNum.field.text]) {
+        
+    if ([NSString isMobileNumber:self.phoneNum.text] && [NSString isIdentityNumber:self.cheakNum.text]) {
         
        // [self sendABSLoginRequest];
     } else {

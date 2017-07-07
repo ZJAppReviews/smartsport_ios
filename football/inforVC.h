@@ -8,6 +8,5 @@
 
 #import "XYBaseVC.h"
 
-@interface inforVC : XYBaseVC
-
+@interface inforVC : XYBaseVC  
 @end

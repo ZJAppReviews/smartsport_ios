@@ -13,6 +13,7 @@
 #import "LoginVC.h"
 #import "UIImage+anniGIF.h"
 #import "RequestManager.h"
+#import "SXButton.h"
 NSString *const kName = @"Alun Chen";
 @interface XYBaseVC ()
 @property (nonatomic, strong) UIView *loadingView;
@@ -165,20 +166,29 @@ NSString *const kName = @"Alun Chen";
 }
 
 - (void)setNavLeftItemTitle:(NSString *)str andImage:(UIImage *)image {
-    if ([self.navigationController.viewControllers count] ==1){
+//    if ([self.navigationController.viewControllers count] ==1){
         if ([str isEqualToString:@""] || !str)
         {
             UIBarButtonItem *leftItem =[[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
             self.navigationItem.leftBarButtonItem = leftItem;
         }
-        else
+        else if(str&&image ){
+            SXButton  * btn= [SXButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(-10, 0, 60, 20);
+            [btn setTitle:str  forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"zhankai"] forState:UIControlStateNormal];
+            UIBarButtonItem *LeftBarButton = [[UIBarButtonItem alloc] initWithCustomView:btn];
+            self.navigationItem.leftBarButtonItem =LeftBarButton;
+            [btn addTarget:self action:@selector(location:) forControlEvents:UIControlEventTouchUpInside];
+            }else
         {
             UIBarButtonItem *leftItem =[[UIBarButtonItem alloc] initWithTitle:str style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
             self.navigationItem.leftBarButtonItem = leftItem;
         }
     }
+//}
+-(void)location :(id)sender{
 }
-
 - (void)setNavRightItemTitle:(NSString *)str andImage:(UIImage *)image
 {
     if ([str isEqualToString:@""] || !str)
@@ -186,7 +196,7 @@ NSString *const kName = @"Alun Chen";
         UIBarButtonItem *rightItem =[[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
-    else
+       else
     {
         UIBarButtonItem *rightItem =[[UIBarButtonItem alloc] initWithTitle:str style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
         [rightItem setTintColor:[UIColor colorWithHexString:@"#4D4D4D"]];

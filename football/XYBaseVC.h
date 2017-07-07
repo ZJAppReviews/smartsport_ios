@@ -22,7 +22,7 @@ typedef void( ^ RequestFail)(NSError *error);
                bundle:(NSBundle *)nibBundleOrNil
            dictionary:(NSDictionary *)dic;
 
-
+-(void)location :(id)sender;
 - (void)setData;
 - (void)leftFoundation;
 - (void)rightFoundation;

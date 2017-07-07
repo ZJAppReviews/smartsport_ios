@@ -19,6 +19,7 @@
 #import "subjectVC.h"
 #import "coachVC.h"
 #import "starVC.h"
+#import "ViewController.h"
 @interface inforVC () <SDCycleScrollViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentSrcView;
 @property (nonatomic,strong)ABSSegmentCate * segmentedControl;
@@ -37,7 +38,21 @@
 
     
 }
+-(void)location:(id)sender{
+    ViewController *vc=[[ViewController alloc]init];
+    
+    [vc returnText:^(NSString *cityname) {
+        NSLog(@"%@",cityname);
+        [self setNavLeftItemTitle:cityname andImage:Img(@"zhankai") ];
+        //self.citylable.text=cityname;
+    }];
+    
+    [self.navigationController pushViewController:vc animated:NO];
+
+}
+
 -(void)setSegmentedControl{
+    [self setNavLeftItemTitle:@"上海市" andImage:Img(@"zhankai") ];
     CGFloat const kSegmentedControlHeight = 44;
     
     NSArray *dataArray = @[@"青训资讯", @"活动资讯", @"赛事新闻"];
