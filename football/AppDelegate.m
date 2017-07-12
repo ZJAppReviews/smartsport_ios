@@ -10,6 +10,7 @@
 #import "RootTabVC.h"
 #import "LoginVC.h"
 #import "NavigationVC.h"
+#import "LaunchIntroductionView.h"
 @interface AppDelegate ()<UITabBarControllerDelegate>
 @property  (nonatomic,strong)  RootTabVC *rootVC;
 @end
@@ -19,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self  setRootVC];
+    [self setLaunchfirst];
     return YES;
 }
 -(void)setRootVC{
@@ -32,6 +34,12 @@
     [self.window makeKeyAndVisible];
     
 }
+-(void)setLaunchfirst{
+    [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]];
+    
+    
+}
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSLog(@"%@",viewController.tabBarItem.title);
     
