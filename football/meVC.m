@@ -22,11 +22,18 @@
     [self setSubview];
    }
 -(void)setSubview{
-    CGFloat const ViewHeight =SCREENH_HEIGHT-50;
-    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ViewHeight) style:UITableViewStyleGrouped];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#3CB963"];
+    UIView  * topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    topView.backgroundColor = [UIColor colorWithHexString:@"#3CB963"];
+    [self.view addSubview:topView];
+    CGFloat const ViewHeight =SCREENH_HEIGHT-50-64;
+    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, ViewHeight) style:UITableViewStyleGrouped];
     [self.view addSubview: self.tab];
     self.tab.delegate   = self;
     self.tab.dataSource = self;
+    self.tab.bounces= NO;
+    //self.tab.backgroundColor =[UIColor colorWithHexString:@"#3CB963"];
+    self.tab.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tab.tableHeaderView = [self setView];
     [self.tab registerClass:[meCell class] forCellReuseIdentifier: NSStringFromClass([meCell class])];
 
@@ -39,7 +46,15 @@
     return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    if(section  ==0){
+        return 4;
+    }else if(section==1){
+        return 1;
+    }
+    else if(section ==2){
+        return 2;
+    }
+    return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
@@ -57,7 +72,7 @@
 
 -(UIView *)setView{
     meHeadView * vic = [[NSBundle mainBundle] loadNibNamed:@"meHead" owner:nil options:nil].lastObject;
-    vic.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80);
+    vic.frame = CGRectMake(0, 0, SCREEN_WIDTH, 144);
     
     return vic;
 }
@@ -72,12 +87,28 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    return 44;
 }
 //-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 //    
 //    meHeadView *vc = [NSBundle  mainBundle]loadNibNamed:@"" owner:<#(nullable id)#> options:<#(nullable NSDictionary *)#>
 //    return vc ;
 //}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.navigationController.navigationBar.hidden=YES;
+    
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    self.navigationController.navigationBar.hidden =NO;
+    
+    
+}
+
 
 @end

@@ -59,7 +59,7 @@
         }
 }];
 //    计算宽度
-    CGFloat width = (self.collectionView.frame.size.width-self.sectionInset.left-self.sectionInset.right-(self.colCount-1)*self.colMagrin)/self.colCount;
+    CGFloat width = (self.collectionView.frame.size.width-self.sectionInset.left-self.sectionInset.right-(self.colCount-1)*self.colMagrin)/self.colCount-20;
 //    计算高度
     CGFloat hight = [self.degelate ZWwaterFlow:self heightForWidth:width atIndexPath:indexPath];
    // NSLog(@"-----%f",width);

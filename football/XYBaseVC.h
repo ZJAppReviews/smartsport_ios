@@ -26,7 +26,7 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)setData;
 - (void)leftFoundation;
 - (void)rightFoundation;
-
+- (void)playBtnClick;
 - (void)setSubviews;
 
 - (void)viewWillAppear:(BOOL)animated;
@@ -48,7 +48,7 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)setNavRightItemTitle:(NSString *)str andImage:(UIImage *)image;
 - (void)rightItemClick:(id)sender;
 
-
+//-(void)setNavi;
 
 -(void)loadNewData;
 

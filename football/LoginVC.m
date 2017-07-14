@@ -7,25 +7,30 @@
 //
 
 #import "LoginVC.h"
-#import "UIView+Frame.h"
+
 #import "TimerButton.h"
-#import "Header.h"
 #import "NSString+ABSAdd.h"
-#import "LogoTextField.h"
-//#import "LogoAgreement.h"
-//#import "paymentVC.h"
+
+#import "loginField.h"
+#import "NavigationVC.h"
+#import "RegistVC.h"
+#import "CheakNumVC.h"
+#import "BackPassVC.h"
+
 
 @interface LoginVC ()<UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIButton    *loginBtn;
-@property (nonatomic, strong) TimerButton *pinBtn;
-@property (nonatomic, strong) UIButton    *exitBtn;
+@property (nonatomic, strong) UIButton    * loginBtn;
+@property (nonatomic, strong) TimerButton * pinBtn;
+@property (nonatomic, strong) UIButton    * exitBtn;
 
-//@property (nonatomic, strong) LogoAgreement *agrerment;
 @property (nonatomic, assign) BOOL   imgStatue;
 @property (nonatomic,strong) UIImageView    * logoImg;
-@property (nonatomic,strong) UITextField    * phoneNum;
-@property (nonatomic,strong) UITextField    * cheakNum;
+@property (nonatomic,strong) loginField    * phoneNum;
+@property (nonatomic,strong) loginField    * passNum;
+@property (nonatomic,strong) UIButton      * forgetPass;
+@property (nonatomic,strong) UIButton      * visitor;
+@property (nonatomic,strong) UIButton      * regist;
 @end
 
 @implementation LoginVC
@@ -42,15 +47,28 @@
 
 
 - (void)setSubviews {
-    
     self.imgStatue = YES;
     [self.view addSubview:self.exitBtn];
+    WeakSelf(self);
+    
     [self.view addSubview:self.logoImg];
+    [self.logoImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(166, 72));
+        make.top.equalTo(weakself.view.mas_top).with.offset(93);
+        make.centerX.equalTo(weakself.view);
+    }];
+    self.logoImg.image = Img(@"Group");
+
     [self.view addSubview:self.phoneNum];
-    [self.view addSubview:self.cheakNum];
-    [self.view addSubview:self.pinBtn];
+    [self.view addSubview:self.passNum];
+    [self.view addSubview:self.forgetPass];
+
     [self addServiceAgreementLabel];
+    
     [self.view addSubview:self.loginBtn];
+    
+    [self.view addSubview:self.visitor];
+    [self.view addSubview:self.regist];
 }
 
  -(void)leftFoundation{
@@ -87,26 +105,26 @@
 //    return [self validateNumber:string];
 //}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if (textField == self.phoneNum) {
+    if (textField == self.phoneNum.field) {
         //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
         if (range.length == 1 && string.length == 0) {
             return YES;
         }
         //so easy
-        else if (self.phoneNum.text.length >= 11) {
-            self.phoneNum.text = [textField.text substringToIndex:11];
+        else if (self.phoneNum.field.text.length >= 11) {
+            self.phoneNum.field.text = [textField.text substringToIndex:11];
             return NO;
         }
         
     }
-    if (textField == self.cheakNum) {
+    if (textField == self.passNum.field) {
                 //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
                 if (range.length == 1 && string.length == 0) {
                     return YES;
                 }
                 //so easy
-                else if (self.cheakNum.text.length >= 6) {
-                    self.cheakNum.text = [textField.text substringToIndex:6];
+                else if (self.passNum.field.text.length >= 6) {
+                    self.passNum.field.text = [textField.text substringToIndex:6];
                     return NO;
                 }
                 
@@ -116,13 +134,13 @@
     if(textField.tag==0){
     if (![string isEqualToString:@""])
     {
-        _pinBtn.backgroundColor=mainColor;
+       // _pinBtn.backgroundColor=mainColor;
         _pinBtn.userInteractionEnabled =YES;
         //self.breakVc.placholder .hidden = YES;
     }
     if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
     {
-        _pinBtn.backgroundColor= gary221;
+        //_pinBtn.backgroundColor= gary221;
         _pinBtn.userInteractionEnabled =NO;
        //self.breakVc.placholder .hidden = NO;
     }
@@ -146,11 +164,11 @@
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
     if(textField.tag==0){
-        _pinBtn.backgroundColor= gary221;
+        //_pinBtn.backgroundColor= gary221;
             _pinBtn.userInteractionEnabled =NO;
         
     }else if (textField.tag==1){
-                    _loginBtn.backgroundColor=gary221;
+                   // _loginBtn.backgroundColor=gary221;
             _loginBtn.userInteractionEnabled =NO;
         }
 
@@ -159,66 +177,77 @@
 }
 -(UIImageView *)logoImg{
     if(!_logoImg){
-        _logoImg = [[UIImageView  alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-80)/2.0, 80, 80, 80)];
-        _logoImg.layer.cornerRadius  = 40;
-        _logoImg.backgroundColor = [UIColor redColor];
+        _logoImg = [[UIImageView  alloc]init];
+        //_logoImg.layer.cornerRadius  = 40;
+        //_logoImg.backgroundColor = [UIColor redColor];
     }
     return _logoImg;
-}
-- (TimerButton *)pinBtn {
-    if (!_pinBtn) {
-        CGRect frame = CGRectMake(_cheakNum.right+10, _cheakNum.top, SCREEN_WIDTH-_cheakNum.frame.size.width-38 , kRowHeight);
-        _pinBtn = [TimerButton buttonWithType:UIButtonTypeCustom];
-        
-        _pinBtn = [[TimerButton alloc] initWithFrame:frame title:@"获取验证码" durationTitle:@"重新获取" seconds:60 progressBlock:^(TimerButton *button, TimeState state, NSString *restTime) {
-            if (state == TimeStart) {
-                _pinBtn .backgroundColor = mainColor;
-               // NSLog(@"计时开始");
-            }
-        }];
-        if(self.phoneNum.text.length!=0){
-            _pinBtn.backgroundColor=mainColor;
-            _pinBtn.userInteractionEnabled =YES;
-        }else{
-        _pinBtn.userInteractionEnabled =NO;
-
-            [_pinBtn setBackgroundColor:RGBColor(221, 221, 221)];}
-        [_pinBtn addTarget:self action:@selector(pinBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _pinBtn.titleLabel.font = FontSize(13);
-        [_pinBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_pinBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
-    }
-    return _pinBtn;
 }
 -(UIButton * )exitBtn{
     if(!_exitBtn){
         _exitBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50, 20, 30, 30)];
         [_exitBtn addTarget:self action:@selector(outLogo ) forControlEvents:UIControlEventTouchUpInside];
-        _exitBtn.backgroundColor = [UIColor redColor];
+        [_exitBtn setImage:Img(@"Icon") forState:UIControlStateNormal];
     }
     return _exitBtn;
 }
 -(void)outLogo{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)sendABSPinRequest {
-    
-   //    [RequestManager  requestWithType:HttpRequestTypeGet urlString:[NSString stringWithFormat:@"https://api.baibaobike.com/v1/sms/send_login_code?mobi=%@",self.phoneNum.field.text] parameters:nil  successBlock:^(id response) {
-//        NSLog(@"===============%@",response);
-//        NSLog(@"%@",[response objectForKey:@"errmsg"]);
-//    } failureBlock:^(NSError *error) {
-//        
-//    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-//        
-//    }];
-    
+-(loginField*)phoneNum{
+    if(!_phoneNum){
+        _phoneNum = [[loginField  alloc]initWithFrame:CGRectMake(48,96+72+93, SCREEN_WIDTH-96, 34)];
+        _phoneNum.field.placeholder = @"手机号码";
+        _phoneNum.field.delegate  =self;
+    }
+    return _phoneNum;
+}
+-(loginField*)passNum{
+    if(!_passNum){
+        _passNum = [[loginField  alloc]initWithFrame:CGRectMake(48, _phoneNum.bottom+46,SCREEN_WIDTH-96, 34)];
+        _passNum.field.placeholder = @"密码";
+        _passNum.field.delegate  = self;
+        
+    }
+    return _passNum;
+}
 
+-(UIButton *)forgetPass{
+    if(!_forgetPass){
+        _forgetPass  = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor colorWithHexString:@"#3CB963"] title:@"忘记密码?" fontSize:14];
+        _forgetPass.frame = CGRectMake(48, _passNum.bottom+11,SCREEN_WIDTH-96, 30);
+        _forgetPass.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _forgetPass.tag = 0;
+        [_forgetPass addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _forgetPass;
+}
+-(UIButton *)visitor{
+    if(!_visitor){
+        _visitor = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor grayColor] title:@"游客登陆" fontSize:16];
+        _visitor .frame = CGRectMake(20, SCREEN_HEIGHT -56, (SCREEN_WIDTH-40)/2.0, 24);
+        _visitor.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _visitor.tag =1;
+        [_visitor addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _visitor;
+}
+-(UIButton *)regist{
+    if(!_regist){
+        _regist = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor grayColor] title:@"注册新账号" fontSize:16];
+        _regist .frame = CGRectMake(20+(SCREEN_WIDTH-40)/2.0, SCREEN_HEIGHT -56, (SCREEN_WIDTH-40)/2.0, 24);
+        _regist.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _regist.tag = 2;
+        [_regist addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _regist;
 }
 
 - (void)pinBtnClick {
     
-    if ([NSString isMobileNumber:self.phoneNum.text]) {
-        [self sendABSPinRequest];
+    if ([NSString isMobileNumber:self.phoneNum.field.text]) {
+       
     } else {
         
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"请输入正确的手机号码！"
@@ -232,11 +261,9 @@
 
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
-        //_loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(14, _agrerment.bottom+30,SCREEN_WIDTH-28,40)];
-//        [_loginBtn setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.3]];
-        [_loginBtn setBackgroundColor:RGBColor(221, 221, 221)];
-        [_loginBtn setTitle:@"开始" forState:UIControlStateNormal];
-        [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _loginBtn = [XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"登陆" fontSize:18];
+        _loginBtn.frame = CGRectMake(48, _passNum.bottom+83, SCREEN_WIDTH-96, 46);
+        _loginBtn.layer.cornerRadius=4;
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _loginBtn.userInteractionEnabled=NO;
     }
@@ -254,7 +281,7 @@
         [alert show];
     }else{
         
-    if ([NSString isMobileNumber:self.phoneNum.text] && [NSString isIdentityNumber:self.cheakNum.text]) {
+    if ([NSString isMobileNumber:self.phoneNum.field.text] && [NSString isIdentityNumber:self.passNum.field.text]) {
         
        // [self sendABSLoginRequest];
     } else {
@@ -269,8 +296,58 @@
 }
 
 
+-(void)foundationButton:(UIButton * )sender{
+    if(sender.tag==0){
+        //忘记密码
+        BackPassVC * backVC = [[BackPassVC alloc]init];
+        //NavigationVC * navVC = [[NavigationVC alloc]initWithRootViewController:backVC];
+        [self.navigationController pushViewController:backVC animated:YES];
+    }else if(sender.tag==1){
+        //游客
+    }else if(sender.tag==2){
+        //注册
+        CheakNumVC * cheakVC = [[CheakNumVC alloc]init];
+        //NavigationVC * navVC = [[NavigationVC alloc]initWithRootViewController:cheakVC];
+        [self.navigationController pushViewController:cheakVC animated:YES];
+    }
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.navigationController.navigationBar.hidden=YES;
+    //监听通知
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"backMeVC" object:nil];
+    
+}
 
+#pragma mark 移除通知
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    self.navigationController.navigationBar.hidden =NO;
 
+  
+}
+#pragma mark - 事件
+- (void)getOrderPayResult:(NSNotification *)notification
+{
    
+   // [self dismissViewControllerAnimated:NO completion:nil];
+    
+    [self alert:@"提示" msg:@"通知移除"];
+
+}
+
+//客户端提示信息
+- (void)alert:(NSString *)title msg:(NSString *)msg
+{
+    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alter show];
+}
+-(void)dealloc{
+    //移除通知
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

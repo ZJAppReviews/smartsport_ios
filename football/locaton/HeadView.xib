@@ -16,14 +16,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门城市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rup-AV-694">
-                    <rect key="frame" x="10" y="1" width="64" height="38"/>
+                    <rect key="frame" x="10" y="1" width="48" height="38"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <color key="textColor" red="0.34079674932975867" green="0.34079674932975867" blue="0.34079674932975867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <color key="textColor" red="0.54112720489501953" green="0.54120802879333496" blue="0.54110944271087646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.90825025131099202" green="0.90825025131099202" blue="0.90825025131099202" alpha="0.92000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.93653303384780884" green="0.93861126899719238" blue="0.95611840486526489" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Rup-AV-694" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="8qP-i4-0mK"/>
                 <constraint firstAttribute="bottom" secondItem="Rup-AV-694" secondAttribute="bottom" constant="1" id="F0O-Kg-kCq"/>

@@ -19,6 +19,8 @@ NSString *const kName = @"Alun Chen";
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *placeholderView;
 @property (nonatomic, strong) UIImageView *navBarHairlineImageView;
+//@property (nonatomic, strong) NaviView * navi;
+
 
 @end
 
@@ -34,14 +36,18 @@ NSString *const kName = @"Alun Chen";
     [super viewDidLoad];
     
     self.view.backgroundColor =[UIColor whiteColor];
-    [self setNavi];
     self.navBarHairlineImageView  = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
   
   
     
 }
 -(void)setNavi{
-    
+//    self.navi = [[NSBundle mainBundle]loadNibNamed:@"Navi" owner:self options:nil].lastObject;
+//    self.navi .frame  =CGRectMake(0, 0, SCREEN_WIDTH, 64);
+//    self.navi.backgroundColor = mainColor;
+//    [self.navi.leftBtn addTarget:self action:@selector(leftFoundation) forControlEvents:UIControlEventTouchUpInside];
+//    [self.navi.rightBtn addTarget:self action:@selector(rightFoundation) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:self.navi];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -163,6 +169,7 @@ NSString *const kName = @"Alun Chen";
 - (void)playBtnClick {
     self.tabBarController.selectedIndex = 0;
     [self.navigationController popToRootViewControllerAnimated:NO];
+   
 }
 
 - (void)setNavLeftItemTitle:(NSString *)str andImage:(UIImage *)image {
@@ -174,7 +181,7 @@ NSString *const kName = @"Alun Chen";
         }
         else if(str&&image ){
             SXButton  * btn= [SXButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = CGRectMake(-10, 0, 60, 20);
+            btn.frame = CGRectMake(-10, 0, 80, 20);
             [btn setTitle:str  forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:@"zhankai"] forState:UIControlStateNormal];
             UIBarButtonItem *LeftBarButton = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -199,7 +206,7 @@ NSString *const kName = @"Alun Chen";
        else
     {
         UIBarButtonItem *rightItem =[[UIBarButtonItem alloc] initWithTitle:str style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
-        [rightItem setTintColor:[UIColor colorWithHexString:@"#4D4D4D"]];
+        [rightItem setTintColor:[UIColor whiteColor]];
         [rightItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
@@ -266,7 +273,7 @@ NSString *const kName = @"Alun Chen";
 - (void)startLoading {
    
    // CGFloat navH = self.navigationController.navigationBar.hidden ? 64 : 0;;
-    UIView *loadingView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREENH_HEIGHT-64)];
+    UIView *loadingView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
  
     loadingView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
     loadingView.backgroundColor = [UIColor clearColor];

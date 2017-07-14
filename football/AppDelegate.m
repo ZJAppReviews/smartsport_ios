@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 #import "RootTabVC.h"
 #import "LoginVC.h"
-#import "NavigationVC.h"
 #import "LaunchIntroductionView.h"
+#import "NavigationVC.h"
 @interface AppDelegate ()<UITabBarControllerDelegate>
 @property  (nonatomic,strong)  RootTabVC *rootVC;
 @end
@@ -35,6 +35,7 @@
     
 }
 -(void)setLaunchfirst{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];  
     [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]];
     
     
@@ -46,9 +47,11 @@
     if ([viewController.tabBarItem.title isEqualToString:@"购物车"] || [viewController.tabBarItem.title isEqualToString:@"我"]) {
         
         LoginVC * login = [[LoginVC alloc]init];
-        [( NavigationVC *)tabBarController.selectedViewController presentViewController:login animated:YES completion:nil];
-
-        NSLog(@"%@",viewController.tabBarItem.title);
+        
+        NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
+        [( NavigationVC *)tabBarController.selectedViewController presentViewController:nav animated:YES completion:nil];
+       // return NO;
+        //NSLog(@"%@",viewController.tabBarItem.title);
         //        if (user.Auth || user.PSP_CODE) {
         //            return YES;
         //        } else {

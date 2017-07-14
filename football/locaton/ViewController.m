@@ -68,13 +68,32 @@
     [self loadData];
     [self initTableView];
     [self initSearchController];
-    
     //self.navigationController.navigationBar.barTintColor=RGB(44, 166, 248);
     //NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
     //titleAttr[NSForegroundColorAttributeName] = [UIColor whiteColor];
     //[self.navigationController.navigationBar setTitleTextAttributes:titleAttr];
+    self.title = @"城市选择";
+    //创建一个UIButton
+    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 24)];
+    //设置UIButton的图像
+    [backButton setTitle:@"关闭" forState:UIControlStateNormal];
+    backButton.titleLabel.font = FontSize(15);
+    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+    backButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+   // [backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
+    //给UIButton绑定一个方法，在这个方法中进行popViewControllerAnimated
+    [backButton addTarget:self action:@selector(backItemClick) forControlEvents:UIControlEventTouchUpInside];
+    //然后通过系统给的自定义BarButtonItem的方法创建BarButtonItem
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithCustomView:backButton];
+
+    //覆盖返回按键
+    self.navigationItem.leftBarButtonItem = backItem;
     
 
+}
+-(void)backItemClick{
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(void)loadData
@@ -89,7 +108,7 @@
     [_dataArray addObject:recentArray];
     
     //热门城市
-    NSArray *hotCity=[NSArray arrayWithObjects:@"广州市",@"北京市",@"天津市",@"西安市",@"重庆市",@"沈阳市",@"青岛市",@"济南市",@"深圳市",@"长沙市",@"无锡市", nil];
+    NSArray *hotCity=[NSArray arrayWithObjects:@"广州市",@"北京市",@"天津市",@"西安市",@"重庆市", nil];
     [_dataArray addObject:hotCity];
     
     //索引城市
@@ -140,6 +159,8 @@
 //修改SearchBar的Cancel Button 的Title
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
 {
+    
+    self.navigationController.navigationBar.hidden = NO;
     [_searchController.searchBar setShowsCancelButton:YES animated:YES];
     UIButton *btn=[_searchController.searchBar valueForKey:@"_cancelButton"];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
@@ -376,7 +397,7 @@
 {
     self.returnBlock(cityName);
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 @end

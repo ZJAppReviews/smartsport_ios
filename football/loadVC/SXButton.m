@@ -31,7 +31,7 @@
     if ([super initWithFrame:frame]) {
         
         self.titleLabel.font = [UIFont systemFontOfSize:15];
-        self.titleLabel.adjustsFontSizeToFitWidth=YES;
+       // self.titleLabel.adjustsFontSizeToFitWidth=YES;
         self.titleLabel.textAlignment = NSTextAlignmentRight;
 
     }

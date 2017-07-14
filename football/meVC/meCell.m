@@ -24,7 +24,7 @@
 }
 -(void)setSubView{
     UIImageView  * icon = [[UIImageView alloc]init];
-    icon.layer.cornerRadius =2;
+    icon.layer.cornerRadius =35.5;
     _icon  = icon;
     
     UILabel      * title = [XYUIKit labelTextColor:[UIColor blackColor] fontSize:13];
@@ -35,30 +35,30 @@
     
     UIImageView  * pomort = [[UIImageView alloc]init];
     _pomort  = pomort ;
-    
+    _pomort .image = Img(@"Arrow");
     UIImageView  * line = [[UIImageView alloc]init];
-    line .backgroundColor = [UIColor grayColor];
+    line .backgroundColor = [UIColor colorWithHexString:@"#D8D8D8"];
     _line  = line;
     
     [self.contentView sd_addSubviews:@[icon,title,detaile,pomort,line]];
     UIView * vc = self.contentView;
     _icon.sd_layout
-    .topSpaceToView(vc, 10)
-    .leftSpaceToView(vc, 10)
-    .heightIs(20)
-    .widthIs(20);
+    .topSpaceToView(vc, 7)
+    .leftSpaceToView(vc, 15)
+    .heightIs(30)
+    .widthIs(30);
     
     _title.sd_layout
-    .leftSpaceToView(_icon, 20)
+    .leftSpaceToView(_icon, 14)
     .centerYEqualToView(_icon)
-    .heightIs(20)
+    .heightIs(24)
     .widthIs(100);
     
     _pomort.sd_layout
-    .rightSpaceToView(vc, 20)
+    .rightSpaceToView(vc, 13)
     .centerYEqualToView(_icon)
-    .heightIs(15)
-    .widthIs(10);
+    .heightIs(13)
+    .widthIs(8);
     
     _detaile.sd_layout
     .rightSpaceToView(_pomort, 10)
@@ -67,10 +67,10 @@
     .widthIs(180);
     
     _line.sd_layout
-    .leftSpaceToView(vc, 0)
+    .leftSpaceToView(vc , 60)
     .rightSpaceToView(vc, 0)
-    .topSpaceToView(_icon, 9)
-    .heightIs(1);
+    .topSpaceToView(_icon, 6.5)
+    .heightIs(0.5);
    // [self setupAutoHeightWithBottomView:_line bottomMargin:10];
 }
 - (void)awakeFromNib {
@@ -87,8 +87,9 @@
     _model = model;
     _icon.image = [UIImage imageNamed:@"cat.jpeg"];
     _title .text   = @"我的课程";
-    _detaile.text  = @"青训课程标题";
-    _pomort.backgroundColor = [UIColor grayColor];
+   // _detaile.text  = @"青训课程标题";
+    
+    
     
     
 }

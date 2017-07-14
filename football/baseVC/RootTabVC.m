@@ -54,12 +54,12 @@
            // Class vcClass = NSClassFromString(vcName);
         XYBaseVC *vc  = [[UIStoryboard  storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:vcName];;
                  //vc.title = titleArr[i];
-        UINavigationController  *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-        nav.navigationBar.barTintColor=RGBColor(44, 166, 248);
-        NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-        titleAttr[NSForegroundColorAttributeName] = [UIColor whiteColor];
-        [nav.navigationBar setTitleTextAttributes:titleAttr];
-
+        NavigationVC  *nav = [[NavigationVC alloc]initWithRootViewController:vc];
+        nav.navigationBar.barTintColor=mainColor;
+//        NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
+//        titleAttr[NSForegroundColorAttributeName] = [UIColor whiteColor];
+//        [nav.navigationBar setTitleTextAttributes:titleAttr];
+//
         nav.tabBarItem.title = titleArr[i];
         nav.tabBarItem.image =Img(tabIconNameArr[i]);
         nav.tabBarItem.selectedImage =  Img(tabIconNameArr[i]);

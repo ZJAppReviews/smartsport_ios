@@ -49,7 +49,7 @@ static NSString *cellIdentifier = @"ItemCell";
     _flowLayout.degelate = self;
     
     _CollectionView=[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, screen_width, [CityViewCell getHeightWithCityArray:self.cityArray]) collectionViewLayout:_flowLayout]; 
-    
+    _CollectionView.backgroundColor = [UIColor colorWithHexString:@"#EFEFF4"];
     //注册显示cell的类型
     UINib *cellNib=[UINib nibWithNibName:@"ItemViewCell" bundle:nil];
     
@@ -61,7 +61,7 @@ static NSString *cellIdentifier = @"ItemCell";
     _CollectionView.bounces=NO;
     _CollectionView.scrollEnabled=NO;
     _CollectionView.showsVerticalScrollIndicator=NO; //指示条
-    _CollectionView.backgroundColor=[UIColor whiteColor];
+   // _CollectionView.backgroundColor=[UIColor whiteColor];
 
     
     [self addSubview:_CollectionView];

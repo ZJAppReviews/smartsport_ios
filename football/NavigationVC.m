@@ -26,7 +26,7 @@
 }
 -(void)setupNavigationBar{
    
-   // [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setBarTintColor:mainColor];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navi.png"] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTitleTextAttributes:@{

@@ -16,8 +16,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.CityName.layer.cornerRadius=5.5;
+    //self.CityName.layer.cornerRadius=5.5;
     self.CityName.layer.masksToBounds=YES;
+    self.CityName.layer.borderWidth = 1;
+    self.CityName.layer.borderColor = [UIColor colorWithHexString:@"#CDCED2"].CGColor;
 }
 
 @end

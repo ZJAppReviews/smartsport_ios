@@ -9,8 +9,7 @@
 #import "inforVC.h"
 #import "SDCycleScrollView.h"
 #import "ABSSegmentCate.h"
-#import "Header.h"
-#import "XYUIKit.h"
+#import "NavigationVC.h"
 #import "leftCollecCell.h"
 #import "leftYouthCell.h"
 #import "SDAutoLayout.h"
@@ -40,14 +39,14 @@
 }
 -(void)location:(id)sender{
     ViewController *vc=[[ViewController alloc]init];
-    
+    NavigationVC * nav = [[NavigationVC alloc]initWithRootViewController:vc];
     [vc returnText:^(NSString *cityname) {
         NSLog(@"%@",cityname);
         [self setNavLeftItemTitle:cityname andImage:Img(@"zhankai") ];
         //self.citylable.text=cityname;
     }];
     
-    [self.navigationController pushViewController:vc animated:NO];
+    [self presentViewController:nav animated:YES completion:nil];
 
 }
 

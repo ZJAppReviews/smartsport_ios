@@ -11,7 +11,7 @@
 
 #define RowMagrin 10 //瀑布流上下间隔
 #define ColMagrin 15 //瀑布流左右间隔
-#define colHeight 40 //瀑布流高度
+#define colHeight 32 //瀑布流高度
 
 //相对iphone6 屏幕比
 #define KHeight_Scale    [UIScreen mainScreen].bounds.size.height/667.0f
