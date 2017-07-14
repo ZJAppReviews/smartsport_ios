@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef   void (^setInfo) ();
 @interface meHeadView : UIView
-
+@property (weak, nonatomic) IBOutlet UIButton *nameBtn;
+@property (weak, nonatomic) IBOutlet UIButton *vipBtn;
+@property (weak, nonatomic) IBOutlet UIButton *height;
+@property (weak, nonatomic) IBOutlet UIButton *weight;
+@property (weak, nonatomic) IBOutlet UIButton *foot;
+@property (nonatomic, copy) setInfo   setInfoBlock;
 @end

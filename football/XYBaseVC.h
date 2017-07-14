@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ABSSegmentCate;
 extern NSString *const kName;
 
 /*! 定义请求成功的 block */
@@ -16,7 +17,6 @@ typedef void( ^ RequestFail)(NSError *error);
 
 
 @interface XYBaseVC : UIViewController
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -28,7 +28,8 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)rightFoundation;
 - (void)playBtnClick;
 - (void)setSubviews;
-
+-(void)setLine;
+-( ABSSegmentCate  *)setSegframe:(CGRect)rect titleArr:(NSArray *)arr space:(CGFloat)space;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)absPushViewController:(XYBaseVC *) controller animated:(BOOL) animated;
 

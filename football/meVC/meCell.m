@@ -93,4 +93,10 @@
     
     
 }
+-(void)setDic:(NSDictionary *)dic{
+    _dic =dic;
+       _icon.image = [UIImage imageNamed:@"cat.jpeg"];
+     _title .text   = [dic objectForKey:@"title"];
+    _detaile .text  = [dic objectForKey:@"detaile"];
+}
 @end

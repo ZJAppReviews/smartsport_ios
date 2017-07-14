@@ -31,7 +31,7 @@
 -(void)setSubview{
     NSArray * arr = @[
   @{@"title":@"真实姓名",@"detaile":@"姓名"},
-  @{@"title":@"年龄",@"detaile":@"22"},
+  @{@"title":@"出生日期",@"detaile":@"1990.09"},
   @{@"title":@"性别",@"detaile":@"男"},
   @{@"title":@"身高",@"detaile":@"180CM"},
   @{@"title":@"体重",@"detaile":@"65KG"},

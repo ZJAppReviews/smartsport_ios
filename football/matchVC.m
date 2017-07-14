@@ -35,39 +35,13 @@
 }
 
 -(void)setSegmentedControl{
-        CGFloat const kSegmentedControlHeight = 44;
-    
+    CGFloat const kSegmentedControlHeight = 44;
     NSArray *dataArray = @[@"赛事", @"直播"];
-    self.segmentedControl = [[ABSSegmentCate alloc] initWithFrame:CGRectMake(45, 64, SCREEN_WIDTH-90, kSegmentedControlHeight) titleArray:dataArray];
-    //_segmentedControl.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.1];
-    // _segmentedControl.segmentedControlLineStyle = LLSegmentedControlLineStyle;
-    if(dataArray.count<=4){
-        _segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthFixed;
-        _segmentedControl.titleWidth = (SCREEN_WIDTH-90) /dataArray.count;
-        
-    }else{
-        _segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthAutoFit;
-        
-        
-    }
-    // lineWidthEqualToTextWidth 设置为YES, lineWidth 属性则不需设置
-    _segmentedControl.lineWidthEqualToTextWidth = YES;
-    _segmentedControl.textColor = [UIColor darkTextColor];
-    _segmentedControl.selectedTextColor = [UIColor blueColor];
-    _segmentedControl.font = [UIFont systemFontOfSize:14];
-    _segmentedControl.selectedFont = [UIFont boldSystemFontOfSize:16];
-    _segmentedControl.lineColor = [UIColor blueColor];
-    _segmentedControl.lineHeight = 2.f;
-    // segmentedControlTitleSpacingStyle 设置为 LLSegmentedControlTitleSpacingStyleSpacingFixed
-    // 则不需要设置 titleWidth 属性
-    _segmentedControl.titleSpacing = 30;
-    _segmentedControl.defaultSelectedIndex = 0;
-    // 分割线设置
-    // _segmentedControl.showSplitLine = YES;
-    _segmentedControl.splitLineSize = CGSizeMake(1, 25);
+    self.segmentedControl = [self setSegframe:CGRectMake(45, 64, SCREEN_WIDTH-90, kSegmentedControlHeight) titleArr:dataArray space:90];
     [self.view addSubview:_segmentedControl];
+
     
-        CGFloat const kScrollViewHeight =SCREENH_HEIGHT -44-50-64;
+    CGFloat const kScrollViewHeight =SCREENH_HEIGHT -44-50-64;
         self.contentScrView.contentSize = CGSizeMake(SCREEN_WIDTH * dataArray.count, kScrollViewHeight);
         self.contentScrView.delegate = self;
         self.contentScrView.pagingEnabled = YES;

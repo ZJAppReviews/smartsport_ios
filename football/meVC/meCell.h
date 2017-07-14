@@ -10,4 +10,5 @@
 @class youthModel;
 @interface meCell : UITableViewCell
 @property (nonatomic,strong)youthModel  * model;
+@property (nonatomic,strong)NSDictionary * dic;
 @end

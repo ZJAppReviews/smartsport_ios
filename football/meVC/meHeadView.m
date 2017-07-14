@@ -9,6 +9,13 @@
 #import "meHeadView.h"
 
 @implementation meHeadView
+- (IBAction)pushRegist:(UIButton *)sender {
+    if(sender.tag ==0){
+        if(self.setInfoBlock){
+            self.setInfoBlock(self.nameBtn);
+        }
+    }
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

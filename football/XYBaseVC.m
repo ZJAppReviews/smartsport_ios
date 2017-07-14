@@ -14,6 +14,7 @@
 #import "UIImage+anniGIF.h"
 #import "RequestManager.h"
 #import "SXButton.h"
+#import "ABSSegmentCate.h"
 NSString *const kName = @"Alun Chen";
 @interface XYBaseVC ()
 @property (nonatomic, strong) UIView *loadingView;
@@ -40,6 +41,12 @@ NSString *const kName = @"Alun Chen";
   
   
     
+}
+
+-(void)setLine{
+    UIImageView  * lineBottom = [[UIImageView   alloc]initWithFrame:CGRectMake(0, 107.5, SCREEN_WIDTH, 0.5)];
+    lineBottom.backgroundColor = [UIColor colorWithHexString:@"#D9D9D9"];
+    [self.view addSubview:lineBottom];
 }
 -(void)setNavi{
 //    self.navi = [[NSBundle mainBundle]loadNibNamed:@"Navi" owner:self options:nil].lastObject;
@@ -97,7 +104,39 @@ NSString *const kName = @"Alun Chen";
 - (void)setSubviews {
     
 }
+-(ABSSegmentCate    *)setSegframe:(CGRect)rect titleArr:(NSArray *)arr space:(CGFloat)space{
+   
 
+    ABSSegmentCate * segmentedControl = [[ABSSegmentCate alloc] initWithFrame:rect titleArray:arr];
+    // _segmentedControl.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.1];
+    // segmentedControl.segmentedControlLineStyle = LLSegmentedControlStyleUnderline;
+    if(arr.count<=4){
+        segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthFixed;
+        segmentedControl.titleWidth = (SCREEN_WIDTH-space) /arr.count;
+        
+    }else{
+        segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthAutoFit;
+        
+        
+    }
+    // lineWidthEqualToTextWidth 设置为YES, lineWidth 属性则不需设置
+    segmentedControl.lineWidthEqualToTextWidth = YES;
+    segmentedControl.textColor = [UIColor darkTextColor];
+    segmentedControl.selectedTextColor = mainColor;
+    segmentedControl.font = [UIFont systemFontOfSize:14];
+    segmentedControl.selectedFont = [UIFont systemFontOfSize:14];
+    segmentedControl.lineColor = mainColor;
+    segmentedControl.lineHeight = 2.f;
+    // segmentedControlTitleSpacingStyle 设置为 LLSegmentedControlTitleSpacingStyleSpacingFixed
+    // 则不需要设置 titleWidth 属性
+    segmentedControl.titleSpacing = 30;
+    segmentedControl.defaultSelectedIndex = 0;
+    // 分割线设置
+    // _segmentedControl.showSplitLine = YES;
+    segmentedControl.splitLineSize = CGSizeMake(1, 25);
+    return segmentedControl;
+    
+}
 - (void)absPushViewController:(XYBaseVC *) controller animated:(BOOL) animated {
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:animated];
@@ -149,7 +188,7 @@ NSString *const kName = @"Alun Chen";
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(msgLabX, msgLab.bottom + 15, msgLabW, 50)];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTintColor:[UIColor whiteColor]];
-    [button setBackgroundColor:[UIColor colorWithHexString:@"#4D4D4D"]];
+    [button setBackgroundColor:mainColor ];
     button.titleLabel.font =  FontBold(16);
     [button addTarget:self action:@selector(playBtnClick) forControlEvents:UIControlEventTouchUpInside];
     button.hidden = title.length ? NO : YES;
@@ -187,7 +226,26 @@ NSString *const kName = @"Alun Chen";
             UIBarButtonItem *LeftBarButton = [[UIBarButtonItem alloc] initWithCustomView:btn];
             self.navigationItem.leftBarButtonItem =LeftBarButton;
             [btn addTarget:self action:@selector(location:) forControlEvents:UIControlEventTouchUpInside];
-            }else
+        }else if([str isEqualToString:@"返回"]){
+            //创建一个UIButton
+            UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 24)];
+            backButton.adjustsImageWhenHighlighted = NO;
+            //设置UIButton的图像
+            [backButton setTitle:@"返回" forState:UIControlStateNormal];
+            backButton.titleLabel.font = FontSize(15);
+            backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+            backButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+            backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            
+            [backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
+            //给UIButton绑定一个方法，在这个方法中进行popViewControllerAnimated
+            [backButton addTarget:self action:@selector(leftItemClick:) forControlEvents:UIControlEventTouchUpInside];
+            //然后通过系统给的自定义BarButtonItem的方法创建BarButtonItem
+            UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithCustomView:backButton];
+            //覆盖返回按键
+            self.navigationItem.leftBarButtonItem = backItem;
+        }
+        else
         {
             UIBarButtonItem *leftItem =[[UIBarButtonItem alloc] initWithTitle:str style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
             self.navigationItem.leftBarButtonItem = leftItem;

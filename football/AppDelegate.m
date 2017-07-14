@@ -11,6 +11,7 @@
 #import "LoginVC.h"
 #import "LaunchIntroductionView.h"
 #import "NavigationVC.h"
+#import "IQKeyboardManager.h"
 @interface AppDelegate ()<UITabBarControllerDelegate>
 @property  (nonatomic,strong)  RootTabVC *rootVC;
 @end
@@ -21,6 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self  setRootVC];
     [self setLaunchfirst];
+    [self setKeyboardManager];
     return YES;
 }
 -(void)setRootVC{
@@ -40,16 +42,23 @@
     
     
 }
-
+-(void)setKeyboardManager{
+    
+    // 控制点击背景是否收起键盘
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    // 控制键盘上的工具条文字颜色是否用户自定义
+    [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = YES;
+    // 控制是否显示键盘上的工具条
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;}
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSLog(@"%@",viewController.tabBarItem.title);
     
     if ([viewController.tabBarItem.title isEqualToString:@"购物车"] || [viewController.tabBarItem.title isEqualToString:@"我"]) {
         
-        LoginVC * login = [[LoginVC alloc]init];
-        
-        NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
-        [( NavigationVC *)tabBarController.selectedViewController presentViewController:nav animated:YES completion:nil];
+//        LoginVC * login = [[LoginVC alloc]init];
+//        
+//        NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
+//        [( NavigationVC *)tabBarController.selectedViewController presentViewController:nav animated:YES completion:nil];
        // return NO;
         //NSLog(@"%@",viewController.tabBarItem.title);
         //        if (user.Auth || user.PSP_CODE) {

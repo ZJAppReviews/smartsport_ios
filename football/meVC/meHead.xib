@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,24 +23,6 @@
                         <constraint firstAttribute="width" constant="71" id="hv2-b6-LQq"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登陆/注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wtv-gx-Z4m">
-                    <rect key="frame" x="106" y="24" width="238" height="15"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="15" id="hVP-BK-8f4"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftx-lT-dKV">
-                    <rect key="frame" x="106" y="49" width="238" height="18"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="18" id="0qF-Wb-GOb"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="261-yN-fs6">
                     <rect key="frame" x="374" y="44.5" width="8" height="13"/>
                     <constraints>
@@ -76,30 +58,65 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfE-fM-ruR">
+                    <rect key="frame" x="106" y="51" width="120" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="SlE-ji-sbk"/>
+                        <constraint firstAttribute="height" constant="18" id="kWV-f9-5jU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="titleEdgeInsets" minX="-51" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="手机号登录">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pushRegist:" destination="iN0-l3-epB" eventType="touchUpInside" id="w8f-ji-b2h"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tci-sr-OjL">
+                    <rect key="frame" x="106" y="24" width="120" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="6CE-jt-uoa"/>
+                        <constraint firstAttribute="width" constant="120" id="I1X-uF-PUa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="登陆／注册">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pushRegist:" destination="iN0-l3-epB" eventType="touchUpInside" id="m7d-nm-xPd"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.23529411764705882" green="0.72549019607843135" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Nu0-Iz-iEJ" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="1Tu-Jz-PhX"/>
                 <constraint firstItem="6K5-Lx-Y90" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="9ue-Oy-0ED"/>
-                <constraint firstItem="ftx-lT-dKV" firstAttribute="top" secondItem="Wtv-gx-Z4m" secondAttribute="bottom" constant="10" id="BFY-Ka-ZQT"/>
                 <constraint firstItem="261-yN-fs6" firstAttribute="centerY" secondItem="6K5-Lx-Y90" secondAttribute="centerY" id="BU8-9g-AAd"/>
                 <constraint firstAttribute="trailing" secondItem="261-yN-fs6" secondAttribute="trailing" constant="15" id="BaP-vI-Cf2"/>
+                <constraint firstItem="FfE-fM-ruR" firstAttribute="leading" secondItem="6K5-Lx-Y90" secondAttribute="trailing" constant="20" id="F2V-Pe-v90"/>
                 <constraint firstItem="QpJ-Xf-Wu2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FAi-8a-bc8"/>
                 <constraint firstItem="Nu0-Iz-iEJ" firstAttribute="leading" secondItem="QpJ-Xf-Wu2" secondAttribute="trailing" constant="1" id="Khe-ko-7Uk"/>
-                <constraint firstItem="Wtv-gx-Z4m" firstAttribute="leading" secondItem="6K5-Lx-Y90" secondAttribute="trailing" constant="20" id="NGp-q6-hGW"/>
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="width" secondItem="QpJ-Xf-Wu2" secondAttribute="width" id="Tri-qC-CfY"/>
                 <constraint firstItem="Nu0-Iz-iEJ" firstAttribute="width" secondItem="QpJ-Xf-Wu2" secondAttribute="width" id="VsP-fN-NiH"/>
+                <constraint firstItem="FfE-fM-ruR" firstAttribute="top" secondItem="tci-sr-OjL" secondAttribute="bottom" constant="3" id="aDj-MZ-pkK"/>
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="leading" secondItem="Nu0-Iz-iEJ" secondAttribute="trailing" constant="1" id="afP-kz-OFl"/>
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="hGI-IP-Dnk"/>
-                <constraint firstItem="261-yN-fs6" firstAttribute="leading" secondItem="ftx-lT-dKV" secondAttribute="trailing" constant="30" id="kS4-xF-8Iq"/>
-                <constraint firstItem="ftx-lT-dKV" firstAttribute="leading" secondItem="6K5-Lx-Y90" secondAttribute="trailing" constant="20" id="l6V-Bc-mgm"/>
+                <constraint firstItem="tci-sr-OjL" firstAttribute="leading" secondItem="6K5-Lx-Y90" secondAttribute="trailing" constant="20" id="jde-Sh-PWY"/>
                 <constraint firstAttribute="trailing" secondItem="O0x-oc-K6F" secondAttribute="trailing" id="lq9-0t-SYe"/>
-                <constraint firstItem="Wtv-gx-Z4m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="pVB-LU-xk7"/>
+                <constraint firstItem="tci-sr-OjL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="om9-id-FDp"/>
                 <constraint firstItem="6K5-Lx-Y90" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="sLw-sl-Kww"/>
                 <constraint firstItem="QpJ-Xf-Wu2" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="tsY-vv-LAI"/>
-                <constraint firstItem="261-yN-fs6" firstAttribute="leading" secondItem="Wtv-gx-Z4m" secondAttribute="trailing" constant="30" id="u1O-Pv-hdl"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="foot" destination="O0x-oc-K6F" id="IPO-Bt-1Ku"/>
+                <outlet property="height" destination="QpJ-Xf-Wu2" id="TVx-Tp-9kM"/>
+                <outlet property="nameBtn" destination="tci-sr-OjL" id="0tb-oH-rmn"/>
+                <outlet property="vipBtn" destination="FfE-fM-ruR" id="OuI-Yt-dT7"/>
+                <outlet property="weight" destination="Nu0-Iz-iEJ" id="ReJ-vJ-pdX"/>
+            </connections>
             <point key="canvasLocation" x="377.5" y="-250"/>
         </view>
     </objects>

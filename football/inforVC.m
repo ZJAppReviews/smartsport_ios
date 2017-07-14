@@ -54,45 +54,19 @@
     [self setNavLeftItemTitle:@"上海市" andImage:Img(@"zhankai") ];
     CGFloat const kSegmentedControlHeight = 44;
     
-    NSArray *dataArray = @[@"青训资讯", @"活动资讯", @"赛事新闻"];
-    self.segmentedControl = [[ABSSegmentCate alloc] initWithFrame:CGRectMake(45, 64, SCREEN_WIDTH-90, kSegmentedControlHeight) titleArray:dataArray];
-    //_segmentedControl.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.1];
-   // _segmentedControl.segmentedControlLineStyle = LLSegmentedControlLineStyle;
-    if(dataArray.count<=4){
-        _segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthFixed;
-        _segmentedControl.titleWidth = (SCREEN_WIDTH-90) /dataArray.count;
-        
-    }else{
-        _segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthAutoFit;
-        
-        
-    }
-    // lineWidthEqualToTextWidth 设置为YES, lineWidth 属性则不需设置
-    _segmentedControl.lineWidthEqualToTextWidth = YES;
-    _segmentedControl.textColor = [UIColor darkTextColor];
-    _segmentedControl.selectedTextColor = [UIColor blueColor];
-    _segmentedControl.font = [UIFont systemFontOfSize:14];
-    _segmentedControl.selectedFont = [UIFont boldSystemFontOfSize:16];
-    _segmentedControl.lineColor = [UIColor blueColor];
-    _segmentedControl.lineHeight = 2.f;
-    // segmentedControlTitleSpacingStyle 设置为 LLSegmentedControlTitleSpacingStyleSpacingFixed
-    // 则不需要设置 titleWidth 属性
-    _segmentedControl.titleSpacing = 30;
-    _segmentedControl.defaultSelectedIndex = 0;
-    // 分割线设置
-   // _segmentedControl.showSplitLine = YES;
-    _segmentedControl.splitLineSize = CGSizeMake(1, 25);
+   NSArray *dataArray = @[@"青训资讯", @"活动资讯", @"赛事新闻"];
+    self.segmentedControl = [self setSegframe:CGRectMake(45, 64, SCREEN_WIDTH-90, kSegmentedControlHeight) titleArr:dataArray  space:90];
     [self.view addSubview:_segmentedControl];
     
     CGFloat const kScrollViewHeight =SCREENH_HEIGHT-144-50-64;
     
-    self.contentSrcView.contentSize = CGSizeMake(SCREEN_WIDTH * dataArray.count, kScrollViewHeight);
+    self.contentSrcView.contentSize = CGSizeMake(SCREEN_WIDTH * 3, kScrollViewHeight);
     self.contentSrcView.delegate = self;
 
     // scrollView.backgroundColor = [UIColor whiteColor];
      self.contentSrcView.pagingEnabled = YES;
    
-    for (int i = 0; i < dataArray.count; i ++) {
+    for (int i = 0; i < 3; i ++) {
         
         CGFloat left = i * SCREEN_WIDTH;
         UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, SCREEN_WIDTH, kScrollViewHeight) style:UITableViewStyleGrouped];

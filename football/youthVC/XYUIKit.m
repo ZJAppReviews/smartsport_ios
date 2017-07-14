@@ -17,7 +17,7 @@
     return [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blueColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:text fontSize:size];
 }
 + (UILabel *)labelWithTextColor:(UIColor *)textColor numberOfLines:(NSInteger)numberOfLines text:(NSString *)text fontSize:(CGFloat)size{
-    return [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:text fontSize:size];
+    return [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:textColor textAlignment:NSTextAlignmentLeft numberOfLines:1 text:text fontSize:size];
 }
 
 + (UILabel *)labelWithBackgroundColor:(UIColor *)backgroundColor textColor:(UIColor *)textColor textAlignment:(NSTextAlignment)textAlignment numberOfLines:(NSInteger)numberOfLines text:(NSString *)text fontSize:(CGFloat)size{
