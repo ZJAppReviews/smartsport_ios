@@ -48,22 +48,22 @@
     
     
     self.title =@"注册";
-    self.name = [[loginField alloc]initWithFrame:CGRectMake(48, 67+64, SCREEN_WIDTH-96, 34)];
+    self.name = [[loginField alloc]initWithFrame:CGRectMake(48, 67+64, KScreenWidth-96, 34)];
     [self.view addSubview:self.name];
     self.name.field.placeholder  = @"用户名2-15位,且不能纯数字";
     
-    self.pass = [[loginField  alloc]initWithFrame:CGRectMake(48, self.name.bottom+46, SCREEN_WIDTH-96, 34)];
+    self.pass = [[loginField  alloc]initWithFrame:CGRectMake(48, self.name.bottom+46, KScreenWidth-96, 34)];
     [self.view addSubview:self.pass];
     self.pass.field.placeholder  = @"密码6-16位";
     
-    self.passRepeat = [[loginField  alloc]initWithFrame:CGRectMake(48, self.pass.bottom+46, SCREEN_WIDTH-96, 34)];
+    self.passRepeat = [[loginField  alloc]initWithFrame:CGRectMake(48, self.pass.bottom+46, KScreenWidth-96, 34)];
     [self.view addSubview:self.passRepeat];
     self.passRepeat.field.placeholder  = @"重复密码";
     
     self.push  =[XYUIKit buttonWithBackgroundColor:RGBAColor(60,185,99,0.5) titleColor:[UIColor whiteColor] title:@"注册" fontSize:16];
     
     [self.push addTarget:self action:@selector(pushInfo) forControlEvents:UIControlEventTouchUpInside];
-    self.push.frame = CGRectMake(53, self.passRepeat.bottom +45, SCREEN_WIDTH-106, 46);
+    self.push.frame = CGRectMake(53, self.passRepeat.bottom +45, KScreenWidth-106, 46);
     self.push.layer.cornerRadius = 4;
     [self.view addSubview:self.push];
     

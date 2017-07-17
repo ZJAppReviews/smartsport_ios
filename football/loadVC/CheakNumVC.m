@@ -48,27 +48,27 @@
     
     self.title =@"请验证您的手机号";
     
-    self.phoneNum = [[LogoTextField alloc]initWithFrame:CGRectMake(46, 67+64, SCREEN_WIDTH-92, 44)];
+    self.phoneNum = [[LogoTextField alloc]initWithFrame:CGRectMake(46, 67+64, KScreenWidth-92, 44)];
     self.phoneNum.tittle.text = @"中国 +86";
     self.phoneNum.field.placeholder = @"手机号";
     
     [self.view addSubview:self.phoneNum];
-    self.cheakNum = [[loginField  alloc]initWithFrame:CGRectMake(46, self.phoneNum.bottom+46, SCREEN_WIDTH-92, 36)];
+    self.cheakNum = [[loginField  alloc]initWithFrame:CGRectMake(46, self.phoneNum.bottom+46, KScreenWidth-92, 36)];
     self.cheakNum.field.placeholder = @"验证码";
     [self.view addSubview:self.cheakNum];
     
     self.nextBtn  =[XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"下一步" fontSize:16];
     [self.nextBtn addTarget:self action:@selector(nextFoundation ) forControlEvents:UIControlEventTouchUpInside];
-    self.nextBtn.frame = CGRectMake(47, self.cheakNum.bottom +29, SCREEN_WIDTH-94, 46);
+    self.nextBtn.frame = CGRectMake(47, self.cheakNum.bottom +29, KScreenWidth-94, 46);
     self.nextBtn.layer.cornerRadius = 4;
     [self.view addSubview:self.nextBtn];
     self.pormort  = [XYUIKit labelWithTextColor:[UIColor lightGrayColor] numberOfLines:1 text:@"轻按上面的“下一步”，即表示你同意" fontSize:13];
     self.pormort.textAlignment = NSTextAlignmentCenter;
-    self.pormort.frame = CGRectMake(0, self.nextBtn.bottom+16, SCREEN_WIDTH, 19);
+    self.pormort.frame = CGRectMake(0, self.nextBtn.bottom+16, KScreenWidth, 19);
     [self.view addSubview:self.pormort];
     
     self.agreement = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor blackColor] title:@"《数苗足球软件许可及服务协议》" fontSize:13];
-    self.agreement.frame =CGRectMake(0, self.pormort.bottom, SCREEN_WIDTH, 19);
+    self.agreement.frame =CGRectMake(0, self.pormort.bottom, KScreenWidth, 19);
     [self.view addSubview:self.agreement];
     
     

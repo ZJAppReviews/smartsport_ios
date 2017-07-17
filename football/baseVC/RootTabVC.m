@@ -38,7 +38,7 @@
                                                       FontSize(10),
                                                        NSFontAttributeName,nil]
                                              forState:UIControlStateSelected];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH ,  1)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth ,  1)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.tabBar addSubview: lineView];
     [self.tabBar setShadowImage: Img (@"new")];

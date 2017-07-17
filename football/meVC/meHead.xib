@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,9 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="397" height="250"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cat.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-Lx-Y90">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headPic.png" translatesAutoresizingMaskIntoConstraints="NO" id="qfL-pj-cZz">
+                    <rect key="frame" x="0.0" y="0.0" width="397" height="250"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoMe.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-Lx-Y90">
                     <rect key="frame" x="15" y="15" width="71" height="71"/>
-                    <color key="backgroundColor" red="0.38513931655143574" green="1" blue="0.35087211567048782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="71" id="OKc-Ws-U7h"/>
                         <constraint firstAttribute="width" constant="71" id="hv2-b6-LQq"/>
@@ -89,7 +91,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.23529411764705882" green="0.72549019607843135" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Nu0-Iz-iEJ" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="1Tu-Jz-PhX"/>
                 <constraint firstItem="6K5-Lx-Y90" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="9ue-Oy-0ED"/>
@@ -101,13 +103,17 @@
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="width" secondItem="QpJ-Xf-Wu2" secondAttribute="width" id="Tri-qC-CfY"/>
                 <constraint firstItem="Nu0-Iz-iEJ" firstAttribute="width" secondItem="QpJ-Xf-Wu2" secondAttribute="width" id="VsP-fN-NiH"/>
                 <constraint firstItem="FfE-fM-ruR" firstAttribute="top" secondItem="tci-sr-OjL" secondAttribute="bottom" constant="3" id="aDj-MZ-pkK"/>
+                <constraint firstItem="qfL-pj-cZz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aQV-0f-MYI"/>
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="leading" secondItem="Nu0-Iz-iEJ" secondAttribute="trailing" constant="1" id="afP-kz-OFl"/>
                 <constraint firstItem="O0x-oc-K6F" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="hGI-IP-Dnk"/>
+                <constraint firstItem="qfL-pj-cZz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="j0L-0s-zAn"/>
                 <constraint firstItem="tci-sr-OjL" firstAttribute="leading" secondItem="6K5-Lx-Y90" secondAttribute="trailing" constant="20" id="jde-Sh-PWY"/>
                 <constraint firstAttribute="trailing" secondItem="O0x-oc-K6F" secondAttribute="trailing" id="lq9-0t-SYe"/>
+                <constraint firstAttribute="bottom" secondItem="qfL-pj-cZz" secondAttribute="bottom" id="mOe-nr-kND"/>
                 <constraint firstItem="tci-sr-OjL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="om9-id-FDp"/>
                 <constraint firstItem="6K5-Lx-Y90" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="sLw-sl-Kww"/>
                 <constraint firstItem="QpJ-Xf-Wu2" firstAttribute="top" secondItem="6K5-Lx-Y90" secondAttribute="bottom" constant="29" id="tsY-vv-LAI"/>
+                <constraint firstAttribute="trailing" secondItem="qfL-pj-cZz" secondAttribute="trailing" id="xuR-RT-Nhi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -122,6 +128,7 @@
     </objects>
     <resources>
         <image name="Arrow.png" width="8" height="13"/>
-        <image name="cat.jpeg" width="960" height="960"/>
+        <image name="headPic.png" width="375" height="144"/>
+        <image name="photoMe.png" width="71" height="71"/>
     </resources>
 </document>

@@ -46,19 +46,19 @@
     self.navigationItem.leftBarButtonItem = backItem;
     
     [self setNavRightItemTitle:@"跳过" andImage:nil];
-    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 272) style:UITableViewStylePlain ];
+    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, KScreenWidth, 272) style:UITableViewStylePlain ];
     self.tab.delegate = self;
     self.tab.dataSource = self;
     [self.tab registerClass:[InfoSetCell class] forCellReuseIdentifier:NSStringFromClass([InfoSetCell class])];
     [self.view addSubview:self.tab];
     
     self.promort = [XYUIKit labelWithTextColor:[UIColor lightGrayColor] numberOfLines:1 text:@"完善个人信息有助于帮你找到最佳的青训训练与足球赛事" fontSize:12];
-    self.promort.frame = CGRectMake(17, self.tab.bottom+7.5, SCREEN_WIDTH-51, 18);
+    self.promort.frame = CGRectMake(17, self.tab.bottom+7.5, KScreenWidth-51, 18);
 
     [self.view addSubview:self.promort];
     
     self.selectBtn = [XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"确定" fontSize:14];
-    self.selectBtn.frame = CGRectMake(48, self.promort.bottom+42, SCREEN_WIDTH-96, 46);
+    self.selectBtn.frame = CGRectMake(48, self.promort.bottom+42, KScreenWidth-96, 46);
     self.selectBtn.layer.cornerRadius = 4;
     [self.view addSubview:self.selectBtn];
     

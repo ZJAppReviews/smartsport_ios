@@ -53,7 +53,7 @@
     
     _pic.sd_layout
     .topEqualToView(vc)
-    .widthIs(SCREEN_WIDTH)
+    .widthIs(KScreenWidth)
     .heightIs(200);
     
     _title.sd_layout

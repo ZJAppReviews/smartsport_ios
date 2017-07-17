@@ -40,20 +40,20 @@
    
     
     
-    self.segmentedControl = [self setSegframe:CGRectMake(45, 64, SCREEN_WIDTH-90, kSegmentedControlHeight) titleArr:dataArray space:90];
+    self.segmentedControl = [self setSegframe:CGRectMake(45, 64, KScreenWidth-90, kSegmentedControlHeight) titleArr:dataArray space:90];
     [self.view addSubview:_segmentedControl];;
     [self.view addSubview:_segmentedControl];
     
-        CGFloat const kScrollViewHeight =SCREENH_HEIGHT -44-50-64;
+        CGFloat const kScrollViewHeight =KScreenHeight -44-50-64;
     
-       self.contentSrcView.contentSize = CGSizeMake(SCREEN_WIDTH * dataArray.count, kScrollViewHeight);
+       self.contentSrcView.contentSize = CGSizeMake(KScreenWidth * dataArray.count, kScrollViewHeight);
        self.contentSrcView.delegate = self;
     
        self.contentSrcView.pagingEnabled = YES;
 
         for (int i = 0; i < dataArray.count; i ++) {
-            CGFloat left = i * SCREEN_WIDTH;
-            UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, SCREEN_WIDTH, kScrollViewHeight) style:UITableViewStylePlain];
+            CGFloat left = i * KScreenWidth;
+            UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, KScreenWidth, kScrollViewHeight) style:UITableViewStylePlain];
             tab.separatorStyle = UITableViewCellSeparatorStyleNone;
             tab.delegate = self;
             tab.dataSource = self;
@@ -72,7 +72,7 @@
     
     [_segmentedControl segmentedControlSelectedWithBlock:^(ABSSegmentCate *segmentedControl, NSInteger selectedIndex) {
         NSLog(@"selectedIndex : %zd", selectedIndex);
-         [self.contentSrcView setContentOffset:CGPointMake(selectedIndex * SCREEN_WIDTH, 0) animated:YES];
+         [self.contentSrcView setContentOffset:CGPointMake(selectedIndex * KScreenWidth, 0) animated:YES];
     }];
 }
 
@@ -80,7 +80,7 @@
 #pragma mark - scrollView protocol methods
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if([scrollView isEqual:self.contentSrcView]){
-    NSInteger const kPageIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
+    NSInteger const kPageIndex = scrollView.contentOffset.x / KScreenWidth;
      [self.segmentedControl segmentedControlSetSelectedIndexWithSelectedBlock:kPageIndex];
     // 重设选中位置
         [self.segmentedControl segmentedControlSetSelectedIndex:kPageIndex];}

@@ -53,7 +53,7 @@
     
     [self.detile mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.size.mas_equalTo(CGSizeMake(100, 24));
+        make.size.mas_equalTo(CGSizeMake(KScreenWidth-12-20-116, 24));
         make.right.mas_equalTo(self.img.mas_right).with.offset(-12);
         make.centerY.equalTo(self.contentView);
     }];

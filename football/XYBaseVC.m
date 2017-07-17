@@ -15,12 +15,13 @@
 #import "RequestManager.h"
 #import "SXButton.h"
 #import "ABSSegmentCate.h"
+#import "navi.h"
 NSString *const kName = @"Alun Chen";
 @interface XYBaseVC ()
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIView *placeholderView;
 @property (nonatomic, strong) UIImageView *navBarHairlineImageView;
-//@property (nonatomic, strong) NaviView * navi;
+
 
 
 @end
@@ -44,17 +45,17 @@ NSString *const kName = @"Alun Chen";
 }
 
 -(void)setLine{
-    UIImageView  * lineBottom = [[UIImageView   alloc]initWithFrame:CGRectMake(0, 107.5, SCREEN_WIDTH, 0.5)];
+    UIImageView  * lineBottom = [[UIImageView   alloc]initWithFrame:CGRectMake(0, 107.5, KScreenWidth, 0.5)];
     lineBottom.backgroundColor = [UIColor colorWithHexString:@"#D9D9D9"];
     [self.view addSubview:lineBottom];
 }
 -(void)setNavi{
-//    self.navi = [[NSBundle mainBundle]loadNibNamed:@"Navi" owner:self options:nil].lastObject;
-//    self.navi .frame  =CGRectMake(0, 0, SCREEN_WIDTH, 64);
-//    self.navi.backgroundColor = mainColor;
-//    [self.navi.leftBtn addTarget:self action:@selector(leftFoundation) forControlEvents:UIControlEventTouchUpInside];
-//    [self.navi.rightBtn addTarget:self action:@selector(rightFoundation) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:self.navi];
+    self.navi = [[NSBundle mainBundle]loadNibNamed:@"Niav" owner:self options:nil].lastObject;
+    self.navi .frame  =CGRectMake(0, 0, KScreenWidth, 64);
+    self.navi.backgroundColor = mainColor;
+    [self.navi.leftBtn addTarget:self action:@selector(leftFoundation) forControlEvents:UIControlEventTouchUpInside];
+    [self.navi.rightBtn addTarget:self action:@selector(rightFoundation) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.navi];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -64,6 +65,9 @@ NSString *const kName = @"Alun Chen";
 }
 -(void)rightFoundation{
     
+}
+-(void)setNaivTitle:(NSString *)title{
+    self.navi.title.text =title;
 }
 - (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
     if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
@@ -112,7 +116,7 @@ NSString *const kName = @"Alun Chen";
     // segmentedControl.segmentedControlLineStyle = LLSegmentedControlStyleUnderline;
     if(arr.count<=4){
         segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthFixed;
-        segmentedControl.titleWidth = (SCREEN_WIDTH-space) /arr.count;
+        segmentedControl.titleWidth = (KScreenWidth-space) /arr.count;
         
     }else{
         segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthAutoFit;
@@ -166,7 +170,7 @@ NSString *const kName = @"Alun Chen";
                             buttonTitle:(NSString *)title
                           centerOffsetY:(CGFloat)centerOffsetY {
     
-    UIView *placeholderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 250)];
+    UIView *placeholderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,KScreenWidth, 250)];
     //centerOffsetY = centerOffsetY ? centerOffsetY : 64;
     placeholderView.center = CGPointMake(self.view.center.x, self.view.center.y-centerOffsetY);
     
@@ -182,7 +186,7 @@ NSString *const kName = @"Alun Chen";
     msgLab.font =  FontSize(14);
     msgLab.numberOfLines = 0;
     msgLab.textAlignment = NSTextAlignmentCenter;
-    msgLab.textColor =gary153;
+    //msgLab.textColor =gary153;
     [placeholderView addSubview:msgLab];
     
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(msgLabX, msgLab.bottom + 15, msgLabW, 50)];
@@ -331,7 +335,7 @@ NSString *const kName = @"Alun Chen";
 - (void)startLoading {
    
    // CGFloat navH = self.navigationController.navigationBar.hidden ? 64 : 0;;
-    UIView *loadingView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+    UIView *loadingView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KScreenWidth, KScreenHeight-64)];
  
     loadingView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
     loadingView.backgroundColor = [UIColor clearColor];

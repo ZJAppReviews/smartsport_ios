@@ -14,8 +14,9 @@
     UILabel       * _title;
     UILabel       * _detaile;
     UIImageView   * _pomort;
-    UIImageView   * _line;
+
 }
+@synthesize _line;
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
     [self setSubView];
@@ -24,10 +25,12 @@
 }
 -(void)setSubView{
     UIImageView  * icon = [[UIImageView alloc]init];
-    icon.layer.cornerRadius =35.5;
+   // icon.layer.cornerRadius =35.5;
+   // _icon.clipsToBounds=YES;
+   // _icon.contentMode = UIViewContentModeScaleAspectFit;
     _icon  = icon;
     
-    UILabel      * title = [XYUIKit labelTextColor:[UIColor blackColor] fontSize:13];
+    UILabel      * title = [XYUIKit labelTextColor:[UIColor blackColor] fontSize:16];
     _title  = title;
     
     UILabel      * detaile = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentRight numberOfLines:1 text:nil fontSize:13];
@@ -44,9 +47,9 @@
     UIView * vc = self.contentView;
     _icon.sd_layout
     .topSpaceToView(vc, 7)
-    .leftSpaceToView(vc, 15)
-    .heightIs(30)
-    .widthIs(30);
+    .leftSpaceToView(vc, 20)
+    .heightIs(25)
+    .widthIs(24);
     
     _title.sd_layout
     .leftSpaceToView(_icon, 14)
@@ -69,7 +72,7 @@
     _line.sd_layout
     .leftSpaceToView(vc , 60)
     .rightSpaceToView(vc, 0)
-    .topSpaceToView(_icon, 6.5)
+    .bottomSpaceToView(vc, 0)
     .heightIs(0.5);
    // [self setupAutoHeightWithBottomView:_line bottomMargin:10];
 }
@@ -95,8 +98,8 @@
 }
 -(void)setDic:(NSDictionary *)dic{
     _dic =dic;
-       _icon.image = [UIImage imageNamed:@"cat.jpeg"];
-     _title .text   = [dic objectForKey:@"title"];
+    _icon.image     = [UIImage imageNamed:[dic objectForKey:@"img"]];
+    _title .text    = [dic objectForKey:@"title"];
     _detaile .text  = [dic objectForKey:@"detaile"];
 }
 @end

@@ -9,52 +9,95 @@
 #ifndef Header_h
 #define Header_h
 
-#define DB        [[YTKKeyValueStore alloc]initDBWithName:@"personDB"]
-#define Tab       [DB createTableWithName                :@"person"]
 
-#define  tabName  @"person"
-
-#define  TelNumber             [DB getStringById:@"phone"                      fromTable:tabName]
-#define  client_access_token   [DB getStringById:@"client_credentials_token"   fromTable:tabName]
-#define  password_token        [DB getStringById:@"password_token"             fromTable:tabName]
-#define  refresh_token         [DB getStringById:@"refresh_token"              fromTable:tabName]
-//微信开放平台申请得到的 appid, 需要同时添加在 URL schema
-#define WXAppId  @"wx84df9bd306bad5a6"
-
-/**
- *  申请微信支付成功后，发给你的邮件里的微信支付商户号
- */
-#define  WXPartnerId @"1230702001"
-
-/** API密钥 去微信商户平台设置--->账户设置--->API安全， 参与签名使用 */
-#define  WXAPIKey  @"d6e86c7a829a3c0849f4b8aa02b9efd7"
-
-/** 获取prePayId的url, 这是官方给的接口 */
-#define getPrePayIdUrl  @"https://api.mch.weixin.qq.com/pay/unifiedorder"
-
-#define url(info)    [NSString stringWithFormat:@"https://api.baibaobike.com/%@",info]
-#define Ip           @"https://api.baibaobike.com/"
 #define mainColor       [UIColor colorWithHexString:@"#3CB963"]
-#define gary170          RGBColor(170, 170, 170)
-#define gary242          RGBColor(242, 242, 242)
-#define gary51           RGBColor(51,51,51)
-#define gary221          RGBColor(221,221,221)
-#define gary238          RGBColor(238,238,238)
-#define gary153          RGBColor(153,153,153)
-#define gary245          RGBColor(245,245,245)
-#define gary105          RGBColor(105,105,105)
 
-//1.获取屏幕宽度与高度
-#define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
-#define SCREENH_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+//获取系统对象
+#define kApplication        [UIApplication sharedApplication]
+#define kAppWindow          [UIApplication sharedApplication].delegate.window
+#define kAppDelegate        [AppDelegate shareAppDelegate]
+#define kRootViewController [UIApplication sharedApplication].delegate.window.rootViewController
+#define kUserDefaults       [NSUserDefaults standardUserDefaults]
+#define kNotificationCenter [NSNotificationCenter defaultCenter]
+
+//-------------------打印日志-------------------------
+//DEBUG  模式下打印日志,当前行
+#ifdef DEBUG
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DLog(...)
+#endif
+
+//拼接字符串
+#define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
+
+//颜色
+#define KClearColor [UIColor clearColor]
+#define KWhiteColor [UIColor whiteColor]
+#define KBlackColor [UIColor blackColor]
+#define KGrayColor [UIColor grayColor]
+#define KGray2Color [UIColor lightGrayColor]
+#define KBlueColor [UIColor blueColor]
+#define KRedColor [UIColor redColor]
+
+//字体
+
+#define FONT(NAME, FONTSIZE)    [UIFont fontWithName:(NAME) size:(FONTSIZE)]
+
+
+//定义UIImage对象
+#define ImageWithFile(_pointer) [UIImage imageWithContentsOfFile:([[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@%dx", _pointer, (int)[UIScreen mainScreen].nativeScale] ofType:@"png"])]
+#define IMAGE_NAMED(name) [UIImage imageNamed:name]
+
+//数据验证
+#define StrValid(f) (f!=nil && [f isKindOfClass:[NSString class]] && ![f isEqualToString:@""])
+#define SafeStr(f) (StrValid(f) ? f:@"")
+#define HasString(str,eky) ([str rangeOfString:key].location!=NSNotFound)
+
+#define ValidStr(f) StrValid(f)
+#define ValidDict(f) (f!=nil && [f isKindOfClass:[NSDictionary class]])
+#define ValidArray(f) (f!=nil && [f isKindOfClass:[NSArray class]] && [f count]>0)
+#define ValidNum(f) (f!=nil && [f isKindOfClass:[NSNumber class]])
+#define ValidClass(f,cls) (f!=nil && [f isKindOfClass:[cls class]])
+#define ValidData(f) (f!=nil && [f isKindOfClass:[NSData class]])
+
+//获取一段时间间隔
+#define kStartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+#define kEndTime  NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start)
+//打印当前方法名
+#define ITTDPRINTMETHODNAME() ITTDPRINT(@"%s", __PRETTY_FUNCTION__)
+//发送通知
+#define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
+
+//单例化一个类
+#define SINGLETON_FOR_HEADER(className) \
+\
++ (className *)shared##className;
+
+#define SINGLETON_FOR_CLASS(className) \
+\
++ (className *)shared##className { \
+static className *shared##className = nil; \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+shared##className = [[self alloc] init]; \
+}); \
+return shared##className; \
+}
+
 
 //1.1需要横屏或者竖屏，获取屏幕宽度与高度
 
 
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#define SCREEN_SIZE [UIScreen mainScreen].bounds.size
+#define KScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define KScreenHeight [UIScreen mainScreen].bounds.size.height
+#define KScreenSize   [UIScreen mainScreen].bounds.size
 
+#define Iphone6ScaleWidth KScreenWidth/375.0
+#define Iphone6ScaleHeight KScreenHeight/667.0
+//根据ip6的屏幕来拉伸
+#define kRealValue(with) ((with)*(KScreenWidth/375.0f))
 
 
 //2.获取通知中心
@@ -155,8 +198,8 @@ item.alpha = 0.0; \
 #define kLeftMenuWidth      70.f
 #define kHeaderFooterH      15.f
 #define kArrowH             16.f
-#define kScaleWidth(width)    ((width * SCREEN_WIDTH) / 375.0)
-#define kScaleHeight(height)  ((height * SCREEN_HEIGHT ) / 375.0)
+#define kScaleWidth(width)    ((width * KScreenWidth) / 375.0)
+#define kScaleHeight(height)  ((height * KScreenWidth ) / 375.0)
 //11.获取view的frame/图片资源
 //获取view的frame（不建议使用）
 //#define kGetViewWidth(view)  view.frame.size.width

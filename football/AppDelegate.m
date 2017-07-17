@@ -7,72 +7,26 @@
 //
 
 #import "AppDelegate.h"
-#import "RootTabVC.h"
-#import "LoginVC.h"
-#import "LaunchIntroductionView.h"
-#import "NavigationVC.h"
-#import "IQKeyboardManager.h"
+#import "AppDelegate+AppService.h"
+
+
 @interface AppDelegate ()<UITabBarControllerDelegate>
-@property  (nonatomic,strong)  RootTabVC *rootVC;
+
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self  setRootVC];
+   // [self  setRootVC];
+    
+    [self initWindow];
     [self setLaunchfirst];
     [self setKeyboardManager];
     return YES;
 }
--(void)setRootVC{
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-    self.rootVC=[[UIStoryboard  storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"main"];
-    self.rootVC.delegate = self;
-    self.window.rootViewController=self.rootVC;
-    [self.window makeKeyAndVisible];
-    
-}
--(void)setLaunchfirst{
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];  
-    [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]];
-    
-    
-}
--(void)setKeyboardManager{
-    
-    // 控制点击背景是否收起键盘
-    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    // 控制键盘上的工具条文字颜色是否用户自定义
-    [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = YES;
-    // 控制是否显示键盘上的工具条
-    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;}
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSLog(@"%@",viewController.tabBarItem.title);
-    
-    if ([viewController.tabBarItem.title isEqualToString:@"购物车"] || [viewController.tabBarItem.title isEqualToString:@"我"]) {
-        
-//        LoginVC * login = [[LoginVC alloc]init];
-//        
-//        NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
-//        [( NavigationVC *)tabBarController.selectedViewController presentViewController:nav animated:YES completion:nil];
-       // return NO;
-        //NSLog(@"%@",viewController.tabBarItem.title);
-        //        if (user.Auth || user.PSP_CODE) {
-        //            return YES;
-        //        } else {
-        //            ABSLoginVC *loginVC = [[ABSLoginVC alloc]init];
-        //            loginVC.hidesBottomBarWhenPushed = YES;
-        //            [(ABSNavigationVC *)tabBarController.selectedViewController presentViewController:loginVC animated:YES completion:nil];
-        //            return NO;
-        //        }
-    }
-    return YES;
-    
-}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

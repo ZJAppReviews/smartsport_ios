@@ -26,19 +26,19 @@
     [self setNavLeftItemTitle:@"返回" andImage:nil];
     [self setLine];
     NSArray * dataArray = @[@"青训课程",@"在线教案"];
-    self.seg = [self setSegframe:CGRectMake(80, 64, SCREEN_WIDTH, 44) titleArr:dataArray space:160];
+    self.seg = [self setSegframe:CGRectMake(80, 64, KScreenWidth, 44) titleArr:dataArray space:160];
     [self.view addSubview:self.seg];
     
-    CGFloat const kScrollViewHeight =SCREENH_HEIGHT -44-64;
-    self.contentScrView  = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 108, SCREEN_WIDTH, kScrollViewHeight)];
+    CGFloat const kScrollViewHeight =KScreenHeight -44-64;
+    self.contentScrView  = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 108, KScreenWidth, kScrollViewHeight)];
     [self.view addSubview: self.contentScrView];
-    self.contentScrView.contentSize = CGSizeMake(SCREEN_WIDTH * dataArray.count, kScrollViewHeight);
+    self.contentScrView.contentSize = CGSizeMake(KScreenWidth * dataArray.count, kScrollViewHeight);
     self.contentScrView.delegate = self;
     self.contentScrView.pagingEnabled = YES;
     for (int i = 0; i < dataArray.count; i ++) {
-        CGFloat left = i * SCREEN_WIDTH;
+        CGFloat left = i * KScreenWidth;
         
-        UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, SCREEN_WIDTH, kScrollViewHeight) style:UITableViewStylePlain];
+        UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, KScreenWidth, kScrollViewHeight) style:UITableViewStylePlain];
         tab.separatorStyle = UITableViewCellSeparatorStyleNone;
         tab.tag= i;
        // tab.delegate = self;
@@ -58,14 +58,14 @@
     [_seg  segmentedControlSelectedWithBlock:^(ABSSegmentCate *segmentedControl, NSInteger selectedIndex) {
         NSLog(@"selectedIndex : %zd", selectedIndex);
         
-        [self.contentScrView setContentOffset:CGPointMake(selectedIndex * SCREEN_WIDTH, 0) animated:YES];
+        [self.contentScrView setContentOffset:CGPointMake(selectedIndex *KScreenWidth, 0) animated:YES];
     }];
 
 }
 #pragma mark - scrollView protocol methods
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if([scrollView isEqual:self.contentScrView]){
-        NSInteger const kPageIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
+        NSInteger const kPageIndex = scrollView.contentOffset.x / KScreenWidth;
         // [self.segmentedControl segmentedControlSetSelectedIndexWithSelectedBlock:kPageIndex];
         // 重设选中位置
         [self.seg segmentedControlSetSelectedIndex:kPageIndex];

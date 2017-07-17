@@ -63,6 +63,7 @@
 }
 
 - (void)viewDidLoad {
+    self.definesPresentationContext = YES;
     [super viewDidLoad];
     [self locate];
     [self loadData];
@@ -160,11 +161,16 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
 {
     
-    self.navigationController.navigationBar.hidden = NO;
+ 
     [_searchController.searchBar setShowsCancelButton:YES animated:YES];
     UIButton *btn=[_searchController.searchBar valueForKey:@"_cancelButton"];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
 }
+//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+//    if(searchText.length >0){
+//        self.navigationController.navigationBar.hidden =NO;
+//    }
+//}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
@@ -395,9 +401,14 @@
 }
 - (void)popRootViewControllerWithName:(NSString *)cityName
 {
-    self.returnBlock(cityName);
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
+    if([cityName isEqualToString:@"定位中"]){
+   
+    }else{
+         self.returnBlock(cityName);
+        [self dismissViewControllerAnimated:NO completion:nil];
+
+    }
+   
     
 }
 @end

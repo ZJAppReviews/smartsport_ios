@@ -27,14 +27,14 @@
     [self.contentView addSubview:photo];
     
     title  =[XYUIKit labelTextColor:[UIColor blackColor] fontSize:13];
-    title.frame = CGRectMake(70, 20,SCREEN_WIDTH-70, 20);
+    title.frame = CGRectMake(70, 20,KScreenWidth-70, 20);
     [self.contentView addSubview:title];
     
     detaile = [XYUIKit labelTextColor:[UIColor grayColor] fontSize:14];
-    detaile.frame = CGRectMake(70, 40,SCREEN_WIDTH-70, 20);
+    detaile.frame = CGRectMake(70, 40,KScreenWidth-70, 20);
     [self.contentView addSubview:detaile];
     
-    line =[[UIImageView alloc]initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, 1)];
+    line =[[UIImageView alloc]initWithFrame:CGRectMake(0, 100, KScreenWidth, 1)];
     line.backgroundColor = [UIColor grayColor];
     [self.contentView addSubview:line];
     

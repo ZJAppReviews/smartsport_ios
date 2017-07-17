@@ -36,12 +36,12 @@
    self.contentView.backgroundColor = RGBColor(222, 222, 222);
 
     self.titleLab = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor grayColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:nil fontSize:12];
-    self.titleLab.frame = CGRectMake(10, 20, SCREEN_WIDTH-20, 20);
+    self.titleLab.frame = CGRectMake(10, 20, KScreenWidth-20, 20);
     [self.contentView addSubview:self.titleLab];
     //self.layout = [[UICollectionViewLayout alloc]init];
     self.flowLayout=[[UICollectionViewFlowLayout alloc] init];
     //[self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 40,SCREEN_WIDTH, 165) collectionViewLayout: self.flowLayout];
+    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 40,KScreenWidth, 165) collectionViewLayout: self.flowLayout];
     
     self.collecView.backgroundColor = RGBColor(222, 222, 222);
     self.collecView.bounces = NO;
@@ -115,7 +115,7 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     //NSLog(@"%f",(kDeviceHeight-88-49)/4.0);
-    return CGSizeMake((SCREEN_WIDTH-15)/2.0,80);
+    return CGSizeMake((KScreenWidth-15)/2.0,80);
 }
 
 //点击元素触发事件

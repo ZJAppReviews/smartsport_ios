@@ -39,17 +39,17 @@
 -(void)setSubView{
     
     self.title   = [ XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"教练档案" fontSize:13];
-    self.title.frame = CGRectMake(10, 5, (SCREEN_WIDTH-20)/2.0, 20);
+    self.title.frame = CGRectMake(10, 5, (KScreenWidth-20)/2.0, 20);
     [self.contentView addSubview:self.title];
     
     self.btn = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor blueColor]  title:@"全部教练" fontSize:13];
-    self.btn.frame = CGRectMake(SCREEN_WIDTH-90, 5,80, 20);
+    self.btn.frame = CGRectMake(KScreenWidth-90, 5,80, 20);
     [self.btn addTarget:self action:@selector(getBlock) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview: self.btn];
     
     self.flowLayer = [[UICollectionViewFlowLayout alloc]init];
     [self.flowLayer setScrollDirection:UICollectionViewScrollDirectionHorizontal  ];
-    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 30, SCREEN_WIDTH, 160) collectionViewLayout:self.flowLayer];
+    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 30, KScreenWidth, 160) collectionViewLayout:self.flowLayer];
     self.collecView.delegate = self;
     self.collecView.dataSource = self;
     [self.collecView registerClass:[CollecCoachCell class] forCellWithReuseIdentifier:@"cell"];
@@ -57,7 +57,7 @@
     self.collecView.showsHorizontalScrollIndicator = NO;
     [self.contentView addSubview:self.collecView];
     
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 189, SCREEN_WIDTH, 1)];
+    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 189, KScreenWidth, 1)];
     line.backgroundColor = [UIColor grayColor];
     [self.contentView addSubview:line];
     }

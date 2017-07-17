@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class ABSSegmentCate;
+@class navi;
 extern NSString *const kName;
 
 /*! 定义请求成功的 block */
@@ -17,7 +18,7 @@ typedef void( ^ RequestFail)(NSError *error);
 
 
 @interface XYBaseVC : UIViewController
-
+@property (nonatomic, strong) navi * navi;
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
            dictionary:(NSDictionary *)dic;
@@ -26,6 +27,7 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)setData;
 - (void)leftFoundation;
 - (void)rightFoundation;
+-(void)setNaivTitle:(NSString *)title;
 - (void)playBtnClick;
 - (void)setSubviews;
 -(void)setLine;
@@ -49,7 +51,7 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)setNavRightItemTitle:(NSString *)str andImage:(UIImage *)image;
 - (void)rightItemClick:(id)sender;
 
-//-(void)setNavi;
+-(void)setNavi;
 
 -(void)loadNewData;
 

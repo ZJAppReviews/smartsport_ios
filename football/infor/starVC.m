@@ -88,7 +88,7 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     //NSLog(@"%f",(kDeviceHeight-88-49)/4.0);
-    return CGSizeMake(SCREEN_WIDTH-20,160);
+    return CGSizeMake(KScreenWidth-20,160);
 }
 
 //点击元素触发事件

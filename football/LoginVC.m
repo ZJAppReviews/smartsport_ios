@@ -153,7 +153,7 @@
         }
         if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
         {
-            _loginBtn.backgroundColor=gary221;
+           // _loginBtn.backgroundColor=gary221;
             _loginBtn.userInteractionEnabled =NO;
             
            
@@ -185,7 +185,7 @@
 }
 -(UIButton * )exitBtn{
     if(!_exitBtn){
-        _exitBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50, 20, 30, 30)];
+        _exitBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-50, 20, 30, 30)];
         [_exitBtn addTarget:self action:@selector(outLogo ) forControlEvents:UIControlEventTouchUpInside];
         [_exitBtn setImage:Img(@"Icon") forState:UIControlStateNormal];
     }
@@ -196,7 +196,7 @@
 }
 -(loginField*)phoneNum{
     if(!_phoneNum){
-        _phoneNum = [[loginField  alloc]initWithFrame:CGRectMake(48,96+72+93, SCREEN_WIDTH-96, 34)];
+        _phoneNum = [[loginField  alloc]initWithFrame:CGRectMake(48,96+72+93, KScreenWidth-96, 34)];
         _phoneNum.field.placeholder = @"手机号码";
         _phoneNum.field.delegate  =self;
     }
@@ -204,7 +204,7 @@
 }
 -(loginField*)passNum{
     if(!_passNum){
-        _passNum = [[loginField  alloc]initWithFrame:CGRectMake(48, _phoneNum.bottom+46,SCREEN_WIDTH-96, 34)];
+        _passNum = [[loginField  alloc]initWithFrame:CGRectMake(48, _phoneNum.bottom+46,KScreenWidth-96, 34)];
         _passNum.field.placeholder = @"密码";
         _passNum.field.delegate  = self;
         
@@ -215,7 +215,7 @@
 -(UIButton *)forgetPass{
     if(!_forgetPass){
         _forgetPass  = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor colorWithHexString:@"#3CB963"] title:@"忘记密码?" fontSize:14];
-        _forgetPass.frame = CGRectMake(48, _passNum.bottom+11,SCREEN_WIDTH-96, 30);
+        _forgetPass.frame = CGRectMake(48, _passNum.bottom+11,KScreenWidth-96, 30);
         _forgetPass.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _forgetPass.tag = 0;
         [_forgetPass addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -226,7 +226,7 @@
 -(UIButton *)visitor{
     if(!_visitor){
         _visitor = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor grayColor] title:@"游客登陆" fontSize:16];
-        _visitor .frame = CGRectMake(20, SCREEN_HEIGHT -56, (SCREEN_WIDTH-40)/2.0, 24);
+        _visitor .frame = CGRectMake(20, KScreenHeight -56, (KScreenWidth-40)/2.0, 24);
         _visitor.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _visitor.tag =1;
         [_visitor addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -236,7 +236,7 @@
 -(UIButton *)regist{
     if(!_regist){
         _regist = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor grayColor] title:@"注册新账号" fontSize:16];
-        _regist .frame = CGRectMake(20+(SCREEN_WIDTH-40)/2.0, SCREEN_HEIGHT -56, (SCREEN_WIDTH-40)/2.0, 24);
+        _regist .frame = CGRectMake(20+(KScreenWidth-40)/2.0, KScreenHeight -56, (KScreenWidth-40)/2.0, 24);
         _regist.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _regist.tag = 2;
         [_regist addTarget:self action:@selector(foundationButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -262,7 +262,7 @@
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
         _loginBtn = [XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"登陆" fontSize:18];
-        _loginBtn.frame = CGRectMake(48, _passNum.bottom+83, SCREEN_WIDTH-96, 46);
+        _loginBtn.frame = CGRectMake(48, _passNum.bottom+83, KScreenWidth-96, 46);
         _loginBtn.layer.cornerRadius=4;
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _loginBtn.userInteractionEnabled=NO;

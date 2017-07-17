@@ -27,19 +27,19 @@
     self.contentView.layer.cornerRadius = 2;
     
     title  = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"推荐青训课程" fontSize:15];
-    title.frame = CGRectMake(10, 10, SCREEN_WIDTH-20, 20);
+    title.frame = CGRectMake(10, 10, KScreenWidth-20, 20);
     [self.contentView addSubview:title];
     
     detaile = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor grayColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"推荐青训课程描述" fontSize:13];
-    detaile.frame  = CGRectMake(10,30 , SCREEN_WIDTH-20, 20);
+    detaile.frame  = CGRectMake(10,30 , KScreenWidth-20, 20);
     [self.contentView addSubview:detaile];
     
     time = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"2017-05-28" fontSize:12];
-    time.frame = CGRectMake(10, 60, 0.5*SCREEN_WIDTH, 20);
+    time.frame = CGRectMake(10, 60, 0.5*KScreenWidth, 20);
     [self.contentView addSubview:time];
     
     price = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor redColor] textAlignment:NSTextAlignmentRight numberOfLines:1 text:@"¥360.0" fontSize:15];
-    price.frame = CGRectMake(10, 50, 0.5*SCREEN_WIDTH, 30);
+    price.frame = CGRectMake(10, 50, 0.5*KScreenWidth, 30);
 
     [self.contentView addSubview:price];
 }

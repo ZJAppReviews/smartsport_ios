@@ -52,20 +52,20 @@
     
     self.title =@"找回密码";
     
-    self.phoneNum = [[LogoTextField alloc]initWithFrame:CGRectMake(46, 64+30, SCREEN_WIDTH-92, 44)];
+    self.phoneNum = [[LogoTextField alloc]initWithFrame:CGRectMake(46, 64+30, KScreenWidth-92, 44)];
     self.phoneNum.tittle.text = @"中国 +86";
     self.phoneNum.field.placeholder = @"手机号";
     
     [self.view addSubview:self.phoneNum];
-    self.cheakNum = [[loginField  alloc]initWithFrame:CGRectMake(46, self.phoneNum.bottom+46, SCREEN_WIDTH-92, 36)];
+    self.cheakNum = [[loginField  alloc]initWithFrame:CGRectMake(46, self.phoneNum.bottom+46, KScreenWidth-92, 36)];
     self.cheakNum.field.placeholder = @"验证码";
     [self.view addSubview:self.cheakNum];
     
-    self.pass = [[loginField  alloc]initWithFrame:CGRectMake(48, self.cheakNum.bottom+46, SCREEN_WIDTH-96, 34)];
+    self.pass = [[loginField  alloc]initWithFrame:CGRectMake(48, self.cheakNum.bottom+46, KScreenWidth-96, 34)];
     [self.view addSubview:self.pass];
     self.pass.field.placeholder  = @"密码6-16位";
     
-    self.passRepeat = [[loginField  alloc]initWithFrame:CGRectMake(48, self.pass.bottom+46, SCREEN_WIDTH-96, 34)];
+    self.passRepeat = [[loginField  alloc]initWithFrame:CGRectMake(48, self.pass.bottom+46, KScreenWidth-96, 34)];
     [self.view addSubview:self.passRepeat];
     self.passRepeat.field.placeholder  = @"重复密码";
     
@@ -73,7 +73,7 @@
     
     self.push  =[XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"下一步" fontSize:16];
     [self.push  addTarget:self action:@selector(nextFoundation ) forControlEvents:UIControlEventTouchUpInside];
-    self.push .frame = CGRectMake(48, self.passRepeat.bottom +14, SCREEN_WIDTH-96, 46);
+    self.push .frame = CGRectMake(48, self.passRepeat.bottom +14, KScreenWidth-96, 46);
     self.push .layer.cornerRadius = 4;
     [self.view addSubview:self.push];
     

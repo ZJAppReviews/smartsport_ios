@@ -225,7 +225,7 @@
     for (int i=0; i<arrIems.count; i++) {
         NSString *strTabsName = arrIems[i];
         float tempWidth = [NSString widthForText:strTabsName withTextFont:FontSize(13) withTextHeight:100];
-        if (tempWidth +10+x > SCREEN_WIDTH-35) {
+        if (tempWidth +10+x >KScreenWidth-35) {
             x =15.0;
             y =y+20.0f;
         }

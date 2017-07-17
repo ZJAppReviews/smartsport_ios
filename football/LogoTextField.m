@@ -22,7 +22,7 @@
         self.lineV.backgroundColor= [UIColor blackColor];
         [self addSubview:self.lineV];
         self.field   = [[UITextField alloc]initWithFrame:CGRectMake(79, 5, self.frame.size.width-89-60, self.frame.size.height-10)];
-        self.field.textColor = gary51;
+        //self.field.textColor = gary51;
         self.field.font      = FontSize(14);
         self.field.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self addSubview:self.field ];

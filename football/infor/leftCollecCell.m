@@ -34,18 +34,18 @@
 -(void)setSubView{
   
     self.title   = [ XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"最新青训课程" fontSize:13];
-    self.title.frame = CGRectMake(10, 5, (SCREEN_WIDTH-20)/2.0, 20);
+    self.title.frame = CGRectMake(10, 5, (KScreenWidth-20)/2.0, 20);
     [self.contentView addSubview:self.title];
     
    
     self.btn = [XYUIKit buttonWithBackgroundColor:[UIColor clearColor] titleColor:[UIColor blueColor]  title:@"全部课程" fontSize:13];
-    self.btn.frame = CGRectMake(SCREEN_WIDTH-90, 5,80, 20);
+    self.btn.frame = CGRectMake(KScreenWidth-90, 5,80, 20);
     [self.btn addTarget:self action:@selector(getBtn) forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview: self.btn];
     self.flowLayer = [[UICollectionViewFlowLayout alloc]init];
     [self.flowLayer setScrollDirection:UICollectionViewScrollDirectionHorizontal  ];
-    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 30, SCREEN_WIDTH, 80) collectionViewLayout:self.flowLayer];
+    self.collecView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 30, KScreenWidth, 80) collectionViewLayout:self.flowLayer];
     self.collecView.delegate = self;
     self.collecView.dataSource = self;
     [self.collecView registerClass:[inforleftCollectionCell class] forCellWithReuseIdentifier:@"cell"];
@@ -54,9 +54,9 @@
     [self.contentView addSubview:self.collecView];
     
     self.bottom  = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentLeft numberOfLines:1 text:@"青年资讯" fontSize:12];
-    self.bottom.frame = CGRectMake(10, 120, SCREEN_WIDTH-20, 20);
+    self.bottom.frame = CGRectMake(10, 120, KScreenWidth-20, 20);
     [self.contentView addSubview:self.bottom];
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 139, SCREEN_WIDTH, 1)];
+    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 139, KScreenWidth, 1)];
     line.backgroundColor = [UIColor grayColor];
     [self.contentView addSubview:line];
     
@@ -125,7 +125,7 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     //NSLog(@"%f",(kDeviceHeight-88-49)/4.0);
-    return CGSizeMake(SCREEN_WIDTH*0.6,80);
+    return CGSizeMake(KScreenWidth*0.6,80);
 }
 
 //点击元素触发事件
