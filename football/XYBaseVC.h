@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 @class ABSSegmentCate;
 @class navi;
+
 extern NSString *const kName;
 
 /*! 定义请求成功的 block */
-typedef void( ^ RequestSuccess)(id response);
+typedef void( ^ RequestSuccess)(BaseModel * response);
 /*! 定义请求失败的 block */
 typedef void( ^ RequestFail)(NSError *error);
 
 
 @interface XYBaseVC : UIViewController
+-(void)initAppinfo;
 @property (nonatomic, strong) navi * navi;
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -35,7 +37,10 @@ typedef void( ^ RequestFail)(NSError *error);
 - (void)viewWillAppear:(BOOL)animated;
 - (void)absPushViewController:(XYBaseVC *) controller animated:(BOOL) animated;
 
-
+-(void)requestType:(HttpRequestType)type
+               url:(NSString *)url
+        parameters:(NSDictionary *)parm
+      successBlock:(RequestSuccess)success failureBlock:(RequestFail)failure;
 - (void)absRootPushViewController:(XYBaseVC *) controller animated:(BOOL) animated;
 
 

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
-
+#import "AppDelegate+AppInfo.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
@@ -23,10 +23,24 @@
     [self initWindow];
     [self setLaunchfirst];
     [self setKeyboardManager];
+    
+    [self getAppInfo];
     return YES;
 }
+-(void)getAppInfo{
+    if(![store getObjectById:@"urlInfo" fromTable:@"person"]){
+        [self initAppinfo];
+    }
+}
+/*-(void)setNoti{
+    NSString * str =@"1";
+    [kNotificationCenter addObserver:self selector:@selector(refreshUrlInfo:) name:@"urlinfo" object:str];
+}
+-(void)refreshUrlInfo:(NSNotification*)no{
+    
+    [self initAppinfo];
 
-
+}*/
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

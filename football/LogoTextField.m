@@ -7,7 +7,7 @@
 //
 
 #import "LogoTextField.h"
-
+#import "TimerButton.h"
 @implementation LogoTextField
 
 
@@ -26,10 +26,9 @@
         self.field.font      = FontSize(14);
         self.field.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self addSubview:self.field ];
-        self.btn= [XYUIKit buttonWithBackgroundColor:mainColor titleColor:[UIColor whiteColor] title:@"验证" fontSize:15];
-        self.btn.layer.cornerRadius = 4;
-        self.btn.frame = CGRectMake(self.field.right, 0, 60, 36);
-        [self addSubview:self.btn];
+        //self.btn= [[ TimerButton alloc]initWithFrame:CGRectMake(self.field.right, 0, 60, 36)];
+        //self.btn.layer.cornerRadius = 4;
+        //[self addSubview:self.btn];
         self.lineH = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.field.bottom+5, self.frame.size.width, 2)];
         self.lineH.image = Img(@"Line");
         [self addSubview:self.lineH];

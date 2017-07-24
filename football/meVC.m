@@ -18,12 +18,15 @@
 #import "LoginVC.h"
 #import "mySetVC.h"
 #import "myMemberVC.h"
+#import "myVideoVC.h"
+#import "InfoSetVC.h"
 @interface meVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView       * tab;
 @property (strong, nonatomic) UIButton          * right;
 @property (strong, nonatomic) UIButton          * left;
 @property (nonatomic ,strong) UILabel           * meLab;
 @property (strong, nonatomic) NSMutableArray    * arr;
+@property (strong ,nonatomic)    meHeadView * vic;
 
 
 
@@ -41,7 +44,9 @@
         NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:mysetvc];
         [self presentViewController:nav animated:NO completion:nil];
     }else if(sender.tag ==0){
-        
+       // InfoSetVC *vc  = [[InfoSetVC alloc]init];
+        //NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:vc];
+        //[self presentViewController:nav animated:NO completion:nil];
     }
 }
 -(void)setSubview{
@@ -134,15 +139,18 @@
 
 
 -(UIView *)setView{
-    meHeadView * vic = [[NSBundle mainBundle] loadNibNamed:@"meHead" owner:nil options:nil].lastObject;
-    vic.frame = CGRectMake(0, 0, KScreenWidth, 144);
+   self.vic = [[NSBundle mainBundle] loadNibNamed:@"meHead" owner:nil options:nil].lastObject;
+    self.vic.frame = CGRectMake(0, 0, KScreenWidth, 144);
     WeakSelf(self);
-    vic.setInfoBlock = ^{
+    self.vic.setInfoBlock = ^{
      LoginVC * login = [[LoginVC alloc]init];
-    NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
-     [weakself presentViewController:nav animated:YES completion:nil];
+      
+        NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
+        [weakself presentViewController:nav animated:YES completion:^{
+              [kNotificationCenter postNotificationName:@"loadStatus" object:@"0"];
+        }];
     };
-    return vic;
+    return self.vic;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     Class currentClass = [meCell class];
@@ -175,9 +183,17 @@
             [self.navigationController pushViewController:collectVC animated:YES];
             
             
+        }else if(indexPath.row ==2){
+            myVideoVC * videoVC = [[myVideoVC alloc]init];
+            [self.navigationController pushViewController:videoVC animated:YES];
+
+        }else if(indexPath.row ==3){
+            myVideoVC * videoVC = [[myVideoVC alloc]init];
+            [self.navigationController pushViewController:videoVC animated:YES];
+            
         }
     }else if(indexPath.section==1){
-        
+       
         
     }else if(indexPath.section==2){
         if(indexPath.row ==0){
@@ -195,9 +211,29 @@
 
 
 - (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
+{   [super viewWillAppear:YES];
     self.navigationController.navigationBar.hidden=YES;
+    if([store getStringById:@"load" fromTable:@"person"]){
+        _vic.nameBtn.userInteractionEnabled=NO;
+        _vic.vipBtn .userInteractionEnabled = NO;
+        [_vic.nameBtn setTitle:@"已登陆" forState:UIControlStateNormal];
+        [_vic.vipBtn setTitle:[store getStringById:@"phoneNum" fromTable:@"person"] forState:UIControlStateNormal];
+        NSDictionary *dic = @{
+                              @"action":@"getHW"
+                              };
+        [self requestType:HttpRequestTypePost url:nil parameters:dic successBlock:^(BaseModel *response) {
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+        
+    }else{
+        _vic.nameBtn.userInteractionEnabled=YES;
+        _vic.vipBtn .userInteractionEnabled = YES;
+        [_vic.nameBtn setTitle:@"登录／注册" forState:UIControlStateNormal];
+        [_vic.vipBtn setTitle: @"手机号登录" forState:UIControlStateNormal];
+    }
+
     
 }
 

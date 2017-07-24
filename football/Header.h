@@ -8,7 +8,8 @@
 
 #ifndef Header_h
 #define Header_h
-
+#define store    [[YTKKeyValueStore alloc]initDBWithName:@"F_appinfo"]
+#define person   [store createTableWithName:@"person"]
 
 #define mainColor       [UIColor colorWithHexString:@"#3CB963"]
 

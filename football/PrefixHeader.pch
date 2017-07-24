@@ -15,5 +15,10 @@
 #import "XYUIKit.h"
 #import "UIColor+XYColor.h"
 #import "Header.h"
-
+#import "YTKKeyValueStore.h"
+#import "RequestManager.h"
+#import "YYModel.h"
+#import "BaseModel.h"
+#import "appInfoModel.h"
+#import "SVProgressHUD.h"
 #endif /* PrefixHeader_pch */

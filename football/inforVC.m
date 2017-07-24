@@ -41,6 +41,7 @@
     ViewController *vc=[[ViewController alloc]init];
     NavigationVC * nav = [[NavigationVC alloc]initWithRootViewController:vc];
     [vc returnText:^(NSString *cityname) {
+        
         NSLog(@"%@",cityname);
         [self setNavLeftItemTitle:cityname andImage:Img(@"zhankai") ];
         //self.citylable.text=cityname;
@@ -284,5 +285,20 @@
 -(void)jumpStarVC{
     starVC    * subVc=  [[starVC alloc]init];
     [self absPushViewController:subVc  animated:YES];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    if(![store getStringById:@"city" fromTable:@"person"]){
+        ViewController *vc=[[ViewController alloc]init];
+        NavigationVC * nav = [[NavigationVC alloc]initWithRootViewController:vc];
+        [vc returnText:^(NSString *cityname) {
+            [store putString:cityname withId:@"city" intoTable:@"person"];
+            NSLog(@"%@",cityname);
+            [self setNavLeftItemTitle:cityname andImage:Img(@"zhankai") ];
+            //self.citylable.text=cityname;
+        }];
+        
+        [self presentViewController:nav animated:NO completion:nil];
+    }
+    
 }
 @end

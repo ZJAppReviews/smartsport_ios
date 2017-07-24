@@ -157,7 +157,7 @@ static NSMutableArray *tasks;
  *
  *  @param type         get / post / put / delete
  *  @param urlString    请求的地址
- *  @param paraments    请求的参数
+ *  @param parameters    请求的参数
  *  @param successBlock 请求成功的回调
  *  @param failureBlock 请求失败的回调
  *  @param progress 进度
@@ -446,7 +446,7 @@ static NSMutableArray *tasks;
 /*!
  *  视频上传
  *
- *  @param operations   上传视频预留参数---视具体情况而定 可移除
+ *  @param parameters   上传视频预留参数---视具体情况而定 可移除
  *  @param videoPath    上传视频的本地沙河路径
  *  @param urlString     上传的url
  *  @param successBlock 成功的回调
@@ -527,7 +527,7 @@ static NSMutableArray *tasks;
 /*!
  *  文件下载
  *
- *  @param operations   文件下载预留参数---视具体情况而定 可移除
+ *  @param parameters   文件下载预留参数---视具体情况而定 可移除
  *  @param savePath     下载文件保存路径
  *  @param urlString        请求的url
  *  @param successBlock 下载文件成功的回调

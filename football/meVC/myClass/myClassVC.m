@@ -43,7 +43,7 @@
         tab.tag= i;
        // tab.delegate = self;
        // tab.dataSource = self;
-        [self showPlaceholderViewWithImage:nil message:@"没有记录" buttonTitle:@"去看看" centerOffsetY:0 onSuperView:tab];
+        [self showPlaceholderViewWithImage:Img(@"myclass_no") message:@"没有记录" buttonTitle:@"去看看" centerOffsetY:0 onSuperView:tab];
         [self.contentScrView addSubview:tab];
         if(i==0){
             //[tab registerClass:[mathCell class ] forCellReuseIdentifier:NSStringFromClass([mathCell  class])];

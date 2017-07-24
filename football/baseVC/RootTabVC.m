@@ -24,7 +24,7 @@
 }
 -(void)setTabBarItemTheme{
     [[UIApplication  sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self.tabBar setTintColor:[UIColor blueColor]];
+    [self.tabBar setTintColor:mainColor];
     self.tabBar.translucent=NO;
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                       [UIColor blackColor],
@@ -33,7 +33,7 @@
                                                        NSFontAttributeName,nil]
                                              forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIColor redColor],
+                                                      mainColor,
                                                        NSForegroundColorAttributeName,
                                                       FontSize(10),
                                                        NSFontAttributeName,nil]
@@ -47,7 +47,7 @@
 -(void)addNavigationVC{
     NSArray *titleArr       = @[@"资讯",@"青训",@"赛事",@"我"];
     NSArray *vcNameArr      = @[@"infor",@"youth",@"match",@"me"];
-    NSArray *tabIconNameArr = @[@"i_home",@"i_kind",@"i_life",@"i_cart",@"i_me"];
+    NSArray *tabIconNameArr = @[@"i_infor",@"i_youth",@"i_match",@"i_me"];
     NSMutableArray *vcArr = [NSMutableArray array];
     for (NSInteger i = 0; i < titleArr.count ; i++) {
          NSString *vcName = [NSString stringWithFormat: @"%@",vcNameArr[i]];

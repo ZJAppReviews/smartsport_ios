@@ -8,6 +8,8 @@
 
 #import "mySetVC.h"
 #import "InfoSetCell.h"
+#import "LoginVC.h"
+#import "NavigationVC.h"
 @interface mySetVC ()<UITableViewDelegate,UITableViewDataSource>
 @property  (nonatomic , strong)UITableView    * tab ;
 @property  (nonatomic , strong)NSMutableArray * arr;
@@ -155,11 +157,25 @@
     [foot addSubview:exit];
     exit. backgroundColor = mainColor;
     exit. layer.cornerRadius = 4;
+    [exit addTarget:self action:@selector(exit:) forControlEvents:UIControlEventTouchUpInside];
     [exit setTitle:@"退出登录" forState:UIControlStateNormal];
      exit.titleLabel.font = FontSize(15);
 
    
     return foot;
+
+}
+-(void)exit:(UIButton *)sender{
+    [self initAppinfo];
+    [store deleteObjectById:@"load" fromTable:@"person"];
+    [store deleteObjectById:@"phoneNum" fromTable:@"person"];
+    LoginVC * login = [[LoginVC alloc]init];
+    login.exitBtn.alpha = 0;
+    NavigationVC   * nav  = [[NavigationVC alloc]initWithRootViewController:login];
+    [self  presentViewController:nav animated:YES completion:^{
+        [kNotificationCenter postNotificationName:@"loadStatus" object:@"0"];
+    }];
+
 
 }
 @end

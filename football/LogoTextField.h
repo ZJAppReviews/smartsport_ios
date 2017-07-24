@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TimerButton;
 @interface LogoTextField : UIView
 @property  (nonatomic,strong)UITextField  * field;
 @property  (nonatomic,strong)UILabel      * tittle;
-@property  (nonatomic,strong)UIButton     * btn;
+//@property  (nonatomic,strong)TimerButton  * btn;
 @property  (nonatomic,strong)UIImageView  * lineH;
 @property  (nonatomic,strong)UIImageView  * lineV;
 

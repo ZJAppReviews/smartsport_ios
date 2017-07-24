@@ -14,5 +14,5 @@ typedef void(^LoginBlock)();
 @interface LoginVC : XYBaseVC
 @property (nonatomic, copy)   LogoutBackBlock   boackBlock;
 @property (nonatomic, copy)   LoginBlock        loginBlock;
-
+@property (nonatomic, strong) UIButton    * exitBtn;
 @end

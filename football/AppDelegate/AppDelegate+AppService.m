@@ -11,6 +11,8 @@
 #import "LaunchIntroductionView.h"
 #import "NavigationVC.h"
 #import "IQKeyboardManager.h"
+#import "LoginVC.h"
+#import "NavigationVC.h"
 @implementation AppDelegate (AppService)
 
 
@@ -20,13 +22,29 @@
 
 #pragma mark ————— 初始化window —————
 -(void)initWindow{
+    
+
+    store;
+    person;
+    
+    if([store getStringById:@"load" fromTable:@"person"]){
+        RootTabVC* rootVC=[[UIStoryboard  storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"main"];
+        rootVC.delegate = self;
+        self.window.rootViewController=rootVC;
+        [self.window makeKeyAndVisible];
+        
+    }else{
+        
+        
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
+    LoginVC *  rootVC = [[LoginVC  alloc]init];
+        rootVC.exitBtn.alpha=0;
+    NavigationVC * navVC = [[NavigationVC alloc]initWithRootViewController:rootVC];
+    self.window.rootViewController=navVC;
+        [self.window makeKeyAndVisible];
     
-    RootTabVC* rootVC=[[UIStoryboard  storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"main"];
-    rootVC.delegate = self;
-    self.window.rootViewController=rootVC;
-    [self.window makeKeyAndVisible];
+}
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
@@ -96,9 +114,9 @@
 #pragma mark ————— 引导图 —————
 -(void)setLaunchfirst{
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]];
-    
-    
+   // [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]];
+    [LaunchIntroductionView sharedWithImages:@[@"load1",@"load2",@"load3"]  buttonImage:nil  buttonFrame:CGRectMake(30, KScreenHeight-100, KScreenWidth-60, 44)];
+   
 }
 #pragma mark ————— 键盘 —————
 -(void)setKeyboardManager{

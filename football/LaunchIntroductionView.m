@@ -131,6 +131,10 @@ NSString *storyboard;
                 UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake(enterBtnFrame.origin.x, enterBtnFrame.origin.y, enterBtnFrame.size.width, enterBtnFrame.size.height)];
                 [enterButton setImage:[UIImage imageNamed:enterBtnImage] forState:UIControlStateNormal];
                 [enterButton addTarget:self action:@selector(enterBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                enterButton.titleLabel.textColor = KWhiteColor;
+                enterButton.backgroundColor = mainColor;
+                enterButton.layer.cornerRadius = 4;
+                [enterButton setTitle:@"立即体验" forState:UIControlStateNormal];
                 [imageView addSubview:enterButton];
                 imageView.userInteractionEnabled = YES;
             }

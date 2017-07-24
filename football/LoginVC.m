@@ -16,13 +16,13 @@
 #import "RegistVC.h"
 #import "CheakNumVC.h"
 #import "BackPassVC.h"
-
+#import "LoginVC+rootTabVC.h"
 
 @interface LoginVC ()<UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIButton    * loginBtn;
 @property (nonatomic, strong) TimerButton * pinBtn;
-@property (nonatomic, strong) UIButton    * exitBtn;
+
 
 @property (nonatomic, assign) BOOL   imgStatue;
 @property (nonatomic,strong) UIImageView    * logoImg;
@@ -41,8 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setSubviews];
-    
-    
+        
 }
 
 
@@ -117,7 +116,7 @@
         }
         
     }
-    if (textField == self.passNum.field) {
+  /*  if (textField == self.passNum.field) {
                 //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
                 if (range.length == 1 && string.length == 0) {
                     return YES;
@@ -129,47 +128,63 @@
                 }
                 
             }
+    */
     
-    
-    if(textField.tag==0){
+    if(textField.tag==1){
     if (![string isEqualToString:@""])
     {
-       // _pinBtn.backgroundColor=mainColor;
-        _pinBtn.userInteractionEnabled =YES;
-        //self.breakVc.placholder .hidden = YES;
+        if(_phoneNum.field.text.length>0){
+        _loginBtn.backgroundColor=mainColor;
+        _loginBtn.userInteractionEnabled =YES;
+        }
     }
     if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
     {
-        //_pinBtn.backgroundColor= gary221;
-        _pinBtn.userInteractionEnabled =NO;
-       //self.breakVc.placholder .hidden = NO;
+       _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
+       _loginBtn.userInteractionEnabled =NO;
+       
     }
-    }else if (textField.tag==1){
-        if (![string isEqualToString:@""])
-        {
-            _loginBtn.backgroundColor=mainColor;
-            _loginBtn.userInteractionEnabled =YES;
-            //self.breakVc.placholder .hidden = YES;
+        if(textField.tag==0){
+            if (![string isEqualToString:@""])
+            {
+                if(_passNum.field.text.length>0){
+                _loginBtn.backgroundColor=mainColor;
+                _loginBtn.userInteractionEnabled =YES;
+
+                }
+            }
+            if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
+            {
+                _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
+                _loginBtn.userInteractionEnabled =NO;
+            }
         }
-        if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
-        {
-           // _loginBtn.backgroundColor=gary221;
-            _loginBtn.userInteractionEnabled =NO;
-            
-           
-        }
+//    }else if (textField.tag==1){
+//        if (![string isEqualToString:@""])
+//        {
+//            _loginBtn.backgroundColor=mainColor;
+//            _loginBtn.userInteractionEnabled =YES;
+//            //self.breakVc.placholder .hidden = YES;
+//        }
+//        if ([string isEqualToString:@""] && range.location == 0 && range.length == 1)
+//        {
+//            _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
+//            _loginBtn.userInteractionEnabled =NO;
+//            
+//           
+//        }
 
     }
     return YES;
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
     if(textField.tag==0){
-        //_pinBtn.backgroundColor= gary221;
-            _pinBtn.userInteractionEnabled =NO;
+         _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
+         _loginBtn.userInteractionEnabled =NO;
         
     }else if (textField.tag==1){
-                   // _loginBtn.backgroundColor=gary221;
-            _loginBtn.userInteractionEnabled =NO;
+       _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
+        _loginBtn.userInteractionEnabled =NO;
         }
 
     
@@ -199,6 +214,8 @@
         _phoneNum = [[loginField  alloc]initWithFrame:CGRectMake(48,96+72+93, KScreenWidth-96, 34)];
         _phoneNum.field.placeholder = @"手机号码";
         _phoneNum.field.delegate  =self;
+        _phoneNum.field.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneNum.field.tag = 0;
     }
     return _phoneNum;
 }
@@ -207,7 +224,9 @@
         _passNum = [[loginField  alloc]initWithFrame:CGRectMake(48, _phoneNum.bottom+46,KScreenWidth-96, 34)];
         _passNum.field.placeholder = @"密码";
         _passNum.field.delegate  = self;
-        
+        _passNum.field.tag = 1;
+         _passNum.field.keyboardType = UIKeyboardTypeNumberPad;
+        _passNum.field.secureTextEntry=YES;
     }
     return _passNum;
 }
@@ -265,21 +284,22 @@
         _loginBtn.frame = CGRectMake(48, _passNum.bottom+83, KScreenWidth-96, 46);
         _loginBtn.layer.cornerRadius=4;
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
+         _loginBtn.backgroundColor=[UIColor colorWithRed:0.8 green:0.81 blue:0.82 alpha:1];
         _loginBtn.userInteractionEnabled=NO;
     }
     return _loginBtn;
 }
 
 - (void)loginBtnClick {
-   
-    if(self.imgStatue==NO){
+    [self sendRequest];
+   /* if(self.imgStatue==NO){
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"请同意用车服务条款！"
                                                        message:@""
                                                       delegate:self
                                              cancelButtonTitle:@"确定"
                                              otherButtonTitles:nil, nil];
         [alert show];
-    }else{
+    }else{*/
         
     if ([NSString isMobileNumber:self.phoneNum.field.text] && [NSString isIdentityNumber:self.passNum.field.text]) {
         
@@ -291,7 +311,7 @@
                                              cancelButtonTitle:@"确定"
                                              otherButtonTitles:nil, nil];
         [alert show];
-    }
+   // }
 }
 }
 
@@ -304,6 +324,7 @@
         [self.navigationController pushViewController:backVC animated:YES];
     }else if(sender.tag==1){
         //游客
+        [self setBaseVC];
     }else if(sender.tag==2){
         //注册
         CheakNumVC * cheakVC = [[CheakNumVC alloc]init];
@@ -311,13 +332,37 @@
         [self.navigationController pushViewController:cheakVC animated:YES];
     }
 }
-
+-(void)sendRequest{
+   
+    [self requestType:HttpRequestTypePost
+                  url:@""
+           parameters:@{
+                                                                            
+                      
+                         @"action"   : @"login",
+                         @"mobile"   : _phoneNum.field.text,
+                         @"password" : _passNum.field.text
+  
+                        }
+         successBlock:^(BaseModel *response) {
+             if([response.errorno  isEqualToString:@"0"]){
+                  [store putString:@"1" withId:@"load" intoTable:@"person"];
+                  [store putString:_phoneNum.field.text withId:@"phoneNum" intoTable:@"person"];
+                 NSLog(@"%@",[store getStringById:@"load" fromTable:@"person"]);
+                 [self setBaseVC];
+                  //[self dismissViewControllerAnimated:YES completion:nil];
+             }
+         } failureBlock:^(NSError *error) {
+             
+         }];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
+    [kNotificationCenter addObserver:self selector:@selector(getCheakStatus:) name:@"loadStatus" object:nil];
     [super viewWillAppear:YES];
     self.navigationController.navigationBar.hidden=YES;
     //监听通知
-   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPayResult:) name:@"backMeVC" object:nil];
+   
     
 }
 
@@ -330,12 +375,16 @@
   
 }
 #pragma mark - 事件
-- (void)getOrderPayResult:(NSNotification *)notification
+- (void)getCheakStatus:(NSNotification *)notification
 {
-   
+    NSLog(@"userInfo: %@",notification.userInfo);
+    NSLog(@"%@",notification.object);
+    if([notification.object isEqualToString:@"0"]){
+        self.visitor.userInteractionEnabled=NO;
+    }
    // [self dismissViewControllerAnimated:NO completion:nil];
     
-    [self alert:@"提示" msg:@"通知移除"];
+//[self alert:@"提示" msg:@"通知移除"];
 
 }
 
@@ -347,7 +396,7 @@
 }
 -(void)dealloc{
     //移除通知
-    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

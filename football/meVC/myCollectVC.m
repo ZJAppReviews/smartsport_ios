@@ -47,7 +47,7 @@
         CGFloat left = i * KScreenWidth;
         UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, KScreenWidth, kScrollViewHeight) style:UITableViewStylePlain];
         tab.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self showPlaceholderViewWithImage:nil message:@"没有记录" buttonTitle:@"去看看" centerOffsetY:0 onSuperView:tab];
+        [self showPlaceholderViewWithImage:Img(@"collect_no") message:@"没有记录" buttonTitle:@"去看看" centerOffsetY:0 onSuperView:tab];
         // tab.delegate   = self;
         // tab.dataSource = self;
         tab.tag = i;

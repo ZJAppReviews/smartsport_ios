@@ -63,6 +63,7 @@
 }
 
 - (void)viewDidLoad {
+    [self sendRequest];
     self.definesPresentationContext = YES;
     [super viewDidLoad];
     [self locate];
@@ -94,7 +95,11 @@
 
 }
 -(void)backItemClick{
+    if(![store getStringById:@"city" fromTable:@"person"]){
+        [SVProgressHUD showInfoWithStatus:@"请选择城市"];
+    }else{
     [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 -(void)loadData
@@ -410,5 +415,23 @@
     }
    
     
+}
+-(void)sendRequest{
+    appInfoModel * model = [appInfoModel yy_modelWithDictionary:[store getObjectById:@"urlInfo" fromTable:@"person"]];
+
+    
+
+    [RequestManager  requestWithType:HttpRequestTypePost urlString:model.source_url parameters:  @{
+                                                                                                   @"client_id" : model.app_key,
+                                                                                                   @"state" : model.seed_secret,
+                                                                                                   @"access_token" :model.access_token,
+                                                                                                   @"action":@"getCitys"
+                                                                                                   } successBlock:^(id response) {
+        DLog(@"%@",response);
+    } failureBlock:^(NSError *error) {
+        
+    } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        
+    }];
 }
 @end

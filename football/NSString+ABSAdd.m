@@ -8,7 +8,6 @@
 
 #import "NSString+ABSAdd.h"
 #import "CommonCrypto/CommonDigest.h"
-#import "Header.h"
 @implementation NSString (ABSAdd)
 
 //+(NSString *)MD5:(NSString *)str {
