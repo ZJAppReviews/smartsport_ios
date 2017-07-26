@@ -45,7 +45,7 @@
     [self.tabBar setBackgroundImage: [[UIImage alloc]init]];
 }
 -(void)addNavigationVC{
-    NSArray *titleArr       = @[@"资讯",@"青训",@"赛事",@"我"];
+    NSArray *titleArr       = @[@"资讯",@"青训",@"比赛",@"我"];
     NSArray *vcNameArr      = @[@"infor",@"youth",@"match",@"me"];
     NSArray *tabIconNameArr = @[@"i_infor",@"i_youth",@"i_match",@"i_me"];
     NSMutableArray *vcArr = [NSMutableArray array];

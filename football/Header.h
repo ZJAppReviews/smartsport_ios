@@ -41,10 +41,13 @@
 #define KGray2Color [UIColor lightGrayColor]
 #define KBlueColor [UIColor blueColor]
 #define KRedColor [UIColor redColor]
+#define KRgba(r,g,b,a)      [UIColor colorWithRed:r green:g blue:b alpha:a]
+#define KRgb(r,g,b)       [UIColor colorWithRed:r green:g blue:b alpha:1]
+#define KmainRed          [UIColor colorWithRed:1 green:0.18   blue:0.33 alpha:1]
 
 //字体
 
-#define FONT(NAME, FONTSIZE)    [UIFont fontWithName:(NAME) size:(FONTSIZE)]
+#define Font(NAME, FONTSIZE)    [UIFont fontWithName:(NAME) size:(FONTSIZE)]
 
 
 //定义UIImage对象
@@ -109,7 +112,7 @@ return shared##className; \
 
 //4.设置RGB颜色/设置RGBA颜色
 #define  RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-#define  RGBAColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(r)/255.0 blue:(r)/255.0 alpha:a]
+#define  RGBAColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 // clear背景颜色
 #define  ClearColor [UIColor clearColor]
 //设置图片

@@ -13,6 +13,9 @@
 #import "mathCell.h"
 #import "videoCell.h"
 #import "SDAutoLayout.h"
+//#import "signupVC.h"
+#import "NavigationVC.h"
+#import "matchDetailVC.h"
 
 @interface matchVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrView;
@@ -35,6 +38,8 @@
 }
 
 -(void)setSegmentedControl{
+
+    [self setLine];
     CGFloat const kSegmentedControlHeight = 44;
     NSArray *dataArray = @[@"赛事", @"直播"];
     self.segmentedControl = [self setSegframe:CGRectMake(45, 64, KScreenWidth-90, kSegmentedControlHeight) titleArr:dataArray space:90];
@@ -70,7 +75,12 @@
         [self.contentScrView setContentOffset:CGPointMake(selectedIndex * KScreenWidth, 0) animated:YES];
     }];
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    matchDetailVC * detaile = [[matchDetailVC alloc]init];
+    
+    NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:detaile];
+    [self presentViewController:nav animated:YES completion:nil];
+    }
 #pragma mark -
 #pragma mark - scrollView protocol methods
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -91,21 +101,30 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     if([tableView isEqual:self.leftTab]){
         Class currentClass = [mathCell class];
         mathCell * cell = nil;
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = nil;
+       WeakSelf(self);
+    cell.cheak = ^{
+          //跳转下单
+        matchDetailVC * detaile = [[matchDetailVC alloc]init];
+        
+        NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:detaile];
+        [weakself presentViewController:nav animated:YES completion:nil];
+        };
         return cell;
         
     }else {
-        NSLog(@"wqewqewqewqew");
+
         Class currentClass = [videoCell class];
         videoCell * cell = nil;
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
         cell.model = nil;
         return cell;
 
@@ -119,6 +138,13 @@
     
     
 }
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+//}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     

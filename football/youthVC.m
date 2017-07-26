@@ -33,7 +33,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)setSegmentedControl{
-    
+    [self setLine];
     CGFloat const kSegmentedControlHeight = 44;
     
     NSArray *dataArray = @[@"青训课程", @"在线教案"];

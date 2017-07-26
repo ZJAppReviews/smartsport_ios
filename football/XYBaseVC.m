@@ -119,11 +119,8 @@ NSString *const kName = @"Alun Chen";
     if(arr.count<=4){
         segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthFixed;
         segmentedControl.titleWidth = (KScreenWidth-space) /arr.count;
-        
     }else{
         segmentedControl.segmentedControlTitleSpacingStyle = LLSegmentedControlTitleSpacingStyleWidthAutoFit;
-        
-        
     }
     // lineWidthEqualToTextWidth 设置为YES, lineWidth 属性则不需设置
     segmentedControl.lineWidthEqualToTextWidth = YES;

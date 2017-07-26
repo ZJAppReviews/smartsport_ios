@@ -52,6 +52,7 @@
 }
 
 -(void)setSegmentedControl{
+    [self setLine];
     [self setNavLeftItemTitle:@"上海市" andImage:Img(@"zhankai") ];
     CGFloat const kSegmentedControlHeight = 44;
     

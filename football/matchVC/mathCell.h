@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class youthModel ;
+typedef void(^cheak)();
 @interface mathCell : UITableViewCell
 @property  (nonatomic,strong)youthModel * model;
+@property  (nonatomic,copy)cheak  cheak;
 @end
