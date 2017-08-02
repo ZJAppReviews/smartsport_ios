@@ -8,7 +8,7 @@
 
 #import "sampleVideoCell.h"
 #import "SDAutoLayout.h"
-#import "youthModel.h"
+#import "matchViewModel.h"
 @implementation sampleVideoCell
 {
     UIButton     * _pic;
@@ -89,13 +89,14 @@
 
     // Configure the view for the selected state
 }
--(void)setModelright:(youthModel *)modelright{
-    _modelright  = modelright;
+-(void)setModel:(matchViewModel *)model{
+    _model  = model;
     _title.text =@"新闻标题";
     
+    [_pic sd_setBackgroundImageWithURL:[NSURL URLWithString:_model.fileurl] forState:UIControlStateNormal];
     [_pic setImage:Img(@"playV") forState:UIControlStateNormal];
     _pic.imageEdgeInsets = UIEdgeInsetsMake(18, 38, 18, 38);
-    [_pic setBackgroundImage:Img(@"cat2.jpeg") forState:UIControlStateNormal];
+   
     _timer.text = @"2017-05-28";
     _num.text  = @"阅读:983";
 }

@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "myTeamModel.h"
+#import "myMatchModel.h"
+#import "myVideoModel.h"
 @interface appInfoModel : NSObject
 @property  (nonatomic,copy)NSString  * app_key;
 @property  (nonatomic,copy)NSString  * app_secret;
@@ -39,8 +41,37 @@
 @property  (nonatomic,copy)NSString  * idno;
 @property  (nonatomic,copy)NSString  * is_paydeposit;
 
+@property  (nonatomic,strong)NSArray  *level;
+@property  (nonatomic,strong)NSArray  *status;
+@property  (nonatomic,strong)NSArray  *type;
 
+@property  (nonatomic,copy)NSString  *address ;
+@property  (nonatomic,copy)NSString  *apply_num;
+@property  (nonatomic,copy)NSString  *county ;
+@property  (nonatomic,copy)NSString  *cover ;
+@property  (nonatomic,copy)NSString  *descrip;
+@property  (nonatomic,copy)NSString  *end_time;
+@property  (nonatomic,copy)NSString  *id ;
+@property  (nonatomic,copy)NSString  *levelV ;
+@property  (nonatomic,copy)NSString  *name ;
+@property  (nonatomic,copy)NSString  *price ;
+@property  (nonatomic,copy)NSString  *quota;
+@property  (nonatomic,copy)NSString  *sell_price;
+@property  (nonatomic,copy)NSString  *start_time;
+@property  (nonatomic,copy)NSString  *statusV ;
+@property  (nonatomic,copy)NSString  *surplus ;
+@property  (nonatomic,copy)NSString  *typeV ;
 
+@property  (nonatomic,strong)NSArray  *match_imgs;
 
+@property  (nonatomic,strong)NSArray  *match_video;
 
+@property  (nonatomic,strong)NSArray  *schedule;
+
+@property  (nonatomic,strong)myMatchModel * match;
+@property  (nonatomic,strong)myVideoModel  * video ;
+@property  (nonatomic,strong)myTeamModel  * myteam;
+
+@property  (nonatomic,copy)NSString   * team_name;
+@property  (nonatomic,strong)NSArray  * members;
 @end

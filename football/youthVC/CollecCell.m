@@ -8,13 +8,15 @@
 
 #import "CollecCell.h"
 #import "Masonry.h"
+#import "SDAutoLayout.h"
 #import "XYUIKit.h"
 @implementation CollecCell{
     UILabel  * title;
     UILabel  * num;
     UILabel  * detatile;
     UILabel  * time;
-    UIImageView * img;
+    UIImageView * backImg;
+    UIImageView * centerImg;
 }
 -(instancetype)initWithFrame:(CGRect)frame {
     if(self= [super initWithFrame:frame]){
@@ -26,52 +28,19 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     self.contentView.layer.borderWidth= 1;
     UIView *vc = self.contentView;
-    title = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter numberOfLines:1 text:nil fontSize:15];
-    [self.contentView addSubview:title];
-    [title mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(vc.mas_top).offset(10);
-        make.left.equalTo(vc.mas_left).offset(0);
-        make.right.equalTo(vc.mas_right).offset(0);
-        make.height.equalTo(@20);
-    }];
+    title = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:KBlackColor textAlignment:NSTextAlignmentLeft numberOfLines:1 text:nil fontSize:17];
     num = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter numberOfLines:1 text:nil fontSize:13];
     num.layer.borderWidth=1;
     
-    [self.contentView addSubview:num];
-    
-    [num mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(20, 20));
-        make.top.equalTo(vc.mas_top).offset(0);
-        make.right.equalTo(vc.mas_right).offset(0);
-    }];
     detatile  = [XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter numberOfLines:1 text:nil fontSize:12];
     [self.contentView addSubview:detatile];
-    
-    [detatile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(title.mas_bottom).offset(0);
-        make.left.equalTo(vc.mas_left).offset(0);
-        make.right.equalTo(vc.mas_right).offset(0);
-        make.height.equalTo(@15);
-    }];
     
     time =[XYUIKit labelWithBackgroundColor:[UIColor clearColor] textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter numberOfLines:1 text:nil fontSize:12];
     time.layer.cornerRadius =10;
     time.layer.borderWidth  = 1;
-    [self.contentView addSubview:time];
-    [time mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(70, 20));
-        make.bottom.equalTo(vc.mas_bottom).offset(-5);
-        make.left.equalTo(vc.mas_left).offset(10);
-    }];
     
-    img = [[UIImageView alloc]init];
-    img.backgroundColor = [UIColor blueColor];
-    [self.contentView addSubview:img];
-     [img mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.size.mas_equalTo(CGSizeMake(20, 20));
-         make.right.equalTo(vc.mas_right).offset(0);
-         make.centerY.equalTo(time);
-     }];
+    backImg = [[UIImageView alloc]init];
+    
     
     
 }

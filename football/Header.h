@@ -13,7 +13,7 @@
 
 #define mainColor       [UIColor colorWithHexString:@"#3CB963"]
 
-
+#define imgUrl(url)         [NSURL URLWithString:url] 
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]
 #define kAppWindow          [UIApplication sharedApplication].delegate.window

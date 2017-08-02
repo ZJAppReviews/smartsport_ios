@@ -17,9 +17,10 @@
 @implementation sampleVideoVC
 
 - (void)viewDidLoad {
+     self.index  =[NSIndexPath indexPathForRow:0 inSection:1];
     [super viewDidLoad];
     [self setSubview];
-    self.index  =[NSIndexPath indexPathForRow:0 inSection:1];
+   
 }
 -(void)setSubview{
     self.automaticallyAdjustsScrollViewInsets =NO;

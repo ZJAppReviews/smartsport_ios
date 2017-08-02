@@ -12,6 +12,12 @@
 #import "signUpsetCell.h"
 #import "orderVC.h"
 #import "sampleVideoVC.h"
+#import "addTeamVC.h"
+#import "appInfoModel.h"
+#import "myVideoModel.h"
+#import "myMatchModel.h"
+#import "myTeamModel.h"
+#import "myTeamVC.h"
 @interface signupVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView    * tab;
 @property (nonatomic,strong)NSMutableArray * groupArr;
@@ -21,6 +27,11 @@
 @property (nonatomic,strong)UIImageView    * hLine;
 @property (nonatomic,strong)UILabel        * hPrice;
 @property (nonatomic,strong)UILabel        * hOriginalprice;
+
+@property (nonatomic,strong) NSArray * arrInfo;
+@property (nonatomic,strong) myMatchModel * matchmodel;
+@property (nonatomic,strong) myVideoModel  * videomodel;
+@property (nonatomic,strong) myTeamModel  * teammodel;
 @end
 
 @implementation signupVC
@@ -30,12 +41,23 @@
     [self setSubview];
     // Do any additional setup after loading the view.
 }
-
+-(id)init{
+    if(self=[super init]){
+       self.tagID = [NSString string];
+    }
+    return self;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 -(void)setSubview{
+    self. arrInfo = @[
+                      @{@"title":@"报名球队",@"detaile":@"选择球队"},
+                      @{@"title":@"参数队员",@"detaile":@"人数"},
+                      @{@"title":@"联系人" , @"detaile":@"联系人姓名"},
+                      @{@"title":@"联系电话",@"detaile":@"66666666"}
+                      ];
     self.view.backgroundColor =KWhiteColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self. groupArr = [NSMutableArray array];
@@ -50,7 +72,8 @@
     self.tab.tableFooterView = [self footView];
 
     [self.view addSubview:self.tab];
-    [self setInfo];
+    
+   
     UIButton * btn = [XYUIKit buttonWithBackgroundColor:KRgb(1, 0.23, 0.19) titleColor:KWhiteColor title:@"去支付" fontSize:20];
     [btn addTarget:self action:@selector(goOrder:) forControlEvents:UIControlEventTouchUpInside];
     btn.frame = CGRectMake(0, KScreenHeight-46, KScreenWidth, 46);
@@ -81,11 +104,12 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if(indexPath.row==0){
             cell.title.text = @"购买定制视屏";
-            cell.price.text = @"¥299";
-            cell.detile.text = @"定制视屏A";
+            cell.price.text = [NSString stringWithFormat:@"¥%@", self.videomodel.sell_price];
+            cell.detile.text = self.videomodel.name;
         }else if(indexPath.row==1){
             cell.title.text = @"商品总金额";
-            cell.countprice.text = @"¥1298";
+            
+            cell.countprice.text = [NSString stringWithFormat:@"¥%d",[self.matchmodel.sell_price intValue]+[self.videomodel.sell_price intValue] ];
             cell.imgR.alpha=0;
         }
       
@@ -94,12 +118,11 @@
         signUpsetCell * cell=nil;
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([signUpsetCell class])];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.title.text=@"商品金额";
+      
         if(indexPath.row==1){
             cell.img.alpha=0;
         }
-        cell.title .text =@"标题";
-        cell.detile.text =@"显示内容";
+        cell.dic =self.arrInfo[indexPath.row];
         return cell;
     }else{
         return nil;
@@ -124,6 +147,15 @@
             [self.navigationController pushViewController:sample animated:YES];
             
         }
+    }else if (indexPath.section==1){
+        if(indexPath.row==0){
+            myTeamVC * teamVC = [[myTeamVC alloc]init];
+            
+            
+            teamVC.from =@"signup";
+            
+            [self.navigationController pushViewController:teamVC  animated:YES];
+        }
     }
 }
 -(UIView *)footView{
@@ -142,6 +174,8 @@
     UIView * head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 140)];
     
     self.hIcon  = [[UIImageView alloc]init];
+    _hIcon.contentMode = UIViewContentModeScaleAspectFill;
+    _hIcon.layer.masksToBounds =YES;
     self.hTitle = [XYUIKit labelWithTextColor:KRgb(0.07, 0.07, 0.07) numberOfLines:0 text:nil fontSize:13];
     self.hTimeaddress = [XYUIKit labelWithTextColor:KGrayColor numberOfLines:0 text:nil fontSize:13];
     self.hLine =[[UIImageView alloc]init];
@@ -190,11 +224,11 @@
     return head;
 }
 -(void)setInfo{
-    self.hIcon .image = Img(@"cat.jpeg");
-    self.hTitle.text =@"标题标题标题标题标题标题标题标题标题标题标题标题标题标题";
-    self.hTimeaddress .text = @"2017-05-28 | 上海市虹口体育馆 ";
-    self.hPrice.text = @"¥199";
-    self.hOriginalprice.text = @"100";
+    [self.hIcon  sd_setImageWithURL:imgUrl(self.matchmodel.cover) placeholderImage:nil];
+    self.hTitle.text =self.matchmodel.name;
+    self.hTimeaddress .text =  [NSString stringWithFormat:@"%@|%@",self.matchmodel.start_time,self.matchmodel.county];
+    self.hPrice.text =  [NSString stringWithFormat:@"¥%@ ",self.matchmodel.sell_price];
+    self.hOriginalprice.text = self.matchmodel.price;
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,5 +254,37 @@
     orderVC * order = [[orderVC alloc]init];
     [self.navigationController pushViewController:order animated:YES];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestType:HttpRequestTypePost
+                  url:nil
+           parameters:
+         @{
+         @"action"   : @"matchApply",
+          @"match_id": self.tagID
+           }
+         successBlock:^(BaseModel *response) {
+             if([response.errorno isEqualToString:@"0"]){
+                 
+                 
+                 self.matchmodel =response.data.match;
+                 self.videomodel =response.data.video;
+                 self.teammodel  =response.data.myteam;
+                 self. arrInfo = @[
+                                   @{@"title":@"报名球队",@"detaile":self.teammodel.team_name},
+                                   @{@"title":@"参数队员",@"detaile":self.teammodel.members},
+                                   @{@"title":@"联系人" , @"detaile":self.teammodel.coath_name},
+                                   @{@"title":@"联系电话",@"detaile":@"66666666"}
+                                   ];
+                     [self setInfo];
+                 [self.tab reloadData];
+             }
+            // mymatchModel * matchmodel;
+            //  myViewModel  * videomodel;
+            // myTeamModel  * teammodel;
+    
+} failureBlock:^(NSError *error) {
+    
+}];
+}
 @end

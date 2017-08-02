@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class youthModel;
+@class matchViewModel;
 @interface sampleVideoCell : UITableViewCell
-@property (nonatomic,strong)youthModel * modelright;
+@property (nonatomic,strong)matchViewModel * model;
 @end

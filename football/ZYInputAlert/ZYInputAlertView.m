@@ -69,7 +69,7 @@
     self.inputTextView.placeholderColor = [UIColor colorWithRed:184/255.0 green:184/255.0 blue:184/255.0 alpha:1];
     self.confirmBtn.enabled = NO;
     self.confirmBtn.backgroundColor = [UIColor grayColor];
-    self.confirmBtn.layer.opacity = 0.5;
+   // self.confirmBtn.layer.opacity = 0.5;
 }
 
 #pragma mark - 设置控件圆角
@@ -108,7 +108,7 @@
     self.becloudView = becloudView;
     
     self.confirmBtn.backgroundColor = [UIColor lightGrayColor];
-    self.confirmBtn.layer.opacity = 0.5;
+    //self.confirmBtn.layer.opacity = 0.5;
     
     // 输入框
     self.frame = CGRectMake(0, 0, becloudView.frame.size.width * 0.8, becloudView.frame.size.height * 0.3);

@@ -64,7 +64,7 @@
                 <outlet property="confirmBtn" destination="WZe-oh-mWc" id="90g-uU-B8Y"/>
                 <outlet property="inputTextView" destination="R1y-Kr-pZt" id="dVL-cO-SN0"/>
             </connections>
-            <point key="canvasLocation" x="209" y="70"/>
+            <point key="canvasLocation" x="23" y="9"/>
         </view>
     </objects>
     <resources>

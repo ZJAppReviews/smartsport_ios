@@ -13,11 +13,11 @@
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "youthCollecCell.h"
 
-@interface youthVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface youthVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentSrcView;
 @property (nonatomic,strong)ABSSegmentCate * segmentedControl;
 @property (nonatomic,strong)UITableView    * leftTab;
-@property (nonatomic,strong)UITableView    * rightTab;
+@property (nonatomic,strong)UICollectionView    * rightColl;
 @end
 
 @implementation youthVC
@@ -51,24 +51,18 @@
     
        self.contentSrcView.pagingEnabled = YES;
 
-        for (int i = 0; i < dataArray.count; i ++) {
-            CGFloat left = i * KScreenWidth;
+  
+            CGFloat left =  KScreenWidth;
             UITableView * tab = [[UITableView alloc]initWithFrame:CGRectMake(left, 0, KScreenWidth, kScrollViewHeight) style:UITableViewStylePlain];
             tab.separatorStyle = UITableViewCellSeparatorStyleNone;
             tab.delegate = self;
             tab.dataSource = self;
           [self.contentSrcView addSubview:tab];
-            if(i==0){
+           
                 [tab  registerClass:[youthCell class] forCellReuseIdentifier:NSStringFromClass([youthCell class])];
-                
-                
-                self.leftTab=tab;
-            }else{
-                [tab registerClass:[youthCollecCell class] forCellReuseIdentifier:NSStringFromClass([youthCollecCell class])];
-                self.rightTab = tab;
-                              
-            }
-        }
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+    self.rightColl = [[UICollectionView  alloc]initWithFrame:CGRectMake(left*2, 0, left, kScrollViewHeight) collectionViewLayout:layout];
+        [self.contentSrcView addSubview:self.rightColl];
     
     [_segmentedControl segmentedControlSelectedWithBlock:^(ABSSegmentCate *segmentedControl, NSInteger selectedIndex) {
         NSLog(@"selectedIndex : %zd", selectedIndex);
@@ -93,7 +87,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    if([tableView isEqual:self.leftTab]){
+ 
         Class currentClass = [youthCell class];
         youthCell * cell = nil;
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
@@ -101,15 +95,7 @@
         cell.model = nil;
         return cell;
         
-    }else {
-        Class currentClass = [youthCollecCell class];
-        youthCollecCell*cell = nil;
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
-        cell.str =@"wq";
-        return cell;
     }
-    
     ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
     
     //    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
@@ -117,21 +103,16 @@
     ///////////////////////////////////////////////////////////////////////
     
     
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if([tableView isEqual:self.leftTab]){
 //    int index = indexPath.row % 5;
 //    NSString *str = _textArray[index];
     
     // >>>>>>>>>>>>>>>>>>>>> * cell自适应步骤2 * >>>>>>>>>>>>>>>>>>>>>>>>
     /* model 为模型实例， keyPath 为 model 的属性名，通过 kvc 统一赋值接口 */
-        return [tableView cellHeightForIndexPath:indexPath model:@"wqewqewq" keyPath:@"model" cellClass:[youthCell class] contentViewWidth:[self cellContentViewWith]];}
-    else{
-        return 205;
+        return [tableView cellHeightForIndexPath:indexPath model:@"wqewqewq" keyPath:@"model" cellClass:[youthCell class] contentViewWidth:[self cellContentViewWith]];
     }
-}
 
 
 - (CGFloat)cellContentViewWith

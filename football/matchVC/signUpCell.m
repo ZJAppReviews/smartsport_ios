@@ -47,8 +47,11 @@
     
     self.detile.sd_layout
     .rightSpaceToView(self.imgR, 12)
-    .centerYEqualToView(self.title);
-    [self.detile setSingleLineAutoResizeWithMaxWidth:180];
+    .centerYEqualToView(self.title)
+    .leftSpaceToView(self.price, 5)
+    .heightIs(13);
+    
+    //[self.detile setSingleLineAutoResizeWithMaxWidth:180];
     
     self.countprice.sd_layout
     .rightSpaceToView(vc, 23)

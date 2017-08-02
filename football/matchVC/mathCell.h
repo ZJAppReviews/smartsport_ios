@@ -12,4 +12,5 @@ typedef void(^cheak)();
 @interface mathCell : UITableViewCell
 @property  (nonatomic,strong)youthModel * model;
 @property  (nonatomic,copy)cheak  cheak;
+@property  (nonatomic,strong)NSMutableDictionary   *dic;
 @end

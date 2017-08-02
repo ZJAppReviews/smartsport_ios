@@ -12,4 +12,5 @@
 @property  (nonatomic,strong)  UIImageView * img;
 @property  (nonatomic,strong)  UILabel * title;
 @property  (nonatomic,strong)  UILabel * detile;
+@property  (nonatomic,strong) NSDictionary * dic;
 @end

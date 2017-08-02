@@ -59,5 +59,10 @@
     [self.detile setSingleLineAutoResizeWithMaxWidth:180];
     
     }
-
+-(void)setDic:(NSDictionary *)dic{
+    _dic= dic;
+  
+    self.title.text =[_dic objectForKey:@"title"];
+    self.detile.text = [_dic objectForKey:@"detaile"];
+}
 @end

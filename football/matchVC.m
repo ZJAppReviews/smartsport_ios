@@ -16,17 +16,24 @@
 //#import "signupVC.h"
 #import "NavigationVC.h"
 #import "matchDetailVC.h"
+#import "matchSelectVC.h"
+#import "zhiBoVC.h"
 
-@interface matchVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface matchVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectInfodelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrView;
 @property  (nonatomic,strong)ABSSegmentCate  *segmentedControl;
 @property (nonatomic,strong)UITableView    * leftTab;
 @property (nonatomic,strong)UITableView    * rightTab;
+
+@property (nonatomic,strong)NSMutableArray * leftArr;
+@property (nonatomic,strong)NSMutableDictionary  * dic;
 @end
 
 @implementation matchVC
-
 - (void)viewDidLoad {
+    self.dic =[NSMutableDictionary  dictionary];
+
+    self.leftArr = [NSMutableArray array];
     [super viewDidLoad];
     [self setSegmentedControl];
     // Do any additional setup after loading the view.
@@ -36,9 +43,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)rightItemClick:(id)sender{
+    matchSelectVC * select = [[matchSelectVC alloc]init];
+    select.seledelegate=self;
+    NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:select];
+    [self presentViewController:nav animated:YES completion:nil];
 
+}
+-(void)setRequest:(NSMutableDictionary *)dic{
+    [self.dic addEntriesFromDictionary:dic];
+   }
 -(void)setSegmentedControl{
-
+    [self setNavRightItemTitle:nil andImage:Img(@"select")];
     [self setLine];
     CGFloat const kSegmentedControlHeight = 44;
     NSArray *dataArray = @[@"赛事", @"直播"];
@@ -71,22 +87,39 @@
     
     [_segmentedControl segmentedControlSelectedWithBlock:^(ABSSegmentCate *segmentedControl, NSInteger selectedIndex) {
         NSLog(@"selectedIndex : %zd", selectedIndex);
-        
+        if(selectedIndex ==0){
+             [self setNavRightItemTitle:nil andImage:Img(@"select")];
+        }else{
+             [self setNavRightItemTitle:nil andImage:nil];
+        }
         [self.contentScrView setContentOffset:CGPointMake(selectedIndex * KScreenWidth, 0) animated:YES];
     }];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    matchDetailVC * detaile = [[matchDetailVC alloc]init];
     
+    if(tableView==self.leftTab){
+    matchDetailVC * detaile = [[matchDetailVC alloc]init];
+    NSDictionary * dic = self.leftArr[indexPath.row];
+    detaile.idTag =[dic objectForKey:@"id"];
     NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:detaile];
     [self presentViewController:nav animated:YES completion:nil];
-    }
+    
+    }else{
+        zhiBoVC *zhibo = [[zhiBoVC alloc]init];
+       NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:zhibo];
+        [self presentViewController:nav animated:YES completion:nil];}
+}
 #pragma mark -
 #pragma mark - scrollView protocol methods
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if([scrollView isEqual:self.contentScrView]){
     NSInteger const kPageIndex = scrollView.contentOffset.x / KScreenWidth;
     // [self.segmentedControl segmentedControlSetSelectedIndexWithSelectedBlock:kPageIndex];
+        if(kPageIndex == 0){
+            [self setNavRightItemTitle:nil andImage:Img(@"select")];
+        }else{
+            [self setNavRightItemTitle:nil andImage:nil];
+        }
     // 重设选中位置
     [self.segmentedControl segmentedControlSetSelectedIndex:kPageIndex];
     }
@@ -94,7 +127,7 @@
  
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if([tableView isEqual:self.leftTab]){
-        return 4;
+        return self.leftArr.count;
     }else{
         return 4;}
 }
@@ -107,15 +140,18 @@
         mathCell * cell = nil;
         cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.model = nil;
-       WeakSelf(self);
-    cell.cheak = ^{
+        cell.dic = self.leftArr[indexPath.row];
+        
+      // WeakSelf(self);
+   /* cell.cheak = ^{
           //跳转下单
         matchDetailVC * detaile = [[matchDetailVC alloc]init];
+        NSDictionary * dic = self.leftArr[indexPath.row];
+        detaile.idTag =[dic objectForKey:@"id"];
         
         NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:detaile];
         [weakself presentViewController:nav animated:YES completion:nil];
-        };
+        };*/
         return cell;
         
     }else {
@@ -173,4 +209,56 @@
     }
     return width;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    appInfoModel * model = [appInfoModel yy_modelWithDictionary:[store getObjectById:@"urlInfo" fromTable:@"person"]];
+    NSMutableDictionary  * dic =[NSMutableDictionary  dictionary];
+
+    if(self.dic){
+        [dic addEntriesFromDictionary:self.dic];
+        
+    }
+    
+    [ dic addEntriesFromDictionary:@{
+                                     @"client_id" : model.app_key,
+                                     @"state" : model.seed_secret,
+                                     @"access_token" :model.access_token,
+                                     @"action"       : @"getMatchList",
+                                     @"page"         : @"1"
+                                     }];
+    [RequestManager requestWithType:HttpRequestTypePost
+                          urlString:model.source_url
+                         parameters:dic
+                       successBlock:^(id response){
+                           [self.leftArr removeAllObjects];
+                           NSLog(@"%@",response);
+                           [self.leftArr addObjectsFromArray:[response objectForKey:@"data"]];
+                           [self.leftTab reloadData];
+                       }failureBlock:^(NSError *error) {
+                           
+                       } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+                           
+                       }];
+
+   /* NSDictionary * dic =@{
+                          @"action" : @"getMatchList",
+                          // @"page" : @"2",    //选填 页数
+                          // @"type" : @"11",   //选填 赛事赛制
+                           //@"status" :@"1",   //选填 比赛状态 1报名中2进行中
+                          // @"level" : @"19",  //选填  比赛级别
+                          // @"city" :@"310100",  //选填 城市id
+                           //@"county" : @"310104"  //选填  区县id
+
+                          };
+    [self requestType:HttpRequestTypePost url:nil parameters:dic  successBlock:^(BaseModel *response) {
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];*/
+    
+    
+}
+
+
 @end

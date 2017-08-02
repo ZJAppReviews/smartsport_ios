@@ -14,4 +14,6 @@
 @property (nonatomic,copy) NSString  * status;
 @property (nonatomic,copy) NSString  * errmsg;
 @property (nonatomic,copy) NSString  * message;
+@property (nonatomic,copy) NSString  * team_id;
+
 @end

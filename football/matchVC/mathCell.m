@@ -9,6 +9,8 @@
 #import "mathCell.h"
 #import "SDAutoLayout.h"
 #import "XYUIKit.h"
+#import "matchleftcellModel.h"
+
 @implementation mathCell{
     UIImageView * _head;
     UIImageView * _pic ;
@@ -48,7 +50,8 @@
     _head = head;
     
     UIImageView  * pic = [[UIImageView alloc]init];
-    pic.backgroundColor = [UIColor orangeColor];
+    pic.layer.masksToBounds=YES;
+    pic.contentMode =UIViewContentModeScaleAspectFill;
     _pic = pic ;
     
     UILabel      * tag = [XYUIKit labelWithBackgroundColor:[UIColor greenColor] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter numberOfLines:1 text:nil fontSize:13];
@@ -92,6 +95,7 @@
     btn.layer.borderWidth = 1;
     btn.layer.borderColor = mainColor.CGColor ;
     _btn = btn ;
+    _btn.userInteractionEnabled=NO;
     [btn addTarget:self action:@selector(selectFoundation) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView sd_addSubviews:@[head,pic,tag,title,timeadreess,match,personnum,line,price,originalprice ,num,btn]];
     UIView *vc = self.contentView;
@@ -149,7 +153,7 @@
     .topSpaceToView(_line, 10)
     .leftSpaceToView(vc, 25)
     .heightIs(24);
-    [_price setSingleLineAutoResizeWithMaxWidth:60];
+    [_price setSingleLineAutoResizeWithMaxWidth:100];
     
     _originalprice.sd_layout
     .leftSpaceToView(_price, 10)
@@ -190,6 +194,30 @@
     //_originalprice.text = @"¥666.0";
     [_btn setTitle:@"我要报名" forState:UIControlStateNormal];
     _num.text = @"还剩6个名额";
+    
+}
+- (void)setDic:(NSMutableDictionary *)dic{
+    _dic =dic;
+    matchleftcellModel *model = [matchleftcellModel yy_modelWithDictionary:dic];
+   
+    [_pic sd_setImageWithURL: [NSURL URLWithString:model.cover] placeholderImage:nil];
+    _tag.text = model.status;
+    _title.text = model.name;   //@"这里是赛事标题最多两行，以写成自动适配";
+    _timeadreess.text =  [NSString stringWithFormat:@"%@至%@|%@",model.start_time,model.end_time,model.address];  //@"2017-05-28至2017-05-29|上海体育馆";
+    _match.text = [NSString stringWithFormat:@" %@ ",model.level];//@" U16 ";
+    _personnum.text = [NSString stringWithFormat:@" %@ ",model.type];//@" 11人 ";
+    _price.text  =[NSString stringWithFormat:@"¥%@",model.sell_price];
+    //_originalprice.text = @"¥666.0";
+    [_btn setTitle:@"我要报名" forState:UIControlStateNormal];
+    _num.text = [NSString   stringWithFormat:@"还剩%@个名额",model.surplus] ;
+    if([model.status isEqualToString:@"报名中"]){
+        _tag.backgroundColor = mainColor ;
+    }else if([model.status isEqualToString:@"直播中"]){
+         _tag.backgroundColor = KRgb(0.35, 0.78, 0.98) ;
+    }else{
+        _tag.backgroundColor = RGBColor(204, 204, 204) ;
+    }
+
     
 }
 @end

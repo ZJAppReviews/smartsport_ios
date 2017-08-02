@@ -110,8 +110,8 @@
     [_dataArray addObject:_locationCity];
     
     //最近访问
-    NSArray *recentArray=[NSArray arrayWithObjects:@"青岛市",@"济南市",@"深圳市",@"长沙市",@"无锡市", nil];
-    [_dataArray addObject:recentArray];
+    //NSArray *recentArray=[NSArray arrayWithObjects:@"青岛市",@"济南市",@"深圳市",@"长沙市",@"无锡市", nil];
+   // [_dataArray addObject:recentArray];
     
     //热门城市
     NSArray *hotCity=[NSArray arrayWithObjects:@"广州市",@"北京市",@"天津市",@"西安市",@"重庆市", nil];
@@ -133,12 +133,13 @@
     [_keys addObjectsFromArray:[[_allCitysDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)]];
     
     //添加多余三个索引
-    [_keys insertObject:@"当前" atIndex:0];
-    [_allCitysDictionary setObject:hotCity forKey:@"当前"];
-     [_keys insertObject:@"历史" atIndex:0];
-    [_allCitysDictionary setObject:recentArray forKey:@"历史"];
+   
+// [_keys insertObject:@"历史" atIndex:0];
+ //   [_allCitysDictionary setObject:recentArray forKey:@"历史"];
      [_keys insertObject:@"热门" atIndex:0];
-    [_allCitysDictionary setObject:_locationCity forKey:@"热门"];
+    [_allCitysDictionary setObject:hotCity forKey:@"热门"];
+    [_keys insertObject:@"当前" atIndex:0];
+    [_allCitysDictionary setObject:_locationCity forKey:@"当前"];
 }
 -(void)initTableView
 {
@@ -179,7 +180,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    if (section<=2) {
+    if (section<=1) {
         return 1;
     }else{
         
@@ -198,7 +199,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section<=2) {
+    if (indexPath.section<=1) {
         
         return [CityViewCell getHeightWithCityArray:_dataArray[indexPath.section]];
     }else{
@@ -211,7 +212,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section<=2) {
+    if (indexPath.section<=1) {
         
         static NSString *identfire=@"Cell";
         
@@ -271,11 +272,12 @@
         _CellHeadView.TitleLable.text=@"最近访问";
         
     }
-    else if (section==2){
+    //else if (section==2){
         
-        _CellHeadView.TitleLable.text=@"热门城市";
+      //  _CellHeadView.TitleLable.text=@"热门城市";
         
-    }else{
+   // }
+    else{
     
       _CellHeadView.TitleLable.text=_keys[section];
     }

@@ -9,10 +9,16 @@
 #import "XYBaseVC.h"
 
 @interface matchDetailVC : XYBaseVC
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrHeight;
+@property (weak, nonatomic) IBOutlet UIImageView *headImg;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headTabHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomTabHeight;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UICollectionView *myColl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomButHeight;
+@property (weak, nonatomic) IBOutlet UIButton *bottomBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mycollHeight;
 
+@property (nonatomic,copy)  NSString  * idTag;
 @end

@@ -9,5 +9,5 @@
 #import "XYBaseVC.h"
 
 @interface signupVC : XYBaseVC
-
+@property (nonatomic,strong)NSString  * tagID;
 @end

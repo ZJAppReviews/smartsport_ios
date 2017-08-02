@@ -20,13 +20,14 @@
 #import "myMemberVC.h"
 #import "myVideoVC.h"
 #import "InfoSetVC.h"
+#import "myTeamVC.h"
 @interface meVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView       * tab;
 @property (strong, nonatomic) UIButton          * right;
 @property (strong, nonatomic) UIButton          * left;
 @property (nonatomic ,strong) UILabel           * meLab;
 @property (strong, nonatomic) NSMutableArray    * arr;
-@property (strong ,nonatomic)    meHeadView * vic;
+@property (strong ,nonatomic) meHeadView        * vic;
 
 
 
@@ -171,31 +172,33 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
        self.hidesBottomBarWhenPushed=YES;
-    if(indexPath.section ==0){
-        if(indexPath.row==0){
+    if(indexPath.section == 0){
+        if(indexPath.row == 0){
             
             myClassVC *classVC=[[myClassVC    alloc]init];
             [self.navigationController pushViewController:classVC animated:YES];
             
-        }else if(indexPath.row==1){
+        }else if(indexPath.row == 1){
             
             myCollectVC  *collectVC=[[  myCollectVC     alloc]init];
             [self.navigationController pushViewController:collectVC animated:YES];
             
             
-        }else if(indexPath.row ==2){
+        }else if(indexPath.row == 2){
             myVideoVC * videoVC = [[myVideoVC alloc]init];
             [self.navigationController pushViewController:videoVC animated:YES];
 
-        }else if(indexPath.row ==3){
-            myVideoVC * videoVC = [[myVideoVC alloc]init];
-            [self.navigationController pushViewController:videoVC animated:YES];
+        }else if(indexPath.row == 3){
+            myTeamVC * teamVC = [[myTeamVC alloc]init];
+            teamVC.from = @"me";
+            NavigationVC * nav = [[NavigationVC alloc]initWithRootViewController:teamVC];
+            [self presentViewController:nav  animated:YES completion:nil];
             
         }
-    }else if(indexPath.section==1){
+    }else if(indexPath.section == 1){
        
         
-    }else if(indexPath.section==2){
+    }else if(indexPath.section == 2){
         if(indexPath.row ==0){
             myMemberVC * memberVC = [[myMemberVC alloc]init];
             [self.navigationController pushViewController:memberVC animated:YES];
@@ -204,7 +207,7 @@
             [self.navigationController pushViewController:orderVC animated:YES];
         }
     }
-     self.hidesBottomBarWhenPushed=NO;
+     self.hidesBottomBarWhenPushed = NO;
 }
 
 
@@ -212,9 +215,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {   [super viewWillAppear:YES];
-    self.navigationController.navigationBar.hidden=YES;
+    self.navigationController.navigationBar.hidden = YES;
     if([store getStringById:@"load" fromTable:@"person"]){
-        _vic.nameBtn.userInteractionEnabled=NO;
+        _vic.nameBtn.userInteractionEnabled = NO;
         _vic.vipBtn .userInteractionEnabled = NO;
         [_vic.nameBtn setTitle:@"已登陆" forState:UIControlStateNormal];
         [_vic.vipBtn setTitle:[store getStringById:@"phoneNum" fromTable:@"person"] forState:UIControlStateNormal];
