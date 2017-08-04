@@ -15,6 +15,7 @@
 @property (nonatomic,strong) NSMutableArray * arr;
 @property (nonatomic,strong)NSMutableArray  * arrName;
 @property (nonatomic,strong)NSMutableArray  * arrInfo;
+@property (nonatomic,strong)NSMutableArray  * tabArr;
 @end
 
 @implementation ScheduleVC
@@ -27,6 +28,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tabArr  =[NSMutableArray array];
     self.arr     =[NSMutableArray array];
     self.arrName =[NSMutableArray array];
     self.arrInfo =[NSMutableArray array];
@@ -67,8 +69,9 @@
         tab.tableHeaderView = [self headView];
         [self.contentScrView addSubview:tab];
         [tab registerNib:[UINib nibWithNibName:@"sampleMatchCell" bundle:nil] forCellReuseIdentifier:@"sampleMatchCell"];
+         [self.tabArr addObject:tab];
             }
-    
+   
     [_segmentedControl segmentedControlSelectedWithBlock:^(ABSSegmentCate *segmentedControl, NSInteger selectedIndex) {
         NSLog(@"selectedIndex : %zd", selectedIndex);
         
@@ -88,19 +91,35 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   
-        return 4;
+    for (int i=0; i<self.arr.count; i++) {
+        if(tableView.tag ==i){
+            NSDictionary * dic = self.arr[i];
+            NSArray * arr =[dic objectForKey:@"list"];
+            return arr.count;
+        }
+    }
+        return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        Class currentClass = [sampleMatchCell class];
-        sampleMatchCell * cell = nil;
-        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+    for (int i=0; i<self.arr.count; i++) {
+        if(tableView.tag ==i){
+            NSDictionary * dic = self.arr[i];
+            NSArray * arr =[dic objectForKey:@"list"];
+            Class currentClass = [sampleMatchCell class];
+            sampleMatchCell * cell = nil;
+           
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+             cell.dic =arr[indexPath.row];
+            return cell;
+        }
+    }
     
+    return nil;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -126,7 +145,7 @@
                            @"state"        : model.seed_secret,
                            @"access_token" : model.access_token,
                            @"action" : @"getSchedule",
-                           @"match_id" : self.idTag
+                           @"match_id" : @"1"
                            
                            };
     
@@ -137,30 +156,15 @@
                            NSLog(@"response===%@",response);
                            [self.arr removeAllObjects];
                            if([[response objectForKey:@"errno"] isEqualToString:@"0"]){
-                               [self.arr addObjectsFromArray:[response objectForKey:@"data"]];
-                              // [self.tab  reloadData];
-                           }
+                            [self.arr addObjectsFromArray:[response objectForKey:@"data"]];
+                            [self setSubview ];
+                                                         }
                        }failureBlock:^(NSError *error) {
                            
                        } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
                            
                        }];
     
-    /* NSDictionary * dic =@{
-     @"action" : @"getMatchList",
-     // @"page" : @"2",    //选填 页数
-     // @"type" : @"11",   //选填 赛事赛制
-     //@"status" :@"1",   //选填 比赛状态 1报名中2进行中
-     // @"level" : @"19",  //选填  比赛级别
-     // @"city" :@"310100",  //选填 城市id
-     //@"county" : @"310104"  //选填  区县id
-     
-     };
-     [self requestType:HttpRequestTypePost url:nil parameters:dic  successBlock:^(BaseModel *response) {
-     
-     } failureBlock:^(NSError *error) {
-     
-     }];*/
     
     
 }

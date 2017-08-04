@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class youthModel;
-@interface videoCell : UITableViewCell
+@interface videoCellll : UITableViewCell
 @property (nonatomic,strong)youthModel   * model;
 @end

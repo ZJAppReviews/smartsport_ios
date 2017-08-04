@@ -9,5 +9,5 @@
 #import "XYBaseVC.h"
 
 @interface zhiBoVC : XYBaseVC
-
+@property (nonatomic, retain)NSString * URLString;
 @end

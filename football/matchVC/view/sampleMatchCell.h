@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface sampleMatchCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *homelogo;
+@property (weak, nonatomic) IBOutlet UILabel *homename;
+@property (weak, nonatomic) IBOutlet UILabel *round;
+@property (weak, nonatomic) IBOutlet UILabel *status;
+@property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UIImageView *awaylogo;
+@property (weak, nonatomic) IBOutlet UILabel *awayname;
+@property  (nonatomic,strong)NSDictionary  * dic;
 @end

@@ -64,8 +64,6 @@ static const float RealSrceenWidth =  375.0;
         __block typeof(self) weakSelf = self;
 
         ZYInputAlertView *alertView = [ZYInputAlertView alertView];
-        alertView.inputTextView.keyboardType = UIKeyboardTypeNumberPad;
-        
         alertView.placeholder = @"球员姓名" ;
         [alertView confirmBtnClickBlock:^(NSString *inputString) {
             

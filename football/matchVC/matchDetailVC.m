@@ -220,6 +220,7 @@
             if(indexPath.row==1){
                  if([self.model.statusV isEqualToString:@"报名中"]){
                 dataAnalysisVC * analysis = [[dataAnalysisVC alloc]init];
+                      analysis.matchID =self.model.id;
                      [self.navigationController pushViewController:analysis animated:YES];
                  }
             } else if(indexPath.row==2){
@@ -236,8 +237,10 @@
             }
            }
          }else{
-             if(indexPath.row==1){ if([self.model.statusV isEqualToString:@"报名中"]){
+             if(indexPath.row==1){
+                 if(![self.model.statusV isEqualToString:@"报名中"]){
                  dataAnalysisVC * analysis = [[dataAnalysisVC alloc]init];
+                 analysis.matchID =self.model.id;
                  [self.navigationController pushViewController:analysis animated:YES];
               }
              } else if(indexPath.row==2){

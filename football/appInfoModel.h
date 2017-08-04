@@ -74,4 +74,9 @@
 
 @property  (nonatomic,copy)NSString   * team_name;
 @property  (nonatomic,strong)NSArray  * members;
+@property   (nonatomic,strong)NSArray  * rows;
+@property  (nonatomic,strong) NSString *player;
+@property  (nonatomic,strong) NSString *coach;
+@property  (nonatomic,strong) NSString *assists;
+
 @end

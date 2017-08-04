@@ -9,5 +9,6 @@
 #import "XYBaseVC.h"
 
 @interface dataAnalysisVC : XYBaseVC
-
+@property (nonatomic,copy) NSString * matchID
+;
 @end

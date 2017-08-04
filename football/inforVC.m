@@ -222,6 +222,16 @@
     }
     return width;
 }
+//支持的屏幕方向
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+//是否允许改变横竖屏（开关）
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
 
 #pragma mark -
 #pragma mark - scrollView protocol methods

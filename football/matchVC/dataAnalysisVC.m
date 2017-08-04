@@ -21,7 +21,13 @@
 @end
 
 @implementation dataAnalysisVC
-
+-(id)init{
+    if(self = [super init]){
+        self.matchID = [NSString string];
+    }
+    
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setSubview];
@@ -183,6 +189,47 @@
     rightLab.frame = CGRectMake(KScreenWidth-48, 7, 40, 18);
     [right  addSubview: rightLab];
     return right;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [self requestType:HttpRequestTypePost
+                  url:nil
+           parameters:@{
+                        @"action":@"viewMatchAnalysis",
+                        @"match_id":self.matchID,
+                        @"type":@"1"
+                
+                        }
+         successBlock:^(BaseModel *response) {
+             
+         } failureBlock:^(NSError *error) {
+             
+         }];
+    [self requestType:HttpRequestTypePost
+                  url:nil
+           parameters:@{
+                        @"action":@"viewMatchAnalysis",
+                        @"match_id":self.matchID,
+                        @"type":@"2"
+                        
+                        }
+         successBlock:^(BaseModel *response) {
+             
+         } failureBlock:^(NSError *error) {
+             
+         }];
+    [self requestType:HttpRequestTypePost
+                  url:nil
+           parameters:@{
+                        @"action":@"viewMatchAnalysis",
+                        @"match_id":self.matchID,
+                        @"type":@"3"
+                        
+                        }
+         successBlock:^(BaseModel *response) {
+             
+         } failureBlock:^(NSError *error) {
+             
+         }];
 }
 
 @end

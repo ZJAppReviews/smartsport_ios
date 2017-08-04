@@ -11,15 +11,22 @@
 #import "Header.h"
 #import "XYUIKit.h"
 #import "mathCell.h"
-#import "videoCell.h"
+#import "VideoCell.h"
 #import "SDAutoLayout.h"
-//#import "signupVC.h"
 #import "NavigationVC.h"
 #import "matchDetailVC.h"
 #import "matchSelectVC.h"
 #import "zhiBoVC.h"
 
-@interface matchVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectInfodelegate>
+
+#import "VideoCell.h"
+
+//#import "LCActivityViewController.h"
+
+@interface matchVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectInfodelegate >
+ @property(nonatomic,retain)VideoCell *currentCell;
+@property(nonatomic,retain)NSMutableArray *dataSource;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrView;
 @property  (nonatomic,strong)ABSSegmentCate  *segmentedControl;
 @property (nonatomic,strong)UITableView    * leftTab;
@@ -30,12 +37,40 @@
 @end
 
 @implementation matchVC
+-(NSMutableArray *)dataSource{
+    if (_dataSource==nil) {
+        _dataSource = [NSMutableArray array];
+        
+    }
+    return _dataSource;
+}
+
+-(void)setRequesrVideo{
+    [self requestType:HttpRequestTypePost
+                url:nil
+           parameters:@{
+                        @"action" : @"getLetvLiveList",
+
+                       // @"activity_id" : @"",     //直播活动ID（选填）
+                        //@"activity_name" : @"value",   //直播活动名称（选填）
+                       // @"activity_status" : @"",   //直播活动状态（选填）0:未开始1:已开始 3:已结束
+                        @"offset" : @"0",   //从第几条数据开始查询，默认0（选填）
+                        @"fetch_size" : @"10"
+                        }
+         successBlock:^(BaseModel *response) {
+     
+ } failureBlock:^(NSError *error) {
+     
+ }];
+}
 - (void)viewDidLoad {
+    [self setRequesrVideo];
     self.dic =[NSMutableDictionary  dictionary];
 
     self.leftArr = [NSMutableArray array];
     [super viewDidLoad];
     [self setSegmentedControl];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -79,7 +114,7 @@
              [tab registerClass:[mathCell class ] forCellReuseIdentifier:NSStringFromClass([mathCell  class])];
              self.leftTab = tab;
          }else{
-             [tab registerClass:[videoCell class ] forCellReuseIdentifier:NSStringFromClass([videoCell  class])];
+            [tab registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil] forCellReuseIdentifier:@"VideoCell"];
          
              self.rightTab = tab;
                       }
@@ -105,9 +140,12 @@
     [self presentViewController:nav animated:YES completion:nil];
     
     }else{
-        zhiBoVC *zhibo = [[zhiBoVC alloc]init];
-       NavigationVC  * nav =[[NavigationVC alloc]initWithRootViewController:zhibo];
-        [self presentViewController:nav animated:YES completion:nil];}
+        
+       // LCActivityViewController * viewController = [[LCActivityViewController alloc] initWithNibName:@"LCActivityViewController" bundle:nil];
+       // viewController.activityId = @"A201708030000024";
+       // [self.navigationController pushViewController:viewController animated:YES];
+
+    }
 }
 #pragma mark -
 #pragma mark - scrollView protocol methods
@@ -129,7 +167,8 @@
     if([tableView isEqual:self.leftTab]){
         return self.leftArr.count;
     }else{
-        return 4;}
+        return 1;// self.dataSource.count;
+    }
 }
 
 
@@ -156,12 +195,14 @@
         
     }else {
 
-        Class currentClass = [videoCell class];
-        videoCell * cell = nil;
-        cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(currentClass)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-        cell.model = nil;
+        static NSString *identifier = @"VideoCell";
+        VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+       // cell.model = [self.dataSource objectAtIndex:indexPath.row];
+        
+        
+        
+        
+        
         return cell;
 
     }
@@ -191,12 +232,10 @@
         // >>>>>>>>>>>>>>>>>>>>> * cell自适应步骤2 * >>>>>>>>>>>>>>>>>>>>>>>>
         /* model 为模型实例， keyPath 为 model 的属性名，通过 kvc 统一赋值接口 */
         return [tableView cellHeightForIndexPath:indexPath model:@"wqewqewq" keyPath:@"model" cellClass:[mathCell class] contentViewWidth:[self cellContentViewWith]];
+    }else{
+        return 296;
     }
-    else{
-        
-       return  [tableView cellHeightForIndexPath:indexPath model:@"wqewqewq" keyPath:@"model" cellClass:[videoCell class] contentViewWidth:[self cellContentViewWith]];
-    }
-}
+     }
 
 
 - (CGFloat)cellContentViewWith
@@ -210,7 +249,7 @@
     return width;
 }
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     
     appInfoModel * model = [appInfoModel yy_modelWithDictionary:[store getObjectById:@"urlInfo" fromTable:@"person"]];
     NSMutableDictionary  * dic =[NSMutableDictionary  dictionary];
@@ -261,4 +300,5 @@
 }
 
 
+ 
 @end

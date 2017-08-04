@@ -6,11 +6,11 @@
 //  Copyright © 2017年 yuting. All rights reserved.
 //
 
-#import "videoCell.h"
+#import "videoCellll.h"
 #import "SDAutoLayout.h"
 #import "XYUIKit.h"
 #import "Header.h"
-@implementation videoCell{
+@implementation videoCellll{
     UIImageView  * _head;
     UILabel      * _from;
     UIImageView  * _tag;

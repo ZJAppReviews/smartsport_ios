@@ -14,6 +14,7 @@
 #import "matchViewModel.h"
 #import "picModel.h"
 #import "membersModel.h"
+#import "rowsViewModel.h"
 @implementation appInfoModel
 + (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper
 {
@@ -50,10 +51,13 @@
     return @{@"type"   :    [statusSmodel class],
              @"status" :    [statusSmodel class],
              @"level"  :    [statusSmodel class],
-             @"match_video":[matchViewModel class],
-             @"schedule" :  [schdeuleModel class],
+             @"match_video" : [matchViewModel class],
+             @"schedule"  :  [schdeuleModel class],
              @"match_imgs": [picModel class],
-             @"memebers"  : [membersModel class]
+             @"player"    : [membersModel class],
+             @"rows"      : [rowsViewModel class],
+             @"cocah"     : [membersModel class],
+             @"assists"   : [membersModel class]
               };
 }
 

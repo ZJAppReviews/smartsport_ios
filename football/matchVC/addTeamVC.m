@@ -13,7 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ZYInputAlertView.h"
 #import "addPlayerVC.h"
-
+#import "SDAutoLayout.h"
 @interface addTeamVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate,infoDicdelegate>
 @property (nonatomic,strong) UITableView * myTab;
 @property (nonatomic,strong) NSMutableArray * arr0;
@@ -23,6 +23,13 @@
 @property (nonatomic,strong)  UIImageView   * teamImg;
 @property (nonatomic,strong)  NSMutableArray  * member;
 @property (nonatomic,strong)  UIImagePickerController *imagePickerController;
+@property (nonatomic,strong)  UILabel     * coach;
+@property (nonatomic,strong)  UILabel     * assistsI;
+@property (nonatomic,strong)  UILabel     * assistsII;
+@property (nonatomic,strong)  UILabel     * team;
+
+
+
 
 @property (nonatomic,copy)NSString * name;
 @end
@@ -88,32 +95,24 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray * arr = self.arrGroup[section];
-    return   arr.count;
+ 
+    return   self.arrGroup.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==2){
+ 
         addpersonCell *cell =nil;
         cell = [tableView dequeueReusableCellWithIdentifier:@"addperson"];
          cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSArray * arr = self.arrGroup[indexPath.section];
-        cell.dic =arr[indexPath.row];
+     
+        cell.dic =self.arrGroup[indexPath.row];
         return cell;
-    }else {
-    addTitleCell *cell =nil;
-    cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([addTitleCell class])];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSArray * arr = self.arrGroup[indexPath.section];
-    cell.detaile.text =[arr[indexPath.row] objectForKey:@"detaile"];
-    cell.name   .text =[arr[indexPath.row] objectForKey:@"title"];
-        return cell;
-    }
-}
+  
+   }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.arrGroup.count;
+    return 1;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView  alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
@@ -122,21 +121,19 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
     UILabel * lab = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:nil fontSize:13];
     [view addSubview:lab];
     lab.frame = CGRectMake(20, 8, 200, 32);
-    if(section==1){
-        lab.text =@"教练";
-    }else if(section==2){
+    
+    
+   
         lab.text =@"球员";
-    }
+   
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section    {
     return 0.00001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section    {
-    if(section==1){
+    if(section==0){
     return 40;
-    }else if(section==2){
-        return 40;
     }
     return 0.00001;
 }
@@ -144,113 +141,15 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
     return 45;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if(indexPath.section !=2){
-        __block typeof(self) weakSelf = self;
-        ZYInputAlertView *alertView = [ZYInputAlertView alertView];
-        alertView.inputTextView.keyboardType = UIKeyboardTypeNumberPad;
-        __block NSArray * arr =self.arrGroup[indexPath.section];
-        NSMutableDictionary *dicInfo = [NSMutableDictionary dictionaryWithDictionary: arr[indexPath.row]];
-        alertView.placeholder =[dicInfo objectForKey:@"title"] ;
-      
-        [alertView confirmBtnClickBlock:^(NSString *inputString) {
-       
-        if(indexPath.section==0){
-        [weakSelf setInfo:@{    @"action"   :@"editMyTeam",
-                                @"team_id"  :self.style,
-                                @"team_name":inputString}];
-        [dicInfo  setValue:[NSString stringWithFormat:@"%@", inputString] forKey:@"detaile"];
-        [weakSelf.arr0 setObject:dicInfo  atIndexedSubscript:indexPath.row];
-        [weakSelf.arrGroup setObject:weakSelf.arr0 atIndexedSubscript:indexPath.section];
-            [weakSelf.myTab reloadData];
-        }else if(indexPath.section==1){
-            if (indexPath.row==0) {
-                
-                 if(self.member.count!=0){
-                    
-                      for (NSDictionary *dic  in self.member) {
-                          if([[dic objectForKey:@"type"] isEqualToString:@"2"]){
-                              [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                                @"type":@"2",
-                                                @"team_id":self.style,
-                                                @"name":inputString,
-                                                @"member_id":[dic objectForKey:@"id"]
-                                                }];
-
-                        }
-                    }
-                                    }else{
-                    [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                        @"type":@"2",
-                                        @"team_id":self.style,
-                                        @"name":inputString}];
-                }
-            }else if(indexPath.row==1){
-                if(self.member.count!=0){
-                    
-                    for (NSDictionary *dic  in self.member) {
-                        if([[dic objectForKey:@"name"] isEqualToString:[dicInfo objectForKey:@"detaile"]]){
-                            [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                                @"type":@"1",
-                                                @"team_id":self.style,
-                                                @"name":inputString,
-                                                @"member_id":[dic objectForKey:@"id"]
-                                                }];
-                            
-                        }
-                    }
-                }else{
-                  
-                    [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                        @"type":@"1",
-                                        @"team_id":self.style,
-                                        @"name":inputString}];
-                }
-
-                
-                
-                
-                
-                
-            }else if(indexPath.row==2){
-                if(self.member.count!=0){
-                    
-                    for (NSDictionary *dic  in self.member) {
-                        if([[dic objectForKey:@"name"] isEqualToString:[dicInfo objectForKey:@"detaile"]]){
-                            [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                                @"type":@"1",
-                                                @"team_id":self.style,
-                                                @"name":inputString,
-                                                @"member_id":[dic objectForKey:@"id"]
-                                                }];
-                            
-                        }
-                    }
-                }else{
-                    [weakSelf setInfo:@{@"action":@"editMyTeam",
-                                        @"type":@"1",
-                                        @"team_id":self.style,
-                                        @"name":inputString}];
-                }
-            }
-            [dicInfo  setValue:[NSString stringWithFormat:@"%@", inputString] forKey:@"detaile"];
-            [weakSelf.arr1 setObject:dicInfo  atIndexedSubscript:indexPath.row];
-            [weakSelf.arrGroup setObject:weakSelf.arr1 atIndexedSubscript:indexPath.section];
-            [weakSelf.myTab reloadData];
-        }
-       }];
-            [alertView show];
-    }else  if(indexPath.section ==2){
-        
         addPlayerVC * play = [[addPlayerVC alloc]init];
-        play.dic =self.arr2[indexPath.row];
+        play.dic =self.arrGroup[indexPath.row];
         play.playerInfodelegate =self;
         play.teamId =self.style;
         [self.navigationController pushViewController:play animated:YES];
-    }
+   
  }
 -(UIView *)setBottomView{
-    UIView * bottom = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 80)];
+    UIView * bottom = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 322)];
     bottom. backgroundColor = KRgb(0.91, 0.91, 0.91);
     UIButton  * btn =[XYUIKit buttonWithBackgroundColor:KClearColor titleColor:KGrayColor titleHighlightColor:KClearColor title:@"+添加新成员" fontSize:17];
     btn .frame = CGRectMake(40, 18, KScreenWidth-80, 44);
@@ -271,7 +170,7 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
     self.from=str;
 }
 -(UIView * )setHeadView{
-    UIView * head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 102)];
+    UIView * head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 322)];
     self. teamImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 71, 71)];
     self.teamImg.layer.cornerRadius =35.5;
     self.teamImg.layer.masksToBounds = YES;
@@ -286,9 +185,85 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
     UIImageView * line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 101, KScreenWidth, 1)];
     line.image =Img(@"line");
     [head addSubview:line];
-    UIButton *btn = [[UIButton    alloc]initWithFrame:head.frame];
+    UIButton *btn = [[UIButton    alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 102)];
     [btn addTarget:self action:@selector(selectphoto ) forControlEvents:UIControlEventTouchUpInside];
     [head addSubview:btn];
+    UILabel * name1 = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KBlackColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:@"球队名字" fontSize:17];
+    name1.frame = CGRectMake(16, 102, 70, 45);
+    [head addSubview: name1];
+    UIImageView * line2  = [[UIImageView alloc]init];
+    line2.image =Img(@"line2");
+    line2.frame = CGRectMake(0, 101, KScreenWidth, 1);
+    [head addSubview:line2];
+    self.team = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentRight numberOfLines:0 text:@"球队名" fontSize:17];
+    self.team.frame = CGRectMake(name1.right, 102, KScreenWidth-122, 45);
+    [head addSubview: self.team ];
+    UIButton *btn0 = [[UIButton alloc]initWithFrame:CGRectMake(name1.right, 102, KScreenWidth-122, 45)];
+    btn0.tag=0;
+    [head addSubview:btn0];
+   [btn0 addTarget:self action:@selector(info:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView * line1  = [[UIImageView alloc]init];
+    line1.image =Img(@"line2");
+    line1.frame = CGRectMake(0, 146, KScreenWidth, 1);
+    [head addSubview:line1];
+    UIView *view = [[UIView  alloc]initWithFrame:CGRectMake(0, 147, KScreenWidth, 40)];
+    view.layer.borderWidth=0.1;
+    view . backgroundColor = KRgb(0.91, 0.91, 0.91);
+    UILabel * lab = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:nil fontSize:13];
+    [view addSubview:lab];
+    lab.frame = CGRectMake(20, 8, 200, 32);
+             lab.text =@"教练";
+    [head addSubview:view];
+    
+    
+    UILabel * name3 = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KBlackColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:@"主教练" fontSize:17];
+    name3.frame = CGRectMake(16, 187, 70, 45);
+    [head addSubview: name3];
+    
+    self.coach = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentRight numberOfLines:0 text:@"教练名" fontSize:17];
+    self.coach.frame = CGRectMake(name1.right, 187, KScreenWidth-122, 45);
+    [head addSubview: self.coach ];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(name1.right,187, KScreenWidth-122, 45)];
+    btn1.tag=1;
+    [head addSubview:btn1];
+        [btn1 addTarget:self action:@selector(info:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView * line4 = [[UIImageView alloc]init];
+    line4.image =Img(@"line2");
+    line4.frame = CGRectMake(0, 231, KScreenWidth, 1);
+    [head addSubview:line4];
+    
+    UILabel * name4 = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KBlackColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:@"助理教练" fontSize:17];
+    name4.frame = CGRectMake(16, 232, 70, 45);
+    [head addSubview: name4];
+    
+    self.assistsI = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentRight numberOfLines:0 text:@"教练名" fontSize:17];
+    self.assistsI.frame = CGRectMake(name1.right, 232, KScreenWidth-122, 45);
+    [head addSubview: self.assistsI ];
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(name1.right, 232, KScreenWidth-122, 45)];
+    btn2.tag=2;
+    [head addSubview:btn2];
+        [btn2 addTarget:self action:@selector(info:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView * line5 = [[UIImageView alloc]init];
+    line5.image =Img(@"line2");
+    line5.frame = CGRectMake(0, 276, KScreenWidth, 1);
+    [head addSubview:line5];
+    
+    UILabel * name5 = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KBlackColor textAlignment:NSTextAlignmentLeft numberOfLines:0 text:@"助理教练" fontSize:17];
+    name5.frame = CGRectMake(16, 277, 70, 45);
+    [head addSubview: name5];
+    
+    self.assistsII = [XYUIKit labelWithBackgroundColor:KClearColor textColor:KGrayColor textAlignment:NSTextAlignmentRight numberOfLines:0 text:@"教练名" fontSize:17];
+    self.assistsII.frame = CGRectMake(name1.right, 277, KScreenWidth-122, 45);
+    [head addSubview: self.assistsII ];
+    UIButton *btn3= [[UIButton alloc]initWithFrame:CGRectMake(name1.right, 277, KScreenWidth-122, 45)];
+    btn3.tag=3;
+    [head addSubview:btn3];
+    [btn3 addTarget:self action:@selector(info:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView * line6 = [[UIImageView alloc]init];
+    line6.image =Img(@"line2");
+    line6.frame = CGRectMake(0, 321, KScreenWidth, 1);
+    [head addSubview:line6];
+    
     return head;
 }
 -(void)selectphoto{
@@ -370,13 +345,7 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
 -(void)viewWillAppear:(BOOL)animated{
       appInfoModel * model = [appInfoModel yy_modelWithDictionary:[store getObjectById:@"urlInfo" fromTable:@"person"]];
     if([self.from isEqualToString:@"setup"]){
-        [self.arr0 addObject:@{@"title":@"球队名字",@"detaile":@"球队名"}];
-        [self.arr1 addObject:@{@"title":@"主教练",@"detaile":@"主教练名"}];
-        [self.arr1 addObject:@{@"title":@"助理教练",@"detaile":@"助理教练名"}];
-        [self.arr1 addObject:@{@"title":@"助理教练",@"detaile":@"助理教练名"}];
-        [self.arrGroup addObject:self.arr0];
-        [self.arrGroup addObject:self.arr1];
-        [self.arrGroup addObject:self.arr2];
+      
         
         
         
@@ -418,43 +387,37 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
                            successBlock:^(id response){
                                NSLog(@"%@",response);
                                
-                               [self.arr0 removeAllObjects];
-                               [self.arr1 removeAllObjects];
-                               [self.arr2 removeAllObjects];
-                               [self.member removeAllObjects];
+                         
+                               if([[response objectForKey:@"errno"] isEqualToString:@"0"]){
+                                   NSDictionary * dic = [response objectForKey:@"data"];
                                [self.arrGroup removeAllObjects];
-                               
-                               [self.arr0 addObject:@{@"title":@"球队名字",@"detaile":[[response objectForKey:@"data"] objectForKey:@"team_name"]}];
-                               
-                              // [self.arr1 addObject:@{@"title":@"主教练",@"detaile":@"主教练名"}];
-                              // [self.arr1 addObject:@{@"title":@"助理教练1",@"detaile":@"助理教练名"}];
-                              // [self.arr1 addObject:@{@"title":@"助理教练2",@"detaile":@"助理教练名"}];
-                               [self.arrGroup addObject:self.arr0];
-                               [self.arrGroup addObject:self.arr1];
-                               NSMutableArray * arr =[NSMutableArray array];
-                               if([[response objectForKey:@"data"] objectForKey:@"members"]){
-                             
-                                   [arr addObjectsFromArray:[[response objectForKey:@"data"] objectForKey:@"members"]];
-                                   for (NSDictionary *dic in arr) {
-                            if([[dic objectForKey:@"type"]isEqualToString:@"2"]){
-                               [self.arr1 insertObject:@{@"title":@"主教练",@"detaile":  [dic objectForKey:@"name"]} atIndex:0];
-                                [self.member addObject:dic];
-                            }
-                                       
-                               else if([[dic objectForKey:@"type"]isEqualToString:@"1"])
-                                {
-                                    [self.arr1 addObject:@{@"title":@"助理教练",@"detaile":  [dic objectForKey:@"name"]}];
-                                     [self.member addObject:dic];
-                                   
-                                }
-                                       
-                                  else    if([[dic objectForKey:@"type"]isEqualToString:@"0"]){
-                                        [self.arr2 addObject:dic];}
+                                   [self.arr0 removeAllObjects];
+                                   [self.arr1 removeAllObjects];
+                                   if([dic objectForKey:@"team_name"]){
+                                       self.team.text = [dic objectForKey:@"team_name"];
                                    }
+                                   if([dic objectForKey:@"coach"]){
+                                       [self.arr0  addObjectsFromArray:[dic objectForKey:@"coach"]];
+                                       NSDictionary *dic = self.arr0[0];
+                                       self.coach.text = [ dic  objectForKey:@"name"];
+                                   }
+                                   if([dic objectForKey:@"assists"]){
+                                       [self.arr1 addObjectsFromArray:[dic objectForKey:@"assists"]];
+                                       for (int i=0; i<self.arr1.count; i++) {
+                                           if(i==0){
+                                               NSDictionary *dic = self.arr1[0];
+                                               self.assistsI.text = [dic objectForKey:@"name"];
+                                           }
+                                           if(i==1){
+                                               NSDictionary *dic = self.arr1[1];
+                                               self.assistsII.text = [dic objectForKey:@"name"];
+
+                                           }
+                                       }
+                                   }
+                               [self.arrGroup addObjectsFromArray:[[response   objectForKey:@"data"] objectForKey:@"player"]];
+                                   [self.myTab reloadData];
                                }
-                              
-                               [self.arrGroup addObject:self.arr2];
-                               [self.myTab reloadData];
                            }failureBlock:^(NSError *error) {
                                
                            } progress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
@@ -465,7 +428,128 @@ initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-44) style:UITableView
  
     }
    
+}
+
+
+                
+                
+            
+            
+-(void)info:(UIButton *)sender {
+                
+                  __block typeof(self) weakSelf = self;
+                if(sender.tag==0){
+                  
+                    ZYInputAlertView *alertView = [ZYInputAlertView alertView];
+                    
+                    alertView.placeholder = @"球队名" ;
+                    
+                    [alertView confirmBtnClickBlock:^(NSString *inputString) {
+                        [weakSelf setInfo:@{    @"action"   :@"editMyTeam",
+                                                @"team_id"  :self.style,
+                                                @"team_name":inputString}];
+                    
+                     
+                       weakSelf.team.text = inputString;
+                     
+                    
+                    }];
+                    [alertView show];
+                }else if(sender.tag==1){
+                
+                    ZYInputAlertView *alertView = [ZYInputAlertView alertView];
+                    
+                    alertView.placeholder = @"主教练名" ;
+                    
+                    [alertView confirmBtnClickBlock:^(NSString *inputString) {
+                        if(self.arr0.count!=0){
+                            NSDictionary * dic = self.arr0[0];
+                            [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                                @"type":@"2",
+                                                @"team_id":self.style,
+                                                @"name":inputString,
+                                                @"member_id":[dic objectForKey:@"id"]
+                                                }];
+                            
+                            
+                        }else{
+                            [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                                @"type":@"2",
+                                                @"team_id":self.style,
+                                                @"name":inputString}];
+                            
+                            
+                        }
+                        self.coach.text = inputString;
+                    }];
+                      [alertView show];
+                
+                }
+                
+                
+                else if(sender.tag==2){
+                    ZYInputAlertView *alertView = [ZYInputAlertView alertView];
+                    
+                    alertView.placeholder = @"助理教练名" ;
+                    
+                    [alertView confirmBtnClickBlock:^(NSString *inputString) {
+                        
+                        if(self.arr1.count!=0){
+                            
+                    NSDictionary *dic = self.arr1[0];
+                                [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                                    @"type":@"1",
+                                                    @"team_id":self.style,
+                                                    @"name":inputString,
+                                                    @"member_id":[dic objectForKey:@"id"]
+                                                    }];
+                                
+                         
+                     
+                    }else{
+                        
+                         [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                            @"type":@"1",
+                                            @"team_id":self.style,
+                                            @"name":inputString}];
+                    }
+                     
+                        self.assistsI.text =inputString  ;
+                        
+                    }];
+                      [alertView show];
+                }else if(sender.tag==3){
+                    ZYInputAlertView *alertView = [ZYInputAlertView alertView];
+                    
+                   alertView.placeholder = @"助理教练名" ;
+                    
+                    [alertView confirmBtnClickBlock:^(NSString *inputString) {
+                        
+                        if(self.arr1.count==2){
+                            
+                            NSDictionary *dic = self.arr1[1];
+                            [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                                @"type":@"1",
+                                                @"team_id":self.style,
+                                                @"name":inputString,
+                                                @"member_id":[dic objectForKey:@"id"]
+                                                }];
+                            
+                            
+                            
+                        }else{
+                            
+                            [weakSelf setInfo:@{@"action":@"editMyTeam",
+                                                @"type":@"1",
+                                                @"team_id":self.style,
+                                                @"name":inputString}];
+                            
+                        }
+                           self.assistsII.text =inputString  ;
+                        }];
+                     [alertView show];
+                }
     
-    }
+            }
 
 @end

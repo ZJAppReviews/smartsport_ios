@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,17 +15,17 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="79.666666666666671"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-XC-wEg">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teamTag.png" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-XC-wEg">
                         <rect key="frame" x="30" y="7" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="8fV-oe-DL3"/>
                             <constraint firstAttribute="width" constant="40" id="QHx-xF-i35"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Yx-tA-9Z3">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teamTag.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Yx-tA-9Z3">
                         <rect key="frame" x="265" y="7" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="EPO-u3-wau"/>
@@ -33,19 +33,19 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="球队A名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4Z-Ei-K4O">
-                        <rect key="frame" x="18" y="54" width="90.333333333333329" height="15.666666666666671"/>
+                        <rect key="frame" x="18" y="54" width="90" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.62739461659999995" green="0.62748712299999998" blue="0.62737429140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="球队B名字" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7Z-up-Z7u">
-                        <rect key="frame" x="228.33333333333337" y="54" width="88.666666666666629" height="15.666666666666671"/>
+                        <rect key="frame" x="228" y="54" width="89" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.62739461659999995" green="0.62748712299999998" blue="0.62737429140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小组赛 第1伦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJ0-eA-lqg">
-                        <rect key="frame" x="130" y="4.6666666666666679" width="76" height="18"/>
+                        <rect key="frame" x="130" y="5" width="76" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="YTN-KN-64L"/>
                         </constraints>
@@ -53,17 +53,8 @@
                         <color key="textColor" red="0.62739461659999995" green="0.62748712299999998" blue="0.62737429140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在直播" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zba-Ii-C2B">
-                        <rect key="frame" x="118.99999999999999" y="22.666666666666671" width="97.666666666666643" height="33"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="33" id="ig8-qY-S8S"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                        <color key="textColor" red="0.36862745099999999" green="0.72941176470000002" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-05-05 18:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyL-W5-DXi">
-                        <rect key="frame" x="108.33333333333334" y="55.666666666666671" width="120.00000000000003" height="18.000000000000014"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-05-05 18:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyL-W5-DXi">
+                        <rect key="frame" x="108" y="56" width="120" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="9vW-Uv-l0L"/>
                             <constraint firstAttribute="height" constant="18" id="ZVP-dt-5KV"/>
@@ -73,12 +64,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="urS-Oa-6l1">
-                        <rect key="frame" x="0.0" y="78.666666666666671" width="335" height="1"/>
+                        <rect key="frame" x="0.0" y="78" width="335" height="1"/>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.90201145410000005" blue="0.90185326340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="MqG-7j-QAW"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在直播" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zba-Ii-C2B">
+                        <rect key="frame" x="119" y="23" width="98" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="ig8-qY-S8S"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <color key="textColor" red="0.36862745099999999" green="0.72941176470000002" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="urS-Oa-6l1" secondAttribute="trailing" id="3Cb-BE-fA8"/>
@@ -102,7 +102,19 @@
                     <constraint firstAttribute="bottom" secondItem="urS-Oa-6l1" secondAttribute="bottom" id="xJH-fv-aFP"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-81.5" y="-196"/>
+            <connections>
+                <outlet property="awaylogo" destination="1Yx-tA-9Z3" id="fsI-cd-xLq"/>
+                <outlet property="awayname" destination="E7Z-up-Z7u" id="Y1b-1r-4LU"/>
+                <outlet property="homelogo" destination="bJU-XC-wEg" id="fpE-O1-oV8"/>
+                <outlet property="homename" destination="o4Z-Ei-K4O" id="gXd-G7-uDj"/>
+                <outlet property="round" destination="hJ0-eA-lqg" id="e1S-FZ-swr"/>
+                <outlet property="status" destination="zba-Ii-C2B" id="NHm-SF-Xcd"/>
+                <outlet property="time" destination="tyL-W5-DXi" id="pI5-WL-dBq"/>
+            </connections>
+            <point key="canvasLocation" x="-206" y="-203"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="teamTag.png" width="71" height="71"/>
+    </resources>
 </document>
